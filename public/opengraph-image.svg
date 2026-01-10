@@ -1,0 +1,67 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e5e7eb;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#f9fafb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#d1d5db;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#9ca3af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6b7280;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="4" dy="8" stdDeviation="8" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Logo Container -->
+  <g transform="translate(400, 150)">
+    <!-- Letter A - Main Structure -->
+    <g filter="url(#shadow)">
+      <!-- Left side of A -->
+      <path d="M 80 280 L 160 80 L 200 80 L 280 280 L 240 280 L 220 220 L 140 220 L 120 280 Z" 
+            fill="url(#logoGradient)" 
+            stroke="#9ca3af" 
+            stroke-width="2"/>
+      
+      <!-- Right side of A (creating the double A effect) -->
+      <path d="M 120 280 L 200 80 L 240 80 L 320 280 L 280 280 L 260 220 L 180 220 L 160 280 Z" 
+            fill="url(#logoGradient)" 
+            stroke="#9ca3af" 
+            stroke-width="2" 
+            opacity="0.9"/>
+      
+      <!-- Crossbar -->
+      <rect x="150" y="180" width="100" height="20" 
+            fill="url(#logoGradient)" 
+            stroke="#9ca3af" 
+            stroke-width="1"/>
+    </g>
+    
+    <!-- Company Name -->
+    <text x="200" y="340" 
+          font-family="Arial, sans-serif" 
+          font-size="32" 
+          font-weight="bold" 
+          text-anchor="middle" 
+          fill="#e5e7eb" 
+          letter-spacing="3px">
+      ALFA ESQUADRIAS
+    </text>
+    
+    <!-- Tagline -->
+    <text x="200" y="380" 
+          font-family="Arial, sans-serif" 
+          font-size="18" 
+          text-anchor="middle" 
+          fill="#9ca3af" 
+          letter-spacing="1px">
+      Esquadrias de Alumínio - Presidente Prudente/SP
+    </text>
+  </g>
+</svg>

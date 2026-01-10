@@ -1,0 +1,17 @@
+{
+  "name": "Alfa Esquadrias - Esquadrias de Alumínio",
+  "short_name": "Alfa Esquadrias",
+  "description": "Especialistas em esquadrias de alumínio, janelas, portas, box para banheiro e estruturas metálicas em Presidente Prudente/SP",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#1e293b",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
