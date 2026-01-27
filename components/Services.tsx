@@ -51,9 +51,9 @@ export default function Services() {
     },
     {
       icon: Wrench,
-      title: 'Manutenção',
-      description: 'Serviços de manutenção e reparo para suas esquadrias existentes.',
-      features: ['Troca de vedações', 'Ajuste de fechaduras', 'Substituição de vidros'],
+      title: 'Pós Venda',
+      description: 'Suporte completo após a instalação com atendimento especializado.',
+      features: ['Suporte técnico especializado', 'Manutenção quando necessário', 'Soluções rápidas e eficazes'],
       color: 'from-teal-500 to-cyan-500'
     }
   ]
@@ -173,7 +173,11 @@ export default function Services() {
               {/* CTA */}
               <motion.button
                 whileHover={{ x: 5 }}
-                className="group/btn flex items-center text-blue-400 font-semibold hover:text-blue-300 transition-colors"
+                onClick={() => {
+                  const element = document.querySelector('#contato')
+                  if (element) element.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="group/btn flex items-center text-blue-400 font-semibold hover:text-blue-300 transition-colors cursor-pointer"
               >
                 Saiba mais
                 <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />

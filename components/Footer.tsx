@@ -27,7 +27,7 @@ export default function Footer() {
     'Guarda Corpo',
     'Fechadas',
     'Portas e Janelas',
-    'Manutenção'
+    'Pós Venda'
   ]
 
   const scrollToSection = (href: string) => {
@@ -163,12 +163,11 @@ export default function Footer() {
                   transition={{ delay: 0.5, duration: 0.5 }}
                   viewport={{ once: true }}
                   whileHover={{ x: 5, scale: 1.02 }}
-                  className="flex items-center space-x-3 cursor-pointer hover:text-white transition-colors duration-300"
+                  className="flex items-start space-x-3 cursor-pointer hover:text-white transition-colors duration-300"
                 >
-                  <Mail className="w-5 h-5 text-blue-400" />
-                  <span className="text-slate-300 hover:text-white transition-colors duration-300 break-all text-sm">
-                    <span className="hidden sm:inline">atendimentoalfaesquadriaspp@gmail.com</span>
-                    <span className="sm:hidden">atendimento@alfaesquadrias.com</span>
+                  <Mail className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                  <span className="text-slate-300 hover:text-white transition-colors duration-300 text-sm leading-relaxed break-words">
+                    atendimentoalfaesquadriaspp@gmail.com
                   </span>
                 </motion.a>
                 <motion.a
@@ -180,18 +179,12 @@ export default function Footer() {
                   transition={{ delay: 0.6, duration: 0.5 }}
                   viewport={{ once: true }}
                   whileHover={{ x: 5, scale: 1.02 }}
-                  className="flex items-center space-x-3 cursor-pointer hover:text-white transition-colors duration-300"
+                  className="flex items-start space-x-3 cursor-pointer hover:text-white transition-colors duration-300"
                 >
-                  <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                  <MapPin className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                   <span className="text-slate-300 hover:text-white transition-colors duration-300 text-sm leading-relaxed">
-                    <span className="hidden sm:inline">
-                      Av. Joaquim Constantino, 1880<br />
-                      Vila Nova Prudente - Pres. Prudente/SP
-                    </span>
-                    <span className="sm:hidden">
-                      Av. J. Constantino, 1880<br />
-                      V. N. Prudente - PP/SP
-                    </span>
+                    Av. Joaquim Constantino, 1880<br />
+                    Vila Nova Prudente - Presidente Prudente/SP
                   </span>
                 </motion.a>
               </motion.div>
@@ -316,13 +309,11 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05, x: 2 }}
                     transition={{ duration: 0.2 }}
-                    className="text-white font-semibold hover:text-blue-400 transition-colors duration-300 cursor-pointer"
+                    className="text-blue-400 font-semibold hover:text-white transition-colors duration-300 cursor-pointer"
                   >
-                    <span className="hidden xs:inline">Gustavo Cortez de Brito</span>
-                    <span className="xs:hidden">G. Cortez</span>
+                    Gustavo Cortez de Brito
                   </motion.a>
-                  <span className="text-blue-400 ml-1">®</span>
-                  <span className="hidden xs:inline">, Dev Web</span>
+                  <span className="text-slate-500">, Dev Web</span>
                 </span>
               </div>
 

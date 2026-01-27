@@ -292,7 +292,7 @@ export default function TermosServico() {
                     <p><strong className="text-white">E-mail:</strong> atendimentoalfaesquadriaspp@gmail.com</p>
                     <p><strong className="text-white">Telefone:</strong> (18) 99697-6413 | (18) 99671-8920</p>
                     <p><strong className="text-white">Endereço:</strong> Av. Joaquim Constantino, 1880 - Vila Nova Prudente, Presidente Prudente/SP</p>
-                    <p><strong className="text-white">Horário de Atendimento:</strong> Segunda a Sexta: 08:00-18:00 | Sábado: 08:00-12:00</p>
+                    <p><strong className="text-white">Horário de Atendimento:</strong> Segunda a Sexta: 08:00-18:00 | Sábado: Fechado</p>
                   </div>
                 </div>
               </motion.section>

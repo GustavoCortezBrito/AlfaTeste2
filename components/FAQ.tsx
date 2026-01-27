@@ -9,44 +9,44 @@ export default function FAQ() {
 
   const faqs = [
     {
-      question: "Quais tipos de esquadrias vocês fabricam?",
-      answer: "Fabricamos uma ampla gama de esquadrias de alumínio, incluindo kit sacada, coberturas metálicas, guarda-corpos, fechadas (fechamento de áreas), portas e janelas. Todos os produtos são personalizados conforme as necessidades do cliente."
-    },
-    {
-      question: "Qual é o prazo de entrega dos produtos?",
-      answer: "O prazo varia conforme a complexidade do projeto. Em média, projetos simples ficam prontos em 15-20 dias úteis, enquanto projetos mais complexos podem levar de 30-45 dias úteis. Sempre cumprimos os prazos acordados."
-    },
-    {
       question: "Vocês fazem a instalação dos produtos?",
-      answer: "Sim! Oferecemos serviço completo, desde a fabricação até a instalação. Nossa equipe técnica especializada realiza a instalação com total segurança e qualidade, garantindo o perfeito funcionamento dos produtos."
-    },
-    {
-      question: "Qual é a garantia dos produtos?",
-      answer: "Oferecemos garantia de 5 anos para estruturas de alumínio e 1 ano para vidros e acessórios. A garantia cobre defeitos de fabricação e problemas estruturais, não incluindo danos causados por mau uso ou intempéries extremas."
+      answer: "Fazemos a instalação sim! Oferecemos serviço completo, desde a fabricação até a instalação com nossa equipe técnica especializada."
     },
     {
       question: "Vocês atendem em outras cidades além de Presidente Prudente?",
-      answer: "Sim! Atendemos toda a região de Presidente Prudente e cidades vizinhas. Para projetos em cidades mais distantes, avaliamos cada caso individualmente. Entre em contato para verificar se atendemos sua região."
+      answer: "Atendemos Presidente Prudente e região. Entre em contato para verificar se atendemos sua cidade específica."
     },
     {
       question: "Como funciona o orçamento?",
-      answer: "O orçamento é totalmente gratuito e sem compromisso. Fazemos uma visita técnica para avaliar o local, tirar medidas precisas e entender suas necessidades. Em seguida, elaboramos uma proposta detalhada com valores e prazos."
-    },
-    {
-      question: "Quais são as formas de pagamento?",
-      answer: "Aceitamos diversas formas de pagamento: dinheiro, PIX, cartão de crédito (até 12x), cartão de débito e boleto bancário. Para projetos maiores, oferecemos condições especiais de parcelamento."
-    },
-    {
-      question: "Os produtos são resistentes às intempéries?",
-      answer: "Sim! Utilizamos alumínio de alta qualidade com tratamento anticorrosivo e vidros temperados. Nossos produtos são projetados para resistir a chuva, vento, sol e variações de temperatura, mantendo a durabilidade por muitos anos."
+      answer: "Fazemos o orçamento sem compromisso e enviamos para aprovação do cliente. O orçamento é totalmente gratuito e sem obrigação."
     },
     {
       question: "Vocês fazem manutenção dos produtos instalados?",
-      answer: "Sim! Oferecemos serviços de manutenção preventiva e corretiva. Isso inclui limpeza, lubrificação de fechaduras, troca de vedações, ajustes e substituição de vidros quando necessário."
+      answer: "Sim, fazemos manutenção dos nossos produtos caso necessário. Oferecemos suporte completo para todos os produtos que instalamos."
     },
     {
-      question: "É possível personalizar as cores e acabamentos?",
-      answer: "Absolutamente! Oferecemos diversas opções de cores e acabamentos para o alumínio, incluindo anodizado natural, bronze, preto, branco e outras cores sob consulta. Também trabalhamos com diferentes tipos de vidro conforme a necessidade."
+      question: "Vocês trabalham com produtos personalizados?",
+      answer: "Fazemos os pedidos sob medida e personalizados de acordo com o pedido do cliente. Cada projeto é desenvolvido conforme suas necessidades específicas."
+    },
+    {
+      question: "Qual é o prazo de entrega dos produtos?",
+      answer: "Prazo de entrega a combinar. O prazo varia conforme a complexidade e personalização do projeto, sempre acordado previamente com o cliente."
+    },
+    {
+      question: "Os produtos são resistentes às intempéries?",
+      answer: "Os produtos são resistentes às intempéries! Utilizamos materiais de alta qualidade que suportam as condições climáticas."
+    },
+    {
+      question: "Quais linhas de produtos vocês oferecem?",
+      answer: "Trabalhamos com linha Suprema e linha Gold, oferecendo diferentes opções de qualidade e acabamento para atender às necessidades de cada cliente."
+    },
+    {
+      question: "Quais tipos de portões vocês fabricam?",
+      answer: "Fabricamos portão basculante e portão social, além de outros produtos em alumínio personalizados conforme a necessidade do cliente."
+    },
+    {
+      question: "Vocês trabalham com outros produtos além de portões?",
+      answer: "Sim! Trabalhamos também com painel ripado de alumínio, pergolados, fachada glazing, além de kit sacada, coberturas, guarda-corpos e fechadas."
     }
   ]
 

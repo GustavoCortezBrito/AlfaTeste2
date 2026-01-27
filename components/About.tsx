@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { 
   Users, 
   Award, 
@@ -22,7 +23,7 @@ export default function About() {
     },
     {
       icon: Clock,
-      number: '10+',
+      number: '5+',
       label: 'Anos de Experiência',
       description: 'Tradição no mercado de esquadrias'
     },
@@ -157,7 +158,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Right Content - Image Placeholder */}
+          {/* Right Content - Company Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -165,18 +166,21 @@ export default function About() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-square bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl flex items-center justify-center border border-white/10">
-              <div className="text-center">
-                <motion.div 
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-24 h-24 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex items-center justify-center mx-auto mb-4"
-                >
-                  <Award className="w-12 h-12 text-white" />
-                </motion.div>
-                <p className="text-slate-300 font-medium">
-                  Imagem da empresa<br />
-                  ou projetos realizados
+            <div className="aspect-square rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative">
+              <Image
+                src="/fotosEmpresa/WhatsApp Image 2026-01-26 at 14.44.42.jpeg"
+                alt="Fachada da Alfa Esquadrias - Nossa empresa em Presidente Prudente"
+                fill
+                className="object-cover hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-white font-semibold text-lg mb-1">
+                  Alfa Esquadrias
+                </p>
+                <p className="text-slate-200 text-sm">
+                  Nossa sede em Presidente Prudente/SP
                 </p>
               </div>
             </div>
@@ -257,7 +261,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl p-8 lg:p-12 border border-white/10"
+          className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm rounded-2xl p-8 lg:p-12 border border-white/10 hidden md:block"
         >
           <div className="text-center mb-12">
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-4">

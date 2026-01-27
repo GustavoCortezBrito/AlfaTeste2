@@ -172,7 +172,7 @@ export default function Contact() {
 
   const businessHours = [
     { day: 'Segunda - Sexta', hours: '08:00 - 18:00' },
-    { day: 'Sábado', hours: '08:00 - 12:00' },
+    { day: 'Sábado', hours: 'Fechado' },
     { day: 'Domingo', hours: 'Fechado' }
   ]
 
@@ -182,7 +182,7 @@ export default function Contact() {
     'Guarda Corpo',
     'Fechadas',
     'Portas e Janelas',
-    'Manutenção',
+    'Pós Venda',
     'Outro'
   ]
 

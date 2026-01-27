@@ -19,7 +19,7 @@ export default function Hero() {
   }
 
   return (
-    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-16 lg:pt-24">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -83,20 +83,6 @@ export default function Hero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-4xl mx-auto"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center px-3 sm:px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs sm:text-sm font-medium mb-6 sm:mb-8 mx-2"
-          >
-            <Award className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
-            <span className="text-center leading-tight">
-              <span className="block sm:inline">Especialistas em</span>
-              <span className="block sm:inline sm:ml-1">Esquadrias de Alumínio</span>
-            </span>
-          </motion.div>
-
           {/* Main Title */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -217,7 +203,7 @@ export default function Hero() {
                 <Award className="w-8 h-8 text-blue-400" />
               </motion.div>
               <h3 className="text-white font-semibold mb-3">Experiência</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Anos de experiência no mercado de esquadrias</p>
+              <p className="text-slate-400 text-sm leading-relaxed">5 anos de experiência no mercado de esquadrias</p>
             </div>
           </motion.div>
         </motion.div>

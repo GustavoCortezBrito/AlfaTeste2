@@ -18,20 +18,20 @@ export default function LoadingScreen() {
             key={i}
             className="absolute w-1 h-1 bg-blue-400/30 rounded-full"
             initial={{
-              x: Math.random() * 1200,
-              y: Math.random() * 800,
+              x: (i * 60) % 1200,
+              y: (i * 40) % 800,
               scale: 0
             }}
             animate={{
-              x: Math.random() * 1200,
-              y: Math.random() * 800,
+              x: ((i * 60) + 200) % 1200,
+              y: ((i * 40) + 150) % 800,
               scale: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: (i % 3) + 2,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: Math.random() * 2
+              delay: (i % 4) * 0.5
             }}
           />
         ))}

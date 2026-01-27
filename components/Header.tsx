@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Phone, Mail } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
 import Logo from './Logo'
 
 export default function Header() {
@@ -22,6 +22,8 @@ export default function Header() {
     { name: 'Início', href: '#inicio' },
     { name: 'Serviços', href: '#servicos' },
     { name: 'Sobre', href: '#sobre' },
+    { name: 'Empresa', href: '#empresa' },
+    { name: 'Portfólio', href: '#portfolio' },
     { name: 'FAQ', href: '#faq' },
     { name: 'Contato', href: '#contato' },
   ]
@@ -40,7 +42,7 @@ export default function Header() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled 
             ? 'bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-white/10' 
             : 'bg-transparent'
@@ -118,7 +120,7 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-16 left-0 right-0 z-30 lg:hidden"
+            className="fixed top-16 left-0 right-0 z-40 lg:hidden"
           >
             <div className="bg-slate-900/95 backdrop-blur-md shadow-lg border-t border-white/10">
               <div className="container mx-auto px-4 py-6">
