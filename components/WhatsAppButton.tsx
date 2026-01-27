@@ -11,8 +11,8 @@ export default function WhatsAppButton() {
       statusMessage="Normalmente responde em 1 hora"
       chatMessage="Olá! 🤝 Como podemos ajudá-lo?"
       placeholder="Digite uma mensagem..."
-      allowEsc
-      allowClickAway
+      allowEsc={false}
+      allowClickAway={false}
       notification
       notificationDelay={60}
       darkMode={false}
