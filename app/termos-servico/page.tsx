@@ -3,10 +3,22 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, FileText, Scale, AlertTriangle, CheckCircle } from 'lucide-react'
+import SEO from '@/components/SEO'
 
 export default function TermosServico() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <>
+      <SEO
+        title="Termos de Serviço | Alfa Esquadrias"
+        description="Termos de serviço da Alfa Esquadrias. Conheça nossas condições de prestação de serviços em esquadrias de alumínio."
+        canonical="https://alfaesquadrias.com.br/termos-servico"
+        openGraph={{
+          title: "Termos de Serviço | Alfa Esquadrias",
+          description: "Termos de serviço da Alfa Esquadrias. Conheça nossas condições de prestação de serviços em esquadrias de alumínio."
+        }}
+      />
+      
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Header */}
       <header className="border-b border-white/10 bg-slate-900/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -301,6 +313,7 @@ export default function TermosServico() {
           </div>
         </motion.div>
       </main>
-    </div>
+      </div>
+    </>
   )
 }

@@ -11,10 +11,15 @@ import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import SEO from '@/components/SEO'
+import StructuredData from '@/components/StructuredData'
 
 export default function Home() {
   return (
     <>
+      <SEO />
+      <StructuredData />
+      
       <motion.main 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
