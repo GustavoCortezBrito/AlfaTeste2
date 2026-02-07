@@ -121,7 +121,7 @@ export default function Hero() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-lg sm:text-xl lg:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed px-4 sm:px-0"
           >
-            Kit sacada, coberturas, guarda corpo, fechadas e portas de alumínio de alta qualidade em Presidente Prudente/SP
+            Kit sacada, coberturas, guarda corpo, fachadas e portas de alumínio de alta qualidade em Presidente Prudente/SP
           </motion.p>
 
           {/* CTA Buttons */}

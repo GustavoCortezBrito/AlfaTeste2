@@ -2,55 +2,51 @@
 
 import { motion } from 'framer-motion'
 import { 
-  Home, 
-  DoorOpen, 
-  Square, 
-  Building, 
-  Wrench, 
-  Shield,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Wrench
 } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Services() {
   const services = [
     {
-      icon: Home,
+      image: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.57.jpeg',
       title: 'Kit Sacada',
       description: 'Kits completos para sacadas com guarda-corpo e fechamento em vidro temperado.',
       features: ['Vidros temperados', 'Perfis de alta qualidade', 'Instalação completa'],
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: Building,
+      image: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (1).jpeg',
       title: 'Coberturas',
       description: 'Coberturas metálicas para garagens, áreas de lazer e espaços comerciais.',
       features: ['Estrutura robusta', 'Telhas de qualidade', 'Projeto personalizado'],
       color: 'from-purple-500 to-pink-500'
     },
     {
-      icon: Shield,
+      image: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (2).jpeg',
       title: 'Guarda Corpo',
       description: 'Guarda-corpos em alumínio e vidro para segurança e elegância.',
       features: ['Normas de segurança', 'Design moderno', 'Vidro temperado'],
       color: 'from-green-500 to-emerald-500'
     },
     {
-      icon: Square,
-      title: 'Fechadas',
+      image: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (3).jpeg',
+      title: 'Fachadas',
       description: 'Fechamento de áreas com esquadrias de alumínio e vidro.',
       features: ['Isolamento térmico', 'Proteção contra intempéries', 'Ventilação controlada'],
       color: 'from-orange-500 to-red-500'
     },
     {
-      icon: DoorOpen,
+      image: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (4).jpeg',
       title: 'Portas e Janelas',
       description: 'Portas e janelas de alumínio com design moderno e funcionalidade.',
       features: ['Diversos modelos', 'Fechaduras de segurança', 'Acabamento premium'],
       color: 'from-indigo-500 to-purple-500'
     },
     {
-      icon: Wrench,
+      image: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58.jpeg',
       title: 'Pós Venda',
       description: 'Suporte completo após a instalação com atendimento especializado.',
       features: ['Suporte técnico especializado', 'Manutenção quando necessário', 'Soluções rápidas e eficazes'],
@@ -140,15 +136,25 @@ export default function Services() {
                 scale: 1.02,
                 transition: { duration: 0.3 }
               }}
+              onClick={() => {
+                const element = document.querySelector('#contato')
+                if (element) element.scrollIntoView({ behavior: 'smooth' })
+              }}
               className="group bg-white/5 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-white/10 hover:border-white/20 cursor-pointer"
             >
-              {/* Icon */}
+              {/* Service Image */}
               <motion.div 
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ duration: 0.3 }}
-                className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.color} p-4 mb-6 shadow-lg shadow-blue-500/25`}
+                className="w-16 h-16 rounded-2xl overflow-hidden mb-6 shadow-lg shadow-blue-500/25 relative"
               >
-                <service.icon className="w-full h-full text-white" />
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                  sizes="64px"
+                />
               </motion.div>
 
               {/* Content */}
@@ -171,17 +177,13 @@ export default function Services() {
               </ul>
 
               {/* CTA */}
-              <motion.button
+              <motion.div
                 whileHover={{ x: 5 }}
-                onClick={() => {
-                  const element = document.querySelector('#contato')
-                  if (element) element.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="group/btn flex items-center text-blue-400 font-semibold hover:text-blue-300 transition-colors cursor-pointer"
+                className="flex items-center text-blue-400 font-semibold hover:text-blue-300 transition-colors"
               >
-                Saiba mais
-                <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-              </motion.button>
+                Solicitar Orçamento
+                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>

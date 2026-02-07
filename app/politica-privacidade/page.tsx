@@ -253,8 +253,8 @@ export default function PoliticaPrivacidade() {
                     entre em contato conosco:
                   </p>
                   <div className="space-y-2">
-                    <p><strong className="text-white">E-mail:</strong> atendimentoalfaesquadriaspp@gmail.com</p>
-                    <p><strong className="text-white">Telefone:</strong> (18) 99697-6413 | (18) 99671-8920</p>
+                    <p><strong className="text-white">E-mail:</strong> atendimentoalfaesquadraispp@gmail.com</p>
+                    <p><strong className="text-white">Telefone:</strong> (18) 3904-5308 | (18) 99671-8920</p>
                     <p><strong className="text-white">Endereço:</strong> Av. Joaquim Constantino, 1880 - Vila Nova Prudente, Presidente Prudente/SP</p>
                   </div>
                 </div>

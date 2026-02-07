@@ -154,11 +154,11 @@ export default function Header() {
                       <p className="text-slate-300 text-sm font-medium mb-3">Fale Conosco:</p>
                       <div className="space-y-2">
                         <a 
-                          href="tel:+5518996976413"
+                          href="tel:+5518390453080"
                           className="flex items-center justify-center space-x-2 text-slate-200 hover:text-white transition-colors duration-300"
                         >
                           <Phone className="w-4 h-4" />
-                          <span className="text-sm">(18) 99697-6413</span>
+                          <span className="text-sm">(18) 3904-5308</span>
                         </a>
                         <a 
                           href="tel:+5518996718920"

@@ -46,7 +46,7 @@ export default function FAQ() {
     },
     {
       question: "Vocês trabalham com outros produtos além de portões?",
-      answer: "Sim! Trabalhamos também com painel ripado de alumínio, pergolados, fachada glazing, além de kit sacada, coberturas, guarda-corpos e fechadas."
+      answer: "Sim! Trabalhamos com diversas linhas de produtos: Linha Suprema, Linha Gold, Linha Vidro Temperado, Linha Portões de Alumínio, Linha Ripado, Linha Lambril, Linha Fachada Cobertura (incluindo pergolados), ACM, Espelho, Guarda Corpo/Sacada/Corrimão, além de kit sacada, coberturas, guarda-corpos e fachadas."
     }
   ]
 

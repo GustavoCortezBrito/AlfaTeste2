@@ -20,7 +20,7 @@ interface SEOProps {
 
 export default function SEO({
   title = 'Alfa Esquadrias - Esquadrias de Alumínio em Presidente Prudente',
-  description = 'Especialistas em esquadrias de alumínio, kit sacada, coberturas, guarda corpo, fechadas e portas em Presidente Prudente/SP. Qualidade, durabilidade e design moderno.',
+  description = 'Especialistas em esquadrias de alumínio, kit sacada, coberturas, guarda corpo, fachadas e portas em Presidente Prudente/SP. Qualidade, durabilidade e design moderno.',
   canonical = 'https://alfaesquadrias.com.br',
   openGraph
 }: SEOProps) {
@@ -70,7 +70,7 @@ export default function SEO({
       additionalMetaTags={[
         {
           name: 'keywords',
-          content: 'esquadrias de alumínio, kit sacada, coberturas, guarda corpo, fechadas, portas e janelas, Presidente Prudente, São Paulo, vidraçaria, serralheria, alumínio, vidro temperado'
+          content: 'esquadrias de alumínio, kit sacada, coberturas, guarda corpo, fachadas, portas e janelas, Presidente Prudente, São Paulo, vidraçaria, serralheria, alumínio, vidro temperado'
         },
         {
           name: 'author',

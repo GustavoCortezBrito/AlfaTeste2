@@ -25,7 +25,7 @@ export default function Footer() {
     'Kit Sacada',
     'Coberturas',
     'Guarda Corpo',
-    'Fechadas',
+    'Fachadas',
     'Portas e Janelas',
     'Pós Venda'
   ]
@@ -120,7 +120,7 @@ export default function Footer() {
 
               <p className="text-slate-300 mb-6 leading-relaxed max-w-md">
                 Especialistas em esquadrias de alumínio, oferecendo soluções completas 
-                em kit sacada, coberturas, guarda corpo, fechadas e portas para projetos 
+                em kit sacada, coberturas, guarda corpo, fachadas e portas para projetos 
                 residenciais e comerciais em Presidente Prudente e região.
               </p>
 
@@ -133,7 +133,7 @@ export default function Footer() {
                 className="space-y-3"
               >
                 <motion.a
-                  href="tel:+5518996976413"
+                  href="tel:+5518390453080"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
@@ -142,7 +142,7 @@ export default function Footer() {
                   className="flex items-center space-x-3 cursor-pointer hover:text-white transition-colors duration-300"
                 >
                   <Phone className="w-5 h-5 text-blue-400" />
-                  <span className="text-slate-300 hover:text-white transition-colors duration-300">(18) 99697-6413</span>
+                  <span className="text-slate-300 hover:text-white transition-colors duration-300">(18) 3904-5308</span>
                 </motion.a>
                 <motion.a
                   href="tel:+5518996718920"
@@ -157,7 +157,7 @@ export default function Footer() {
                   <span className="text-slate-300 hover:text-white transition-colors duration-300">(18) 99671-8920</span>
                 </motion.a>
                 <motion.a
-                  href="mailto:atendimentoalfaesquadriaspp@gmail.com"
+                  href="mailto:atendimentoalfaesquadraispp@gmail.com"
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5, duration: 0.5 }}
@@ -167,7 +167,7 @@ export default function Footer() {
                 >
                   <Mail className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
                   <span className="text-slate-300 hover:text-white transition-colors duration-300 text-sm leading-relaxed break-words">
-                    atendimentoalfaesquadriaspp@gmail.com
+                    atendimentoalfaesquadraispp@gmail.com
                   </span>
                 </motion.a>
                 <motion.a

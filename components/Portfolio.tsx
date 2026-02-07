@@ -4,38 +4,65 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Gallery from './Gallery'
 
-const portfolioImages = [
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.57.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (1).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (2).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (3).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (4).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59 (1).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59 (2).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59 (3).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00 (1).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00 (2).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00 (3).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01 (1).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01 (2).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01 (3).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (1).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (2).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (3).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (4).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03 (1).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03 (2).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03 (3).jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03.jpeg',
-  '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.04.jpeg',
+// Tipos de categoria
+type Category = 'todos' | 'kit-sacada' | 'coberturas' | 'guarda-corpo' | 'fachadas' | 'portas-janelas'
+
+// Interface para imagens do portfólio
+interface PortfolioImage {
+  src: string
+  category: Category
+  title?: string
+}
+
+// Dados das imagens com suas respectivas categorias
+// TODO: Categorizar as imagens conforme o conteúdo real de cada foto
+const portfolioImages: PortfolioImage[] = [
+  // IMPORTANTE: Revisar e categorizar cada imagem conforme seu conteúdo real
+  // Categorias disponíveis: 'kit-sacada', 'coberturas', 'guarda-corpo', 'fachadas', 'portas-janelas'
+  
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.57.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (1).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (2).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (3).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58 (4).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.58.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59 (1).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59 (2).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59 (3).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.47.59.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00 (1).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00 (2).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00 (3).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.00.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01 (1).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01 (2).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01 (3).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.01.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (1).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (2).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (3).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02 (4).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.02.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03 (1).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03 (2).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03 (3).jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.03.jpeg', category: 'todos' },
+  { src: '/fotosServicos/WhatsApp Image 2026-01-26 at 14.48.04.jpeg', category: 'todos' },
+]
+
+// Configuração das categorias
+const categories = [
+  { id: 'todos' as Category, name: 'Todos', icon: '🏠' },
+  { id: 'kit-sacada' as Category, name: 'Kit Sacada', icon: '🏢' },
+  { id: 'coberturas' as Category, name: 'Coberturas', icon: '🏠' },
+  { id: 'guarda-corpo' as Category, name: 'Guarda Corpo', icon: '🛡️' },
+  { id: 'fachadas' as Category, name: 'Fachadas', icon: '🏢' },
+  { id: 'portas-janelas' as Category, name: 'Portas e Janelas', icon: '🪟' },
 ]
 
 export default function Portfolio() {
+  const [selectedCategory, setSelectedCategory] = useState<Category>('todos')
+  
   // Função para determinar quantas imagens mostrar baseado no tamanho da tela
   const getInitialImageCount = () => {
     if (typeof window !== 'undefined') {
@@ -45,6 +72,16 @@ export default function Portfolio() {
   }
 
   const [visibleImages, setVisibleImages] = useState(getInitialImageCount())
+
+  // Filtrar imagens baseado na categoria selecionada
+  const filteredImages = selectedCategory === 'todos' 
+    ? portfolioImages 
+    : portfolioImages.filter(img => img.category === selectedCategory || img.category === 'todos')
+
+  // Resetar visibleImages quando a categoria mudar
+  useEffect(() => {
+    setVisibleImages(getInitialImageCount())
+  }, [selectedCategory])
 
   // Ajustar quando a tela for redimensionada
   useEffect(() => {
@@ -61,10 +98,10 @@ export default function Portfolio() {
 
   const loadMoreImages = () => {
     const increment = typeof window !== 'undefined' && window.innerWidth < 768 ? 4 : 8
-    setVisibleImages(prev => Math.min(prev + increment, portfolioImages.length))
+    setVisibleImages(prev => Math.min(prev + increment, filteredImages.length))
   }
 
-  const displayedImages = portfolioImages.slice(0, visibleImages)
+  const displayedImages = filteredImages.slice(0, visibleImages).map(img => img.src)
 
   return (
     <section id="portfolio" className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -79,9 +116,37 @@ export default function Portfolio() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Nosso <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Portfólio</span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed mb-8">
             Confira alguns dos nossos trabalhos realizados. Cada projeto é executado com 
             máxima qualidade e atenção aos detalhes.
+          </p>
+
+          {/* Filtros de categoria */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {categories.map((category) => (
+              <motion.button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 flex items-center gap-2 ${
+                  selectedCategory === category.id
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                    : 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-sm">{category.icon}</span>
+                <span className="text-sm md:text-base">{category.name}</span>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Contador de resultados */}
+          <p className="text-slate-400 text-sm">
+            {selectedCategory === 'todos' 
+              ? `${portfolioImages.length} projetos no total`
+              : `${filteredImages.length} projetos em ${categories.find(c => c.id === selectedCategory)?.name}`
+            }
           </p>
         </motion.div>
 
@@ -99,7 +164,7 @@ export default function Portfolio() {
         </motion.div>
 
         {/* Botão carregar mais */}
-        {visibleImages < portfolioImages.length && (
+        {visibleImages < filteredImages.length && (
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -112,7 +177,7 @@ export default function Portfolio() {
               className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               Carregar Mais Imagens
-              <span className="ml-2">({portfolioImages.length - visibleImages} restantes)</span>
+              <span className="ml-2">({filteredImages.length - visibleImages} restantes)</span>
             </button>
           </motion.div>
         )}

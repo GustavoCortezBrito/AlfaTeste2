@@ -52,7 +52,7 @@ export default function Contact() {
       formSubmitData.append('_template', 'table')
       formSubmitData.append('_captcha', 'false')
       
-      const response = await fetch('https://formsubmit.co/gustavocortezdev@gmail.com', {
+      const response = await fetch('https://formsubmit.co/atendimentoalfaesquadraispp@gmail.com', {
         method: 'POST',
         body: formSubmitData
       })
@@ -72,7 +72,7 @@ export default function Contact() {
           whatsappMessage += `*Mensagem:* ${message}`
           
           const encodedMessage = encodeURIComponent(whatsappMessage)
-          const whatsappUrl = `https://wa.me/5518996976413?text=${encodedMessage}`
+          const whatsappUrl = `https://wa.me/5518390453080?text=${encodedMessage}`
           
           window.open(whatsappUrl, '_blank')
         }, 1000)
@@ -105,7 +105,7 @@ export default function Contact() {
       whatsappMessage += `*Mensagem:* ${message}`
       
       const encodedMessage = encodeURIComponent(whatsappMessage)
-      const whatsappUrl = `https://wa.me/5518996976413?text=${encodedMessage}`
+      const whatsappUrl = `https://wa.me/5518390453080?text=${encodedMessage}`
       
       window.open(whatsappUrl, '_blank')
     } finally {
@@ -129,8 +129,8 @@ export default function Contact() {
     {
       icon: Phone,
       title: 'Telefone 1',
-      info: '(18) 99697-6413',
-      link: 'tel:+5518996976413',
+      info: '(18) 3904-5308',
+      link: 'tel:+5518390453080',
       color: 'from-green-500 to-emerald-500'
     },
     {
@@ -143,15 +143,15 @@ export default function Contact() {
     {
       icon: MessageCircle,
       title: 'WhatsApp',
-      info: '(18) 99697-6413',
-      link: 'https://wa.me/5518996976413',
+      info: '(18) 3904-5308',
+      link: 'https://wa.me/5518390453080',
       color: 'from-green-500 to-green-600'
     },
     {
       icon: Mail,
       title: 'E-mail Atendimento',
-      info: 'atendimentoalfaesquadriaspp@gmail.com',
-      link: 'mailto:atendimentoalfaesquadriaspp@gmail.com',
+      info: 'atendimentoalfaesquadraispp@gmail.com',
+      link: 'mailto:atendimentoalfaesquadraispp@gmail.com',
       color: 'from-purple-500 to-indigo-500'
     },
     {
@@ -180,7 +180,7 @@ export default function Contact() {
     'Kit Sacada',
     'Coberturas',
     'Guarda Corpo',
-    'Fechadas',
+    'Fachadas',
     'Portas e Janelas',
     'Pós Venda',
     'Outro'
@@ -391,7 +391,7 @@ export default function Contact() {
                       whatsappMessage += `*Mensagem:* ${message}`
                       
                       const encodedMessage = encodeURIComponent(whatsappMessage)
-                      const whatsappUrl = `https://wa.me/5518996976413?text=${encodedMessage}`
+                      const whatsappUrl = `https://wa.me/5518390453080?text=${encodedMessage}`
                       
                       window.open(whatsappUrl, '_blank')
                     }}
@@ -500,7 +500,7 @@ export default function Contact() {
                       <div className="text-slate-300 text-xs break-all leading-relaxed">
                         <span className="hidden sm:inline">{contact.info}</span>
                         <span className="sm:hidden">
-                          {contact.info === 'atendimentoalfaesquadriaspp@gmail.com' ? 'atendimento@alfa...' :
+                          {contact.info === 'atendimentoalfaesquadraispp@gmail.com' ? 'atendimento@alfa...' :
                            contact.info === 'vendasalfaesquadriaspp@gmail.com' ? 'vendas@alfa...' :
                            contact.info}
                         </span>

@@ -115,7 +115,7 @@ export default function TermosServico() {
                     <li>Fabricação e instalação de kit sacada</li>
                     <li>Coberturas metálicas para residências e comércios</li>
                     <li>Guarda-corpos em alumínio e vidro</li>
-                    <li>Fechamento de áreas (fechadas)</li>
+                    <li>Fechamento de áreas (fachadas)</li>
                     <li>Portas e janelas de alumínio</li>
                     <li>Serviços de manutenção e reparo</li>
                     <li>Consultoria técnica e projetos personalizados</li>
@@ -301,8 +301,8 @@ export default function TermosServico() {
                     Para dúvidas sobre estes Termos de Serviço ou questões relacionadas aos nossos serviços:
                   </p>
                   <div className="space-y-2">
-                    <p><strong className="text-white">E-mail:</strong> atendimentoalfaesquadriaspp@gmail.com</p>
-                    <p><strong className="text-white">Telefone:</strong> (18) 99697-6413 | (18) 99671-8920</p>
+                    <p><strong className="text-white">E-mail:</strong> atendimentoalfaesquadraispp@gmail.com</p>
+                    <p><strong className="text-white">Telefone:</strong> (18) 3904-5308 | (18) 99671-8920</p>
                     <p><strong className="text-white">Endereço:</strong> Av. Joaquim Constantino, 1880 - Vila Nova Prudente, Presidente Prudente/SP</p>
                     <p><strong className="text-white">Horário de Atendimento:</strong> Segunda a Sexta: 08:00-18:00 | Sábado: Fechado</p>
                   </div>

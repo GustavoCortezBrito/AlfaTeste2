@@ -5,10 +5,10 @@ export default function StructuredData() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Alfa Esquadrias",
-    "description": "Especialistas em esquadrias de alumínio, kit sacada, coberturas, guarda corpo, fechadas e portas em Presidente Prudente/SP",
+    "description": "Especialistas em esquadrias de alumínio, kit sacada, coberturas, guarda corpo, fachadas e portas em Presidente Prudente/SP",
     "url": "https://alfaesquadrias.com.br",
-    "telephone": ["+5518996976413", "+5518996718920"],
-    "email": "atendimentoalfaesquadriaspp@gmail.com",
+    "telephone": ["+5518390453080", "+5518996718920"],
+    "email": "atendimentoalfaesquadraispp@gmail.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Av. Joaquim Constantino, 1880",
@@ -70,7 +70,7 @@ export default function StructuredData() {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Fechadas",
+            "name": "Fachadas",
             "description": "Fechamento de áreas com esquadrias de alumínio e vidro"
           }
         },
