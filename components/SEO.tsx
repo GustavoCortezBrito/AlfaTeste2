@@ -62,10 +62,7 @@ export default function SEO({
       twitter={{
         handle: '@alfaesquadrias',
         site: '@alfaesquadrias',
-        cardType: 'summary_large_image',
-        title: title,
-        description: description,
-        image: 'https://alfaesquadrias.com.br/opengraph-image.svg'
+        cardType: 'summary_large_image'
       }}
       additionalMetaTags={[
         {
