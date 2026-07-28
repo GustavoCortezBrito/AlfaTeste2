@@ -4,20 +4,36 @@
   
   <!-- Homepage -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/</loc>
+    <loc>https://alfaesquadrias.com.br/</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.alfaesquadrias.com.br/fachada.png</image:loc>
+      <image:loc>https://alfaesquadrias.com.br/fachada.png</image:loc>
       <image:title>Alfa Esquadrias - Fachada</image:title>
       <image:caption>Esquadrias de alumínio e vidros temperados</image:caption>
     </image:image>
   </url>
   
+  <!-- Política de Privacidade -->
+  <url>
+    <loc>https://alfaesquadrias.com.br/privacidade</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
+  <!-- Termos de Serviço -->
+  <url>
+    <loc>https://alfaesquadrias.com.br/termos</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  
   <!-- Seção Sobre -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/#sobre</loc>
+    <loc>https://alfaesquadrias.com.br/#sobre</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -25,7 +41,7 @@
   
   <!-- Seção Produtos -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/#produtos</loc>
+    <loc>https://alfaesquadrias.com.br/#produtos</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
@@ -33,7 +49,7 @@
   
   <!-- Seção Diferenciais -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/#diferenciais</loc>
+    <loc>https://alfaesquadrias.com.br/#diferenciais</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -41,7 +57,7 @@
   
   <!-- Seção Portfólio -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/#portfolio</loc>
+    <loc>https://alfaesquadrias.com.br/#portfolio</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -49,7 +65,7 @@
   
   <!-- Seção FAQ -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/#faq</loc>
+    <loc>https://alfaesquadrias.com.br/#faq</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -57,7 +73,7 @@
   
   <!-- Seção Contato -->
   <url>
-    <loc>https://www.alfaesquadrias.com.br/#contato</loc>
+    <loc>https://alfaesquadrias.com.br/#contato</loc>
     <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

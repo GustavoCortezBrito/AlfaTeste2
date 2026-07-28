@@ -1,12 +1,12 @@
 # Robots.txt - Alfa Esquadrias
-# https://www.alfaesquadrias.com.br/robots.txt
+# https://alfaesquadrias.com.br/robots.txt
 
 User-agent: *
 Allow: /
 Disallow: /api/
 
 # Sitemaps
-Sitemap: https://www.alfaesquadrias.com.br/sitemap.xml
+Sitemap: https://alfaesquadrias.com.br/sitemap.xml
 
 # Crawl delay para bots específicos
 User-agent: Googlebot

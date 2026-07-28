@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     "box de banheiro vidro temperado",
   ],
   
-  authors: [{ name: "Alfa Esquadrias de Alumínio", url: "https://www.alfaesquadrias.com.br" }],
+  authors: [{ name: "Alfa Esquadrias de Alumínio", url: "https://alfaesquadrias.com.br" }],
   creator: "Alfa Esquadrias de Alumínio",
   publisher: "Alfa Esquadrias de Alumínio",
   
