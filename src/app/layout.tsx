@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import SeoContent from "@/components/SeoContent";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     template: "%s | Alfa Esquadrias"
   },
   description:
-    "Esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente. Portas pivotantes, janelas, box, pele de vidro. 15 anos de experiência. Orçamento grátis!",
+    "Esquadrias de alumínio sob medida em Presidente Prudente. Portas pivotantes, janelas, box, pele de vidro. 15 anos. Orçamento grátis!",
   
   keywords: [
     // Principais
@@ -315,6 +316,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[#090d16] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-900 flex flex-col">
+        <SeoContent />
         {children}
       </body>
     </html>
