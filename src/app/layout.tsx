@@ -117,8 +117,7 @@ export const metadata: Metadata = {
   
   // Verificação
   verification: {
-    google: "seu-codigo-google-search-console",
-    yandex: "seu-codigo-yandex",
+    google: "google826bdce28952f5c3",
     // Adicione outros quando tiver
   },
   
