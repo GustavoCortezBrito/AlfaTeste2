@@ -73,34 +73,88 @@ export default function Home() {
 
       {/* Layer 3 — página content */}
       <main className="min-h-screen text-slate-100 flex flex-col relative selection:bg-cyan-500 selection:text-slate-950">
-        {/* Conteúdo SEO oculto visualmente mas presente no HTML */}
-        <div className="sr-only">
+        {/* Conteúdo SEO - H1 e parágrafos ocultos visualmente mas presentes no HTML */}
+        <div className="sr-only" aria-hidden="false">
           <h1>Alfa Esquadrias de Alumínio - Esquadrias Sob Medida em Presidente Prudente SP</h1>
+          
+          <h2>Especialista em Esquadrias de Alumínio e Vidros Temperados</h2>
           <p>
             A Alfa Esquadrias é especialista em fabricação e instalação de esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente - SP. 
-            Com mais de 15 anos de experiência no mercado, oferecemos soluções completas para projetos residenciais, comerciais e corporativos.
+            Com mais de 15 anos de experiência no mercado, oferecemos soluções completas para projetos residenciais, comerciais e corporativos em toda a região.
           </p>
+          
+          <h2>Nossos Produtos e Serviços</h2>
           <p>
-            Nossos produtos incluem portas pivotantes em alumínio, janelas integradas com blackout, pele de vidro para fachadas modernas, 
-            box de banheiro em vidro temperado, guarda-corpos, cortina de vidro, portas de correr e muito mais. Trabalhamos com perfis de alumínio 
-            de alta qualidade nas linhas Suprema, Gold e Minimalista, com acabamento em preto fosco, anodizado natural ou cores especiais.
+            Trabalhamos com uma linha completa de produtos em alumínio: <a href="#produtos">portas pivotantes em alumínio</a>, 
+            <a href="#produtos">janelas integradas com blackout</a>, <a href="#produtos">pele de vidro para fachadas modernas</a>, 
+            <a href="#produtos">box de banheiro em vidro temperado</a>, <a href="#produtos">guarda-corpos</a>, 
+            <a href="#produtos">cortina de vidro</a>, <a href="#produtos">portas de correr</a> e muito mais.
           </p>
+          
+          <h3>Perfis de Alumínio de Alta Qualidade</h3>
           <p>
-            Atendemos toda a região de Presidente Prudente com garantia de 5 anos na fabricação, orçamento gratuito e instalação profissional. 
-            Nossa equipe técnica realiza medição de precisão in loco, fabricação sob medida e instalação completa com acabamento impecável. 
-            Entre em contato pelo WhatsApp (18) 3904-5308 ou visite nosso showroom na Av. Joaquim Constantino, 1880 - Presidente Prudente - SP.
+            Utilizamos perfis de alumínio de alta qualidade nas linhas Suprema, Gold e Minimalista, com acabamento em preto fosco, 
+            anodizado natural ou cores especiais. Todos os nossos produtos são fabricados sob medida para garantir encaixe perfeito 
+            e durabilidade contra intempéries.
           </p>
-          <h2>Produtos e Serviços</h2>
+          
+          <h3>Garantia e Instalação Profissional</h3>
+          <p>
+            Atendemos toda a região de <a href="#contato">Presidente Prudente</a> com garantia de 5 anos na fabricação, 
+            <a href="#contato">orçamento gratuito</a> e <a href="#diferenciais">instalação profissional</a>. 
+            Nossa equipe técnica realiza medição de precisão in loco, fabricação sob medida e instalação completa com acabamento impecável.
+          </p>
+          
+          <h3>Entre em Contato</h3>
+          <p>
+            Entre em contato pelo <a href="https://wa.me/551839045308">WhatsApp (18) 3904-5308</a> ou visite nosso 
+            <a href="#sobre">showroom</a> na Av. Joaquim Constantino, 1880 - Vila Nova Prudente, Presidente Prudente - SP, CEP 19050-220. 
+            Confira nosso <a href="#portfolio">portfólio de projetos realizados</a> e tire suas <a href="#faq">dúvidas frequentes</a>.
+          </p>
+          
+          <h2>Catálogo de Produtos</h2>
           <ul>
-            <li>Portas Pivotantes de Alumínio</li>
-            <li>Janelas Integradas com Blackout</li>
-            <li>Pele de Vidro e Fachadas Envidraçadas</li>
-            <li>Box de Banheiro em Vidro Temperado</li>
-            <li>Guarda-Corpos de Vidro</li>
-            <li>Cortina de Vidro</li>
-            <li>Portas de Correr</li>
-            <li>Janelas de Alumínio Sob Medida</li>
+            <li><a href="#produtos">Portas Pivotantes de Alumínio</a> - Entrada imponente com fechamento termoacústico</li>
+            <li><a href="#produtos">Janelas Integradas com Blackout</a> - Controle total de iluminação</li>
+            <li><a href="#produtos">Pele de Vidro e Fachadas Envidraçadas</a> - Design moderno e sofisticado</li>
+            <li><a href="#produtos">Box de Banheiro em Vidro Temperado</a> - Segurança e elegância</li>
+            <li><a href="#produtos">Guarda-Corpos de Vidro</a> - Proteção com visibilidade total</li>
+            <li><a href="#produtos">Cortina de Vidro</a> - Integração de ambientes</li>
+            <li><a href="#produtos">Portas de Correr</a> - Economia de espaço</li>
+            <li><a href="#produtos">Janelas de Alumínio Sob Medida</a> - Ventilação e iluminação natural</li>
           </ul>
+          
+          <h2>Áreas de Atendimento</h2>
+          <p>
+            Atendemos Presidente Prudente e toda região do Oeste Paulista com excelência. 
+            <a href="#sobre">Conheça mais sobre nossa empresa</a> e veja nossos <a href="#diferenciais">diferenciais técnicos</a>.
+          </p>
+          
+          <nav aria-label="Links rápidos">
+            <ul>
+              <li><a href="#hero">Início</a></li>
+              <li><a href="#sobre">Sobre a Alfa Esquadrias</a></li>
+              <li><a href="#produtos">Produtos e Serviços</a></li>
+              <li><a href="#diferenciais">Diferenciais Técnicos</a></li>
+              <li><a href="#portfolio">Portfólio de Obras</a></li>
+              <li><a href="#faq">Perguntas Frequentes</a></li>
+              <li><a href="#contato">Contato e Orçamento</a></li>
+              <li><a href="/privacidade">Política de Privacidade</a></li>
+              <li><a href="/termos">Termos de Serviço</a></li>
+            </ul>
+          </nav>
+          
+          <h2>Informações de Contato</h2>
+          <address>
+            <strong>Alfa Esquadrias de Alumínio</strong><br />
+            Av. Joaquim Constantino, 1880<br />
+            Vila Nova Prudente<br />
+            Presidente Prudente - SP<br />
+            CEP: 19050-220<br />
+            Telefone: <a href="tel:1839045308">(18) 3904-5308</a><br />
+            WhatsApp: <a href="https://wa.me/551839045308">(18) 3904-5308</a><br />
+            Horário: Segunda a Sexta, 08:00 às 18:00
+          </address>
         </div>
 
         <Navbar onOpenCalculator={() => handleOpenCalculator()} />

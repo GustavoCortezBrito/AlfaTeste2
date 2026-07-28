@@ -86,7 +86,7 @@ export default function AboutSection({ onOpenFacadeModal }: AboutSectionProps) {
                 </span>
               </h2>
               <p className="text-slate-400 text-base leading-relaxed">
-                Localizada em Presidente Prudente, atendemos projetos residenciais, comerciais e corporativos com soluções sob medida. Trabalhamos com as melhores linhas de perfis de alumínio (Suprema, Gold e Minimalista) e vidros temperados e laminados.
+                Localizada em Presidente Prudente, atendemos projetos residenciais, comerciais e corporativos com soluções sob medida. Trabalhamos com as melhores linhas de perfis de alumínio (Suprema, Gold e Minimalista) e vidros temperados e laminados. Veja nossa localização no <a href="https://maps.app.goo.gl/54fdFQqZSHm7UL2r5" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 underline">Google Maps</a>.
               </p>
               <p className="text-slate-400 text-base leading-relaxed">
                 Com mais de 15 anos de experiência no mercado, a Alfa Esquadrias se consolidou como referência em esquadrias de alumínio na região de Presidente Prudente. Nossa empresa oferece um portfólio completo de produtos que incluem portas pivotantes, janelas integradas com blackout, pele de vidro para fachadas modernas, box de banheiro em vidro temperado, guarda-corpos, cortina de vidro e muito mais.
