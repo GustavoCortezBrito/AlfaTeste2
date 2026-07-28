@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin, Phone, ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 
