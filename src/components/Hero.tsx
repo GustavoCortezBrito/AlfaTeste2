@@ -33,6 +33,11 @@ export default function Hero({ onOpenCalculator }: HeroProps) {
 
       {/* Conteúdo centralizado */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-6 lg:px-8 text-center pt-28 pb-20">
+        {/* H1 oculto para SEO */}
+        <h1 className="sr-only">
+          Alfa Esquadrias de Alumínio - Esquadrias Sob Medida e Vidros Temperados em Presidente Prudente SP
+        </h1>
+        
         <div className="space-y-8">
           {/* Label — animação de fade in com slide */}
           <motion.div
@@ -45,7 +50,7 @@ export default function Hero({ onOpenCalculator }: HeroProps) {
 
           {/* Headline — animação palavra por palavra */}
           <div className="space-y-5">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-bold text-white tracking-tight leading-[1.05]">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-bold text-white tracking-tight leading-[1.05]">
               <motion.span
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -72,7 +77,7 @@ export default function Hero({ onOpenCalculator }: HeroProps) {
               >
                 sob medida
               </motion.span>
-            </h1>
+            </h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

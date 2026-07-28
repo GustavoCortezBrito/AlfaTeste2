@@ -15,15 +15,15 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.alfaesquadrias.com.br"),
+  metadataBase: new URL("https://alfaesquadrias.com.br"),
   
   // SEO Básico
   title: {
-    default: "Alfa Esquadrias de Alumínio | Presidente Prudente - SP | Esquadrias Sob Medida",
+    default: "Alfa Esquadrias | Alumínio e Vidros Temperados - Presidente Prudente SP",
     template: "%s | Alfa Esquadrias"
   },
   description:
-    "Alfa Esquadrias: Especialista em esquadrias de alumínio sob medida, vidros temperados, portas pivotantes, janelas integradas, pele de vidro e box para banheiro em Presidente Prudente - SP. Atendemos toda região com excelência e garantia de 5 anos. Solicite orçamento grátis!",
+    "Especialista em esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente. Portas pivotantes, janelas, pele de vidro, box para banheiro. Garantia 5 anos. Orçamento grátis!",
   
   keywords: [
     // Principais
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://www.alfaesquadrias.com.br",
+    url: "https://alfaesquadrias.com.br",
     siteName: "Alfa Esquadrias de Alumínio",
     title: "Alfa Esquadrias | Esquadrias de Alumínio e Vidros Temperados em Presidente Prudente",
     description:
@@ -126,7 +126,7 @@ export const metadata: Metadata = {
   
   // Alternativas de idioma (se tiver versões em outros idiomas)
   alternates: {
-    canonical: "https://www.alfaesquadrias.com.br",
+    canonical: "https://alfaesquadrias.com.br",
   },
 };
 
@@ -142,16 +142,16 @@ export default function RootLayout({
       // Organização
       {
         "@type": "Organization",
-        "@id": "https://www.alfaesquadrias.com.br/#organization",
+        "@id": "https://alfaesquadrias.com.br/#organization",
         name: "Alfa Esquadrias de Alumínio",
-        url: "https://www.alfaesquadrias.com.br",
+        url: "https://alfaesquadrias.com.br",
         logo: {
           "@type": "ImageObject",
-          url: "https://www.alfaesquadrias.com.br/logotipo.png",
+          url: "https://alfaesquadrias.com.br/logotipo.png",
           width: 800,
           height: 800,
         },
-        image: "https://www.alfaesquadrias.com.br/fachada.png",
+        image: "https://alfaesquadrias.com.br/fachada.png",
         description:
           "Especialista em esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente - SP",
         address: {
@@ -191,22 +191,22 @@ export default function RootLayout({
       // Website
       {
         "@type": "WebSite",
-        "@id": "https://www.alfaesquadrias.com.br/#website",
-        url: "https://www.alfaesquadrias.com.br",
+        "@id": "https://alfaesquadrias.com.br/#website",
+        url: "https://alfaesquadrias.com.br",
         name: "Alfa Esquadrias de Alumínio",
         description:
           "Esquadrias de alumínio e vidros temperados sob medida em Presidente Prudente - SP",
         publisher: {
-          "@id": "https://www.alfaesquadrias.com.br/#organization",
+          "@id": "https://alfaesquadrias.com.br/#organization",
         },
         inLanguage: "pt-BR",
       },
       // Local Business
       {
         "@type": "LocalBusiness",
-        "@id": "https://www.alfaesquadrias.com.br/#localbusiness",
+        "@id": "https://alfaesquadrias.com.br/#localbusiness",
         name: "Alfa Esquadrias de Alumínio",
-        image: "https://www.alfaesquadrias.com.br/fachada.png",
+        image: "https://alfaesquadrias.com.br/fachada.png",
         telephone: "+55-18-3904-5308",
         email: "contato@alfaesquadrias.com.br",
         address: {
@@ -222,7 +222,7 @@ export default function RootLayout({
           latitude: -22.120583,
           longitude: -51.421629,
         },
-        url: "https://www.alfaesquadrias.com.br",
+        url: "https://alfaesquadrias.com.br",
         priceRange: "$$",
         openingHoursSpecification: [
           {
@@ -283,13 +283,13 @@ export default function RootLayout({
       // Breadcrumb
       {
         "@type": "BreadcrumbList",
-        "@id": "https://www.alfaesquadrias.com.br/#breadcrumb",
+        "@id": "https://alfaesquadrias.com.br/#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://www.alfaesquadrias.com.br",
+            item: "https://alfaesquadrias.com.br",
           },
         ],
       },

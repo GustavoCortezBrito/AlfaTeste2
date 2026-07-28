@@ -88,8 +88,14 @@ export default function AboutSection({ onOpenFacadeModal }: AboutSectionProps) {
               <p className="text-slate-400 text-base leading-relaxed">
                 Localizada em Presidente Prudente, atendemos projetos residenciais, comerciais e corporativos com soluções sob medida. Trabalhamos com as melhores linhas de perfis de alumínio (Suprema, Gold e Minimalista) e vidros temperados e laminados.
               </p>
+              <p className="text-slate-400 text-base leading-relaxed">
+                Com mais de 15 anos de experiência no mercado, a Alfa Esquadrias se consolidou como referência em esquadrias de alumínio na região de Presidente Prudente. Nossa empresa oferece um portfólio completo de produtos que incluem portas pivotantes, janelas integradas com blackout, pele de vidro para fachadas modernas, box de banheiro em vidro temperado, guarda-corpos, cortina de vidro e muito mais.
+              </p>
               <p className="text-slate-500 text-sm leading-relaxed">
-                Nosso diferencial é o cuidado em cada etapa: da medição in loco à fabricação, instalação e pós-venda — garantindo encaixe perfeito e durabilidade contra intempéries.
+                Nosso diferencial é o cuidado em cada etapa: da medição in loco à fabricação, instalação e pós-venda — garantindo encaixe perfeito e durabilidade contra intempéries. Todos os nossos projetos são desenvolvidos sob medida, respeitando as necessidades específicas de cada cliente e garantindo acabamento impecável em alumínio preto fosco, anodizado natural ou outras cores especiais.
+              </p>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                Utilizamos apenas materiais de primeira linha com certificação de qualidade, garantindo segurança, durabilidade e estética premium para sua obra. Nossa equipe técnica especializada realiza instalações profissionais com garantia total, oferecendo suporte completo desde o primeiro contato até a entrega final do projeto.
               </p>
             </div>
 
