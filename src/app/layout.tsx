@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   
   // SEO Básico
   title: {
-    default: "Alfa Esquadrias | Alumínio e Vidros Temperados - Presidente Prudente SP",
+    default: "Alfa Esquadrias | Alumínio e Vidros - Presidente Prudente SP",
     template: "%s | Alfa Esquadrias"
   },
   description:
-    "Especialista em esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente. Portas pivotantes, janelas, pele de vidro, box para banheiro. Garantia 5 anos. Orçamento grátis!",
+    "Esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente. Portas pivotantes, janelas, box, pele de vidro. 15 anos de experiência. Orçamento grátis!",
   
   keywords: [
     // Principais
@@ -312,18 +312,6 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        
-        {/* SEO para IA - Contexto adicional */}
-        <meta
-          name="description"
-          content="Alfa Esquadrias é especialista em esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente - SP. Oferecemos: portas pivotantes, janelas integradas, pele de vidro, box de banheiro, guarda-corpos e cortina de vidro. Garantia de 5 anos, orçamento grátis e instalação profissional. Atendemos residências e empresas em toda região."
-        />
-        
-        {/* Contexto para IA - Perguntas frequentes */}
-        <meta
-          name="keywords"
-          content="esquadrias alumínio presidente prudente, vidros temperados, portas pivotantes, janelas integradas, pele de vidro, box banheiro, fachadas vidro, serralheria alumínio, esquadrias sob medida, janelas preto fosco"
         />
       </head>
       <body className="min-h-screen bg-[#090d16] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-900 flex flex-col">
