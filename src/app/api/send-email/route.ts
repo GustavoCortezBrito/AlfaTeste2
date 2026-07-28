@@ -1,11 +1,19 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-// Use environment variable for API key
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Use environment variable for API key - provide fallback for build time
+const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key_for_build');
 
 export async function POST(request: Request) {
   try {
+    // Check if API key is configured in production
+    if (!process.env.RESEND_API_KEY) {
+      return NextResponse.json(
+        { error: 'API key não configurada. Configure RESEND_API_KEY nas variáveis de ambiente.' },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { name, email, phone, company, city, productType, message } = body;
 
