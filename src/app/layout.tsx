@@ -16,7 +16,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://alfaesquadrias.com.br/"),
+  metadataBase: new URL("https://www.alfaesquadrias.com.br/"),
   
   // SEO Básico
   title: {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://alfaesquadrias.com.br/",
+    url: "https://www.alfaesquadrias.com.br/",
     siteName: "Alfa Esquadrias de Alumínio",
     title: "Alfa Esquadrias | Esquadrias de Alumínio e Vidros Temperados em Presidente Prudente",
     description:
@@ -127,7 +127,7 @@ export const metadata: Metadata = {
   
   // Alternativas de idioma (se tiver versões em outros idiomas)
   alternates: {
-    canonical: "https://alfaesquadrias.com.br/",
+    canonical: "https://www.alfaesquadrias.com.br/",
   },
 };
 
@@ -143,12 +143,12 @@ export default function RootLayout({
       // Organização
       {
         "@type": "Organization",
-        "@id": "https://alfaesquadrias.com.br/#organization",
+        "@id": "https://www.alfaesquadrias.com.br/#organization",
         name: "Alfa Esquadrias de Alumínio",
-        url: "https://alfaesquadrias.com.br/",
+        url: "https://www.alfaesquadrias.com.br/",
         logo: {
           "@type": "ImageObject",
-          url: "https://alfaesquadrias.com.br/logotipo.png",
+          url: "https://www.alfaesquadrias.com.br/logotipo.png",
           width: 800,
           height: 800,
         },
