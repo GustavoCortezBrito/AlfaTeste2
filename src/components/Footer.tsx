@@ -378,8 +378,8 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center space-x-6">
-            <a href="#sobre" className="hover:text-slate-400 transition">Política de Privacidade</a>
-            <a href="#contato" className="hover:text-slate-400 transition">Termos de Serviço</a>
+            <Link href="/privacidade" className="hover:text-slate-400 transition">Política de Privacidade</Link>
+            <Link href="/termos" className="hover:text-slate-400 transition">Termos de Serviço</Link>
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="flex items-center space-x-1.5 text-slate-600 hover:text-white transition cursor-pointer group"
