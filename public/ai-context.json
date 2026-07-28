@@ -1,0 +1,138 @@
+{
+  "business": {
+    "name": "Alfa Esquadrias de Alumínio",
+    "type": "Fabricação e Instalação de Esquadrias de Alumínio e Vidros Temperados",
+    "established": "2010",
+    "description": "A Alfa Esquadrias é uma empresa especializada em esquadrias de alumínio sob medida e vidros temperados, localizada em Presidente Prudente - SP. Atendemos residências e empresas em toda região com soluções modernas, seguras e personalizadas.",
+    "expertise": [
+      "Fabricação de esquadrias de alumínio sob medida",
+      "Instalação de vidros temperados",
+      "Portas pivotantes em alumínio",
+      "Janelas integradas com blackout",
+      "Pele de vidro para fachadas",
+      "Box de banheiro em vidro temperado",
+      "Guarda-corpos de vidro",
+      "Cortina de vidro para sacadas",
+      "Fachadas ACM",
+      "Esquadrias em alumínio preto fosco"
+    ],
+    "serviceArea": {
+      "primary": "Presidente Prudente - SP",
+      "coverage": "Região de Presidente Prudente e cidades próximas",
+      "radius": "50km"
+    }
+  },
+  "products": {
+    "categories": [
+      {
+        "name": "Portas Pivotantes & Painéis Ripados",
+        "description": "Portas de entrada imponentes em alumínio de alta espessura com opções de pintura preto fosco, amadeirado e inox",
+        "benefits": [
+          "Design moderno e sofisticado",
+          "Alta durabilidade",
+          "Múltiplas opções de acabamento",
+          "Fabricação sob medida"
+        ]
+      },
+      {
+        "name": "Janelas Integradas Automáticas",
+        "description": "Janelas com persianas integradas, blackout total e automação por controle remoto",
+        "benefits": [
+          "Privacidade garantida",
+          "Isolamento térmico e acústico",
+          "Facilidade de limpeza",
+          "Tela mosquiteira integrada"
+        ]
+      },
+      {
+        "name": "Pele de Vidro (Curtain Wall)",
+        "description": "Sistema de fachada estruturada com vidros espelhados de controle solar e estrutura de alumínio oculta",
+        "benefits": [
+          "Design arquitetônico moderno",
+          "Eficiência energética",
+          "Segurança estrutural",
+          "Manutenção simplificada"
+        ]
+      },
+      {
+        "name": "Box para Banheiro & Divisórias",
+        "description": "Box em vidro temperado extra claro 8mm/10mm com ferragens em inox escovado",
+        "benefits": [
+          "Vidro temperado de segurança",
+          "Ferragens de alta qualidade",
+          "Design elegante",
+          "Fácil manutenção"
+        ]
+      }
+    ]
+  },
+  "differentiators": [
+    "Garantia de 5 anos em todos os produtos",
+    "Projetos personalizados sob medida",
+    "Equipe técnica especializada",
+    "Matérias-primas premium certificadas",
+    "Instalação profissional",
+    "Atendimento regional consolidado",
+    "Orçamento gratuito e sem compromisso"
+  ],
+  "commonQuestions": [
+    {
+      "question": "Qual a área de atendimento da Alfa Esquadrias?",
+      "answer": "Atendemos Presidente Prudente e toda região num raio de 50km, incluindo cidades próximas."
+    },
+    {
+      "question": "Quais tipos de esquadrias a Alfa fabrica?",
+      "answer": "Fabricamos portas pivotantes, janelas (de correr, basculante, maxim-ar), pele de vidro, box de banheiro, guarda-corpos, cortina de vidro e muito mais. Todos sob medida."
+    },
+    {
+      "question": "Qual o prazo de entrega?",
+      "answer": "O prazo varia conforme complexidade do projeto, mas geralmente entre 20 a 45 dias após aprovação do projeto e medições."
+    },
+    {
+      "question": "Fazem orçamento gratuito?",
+      "answer": "Sim! O orçamento é 100% gratuito e sem compromisso. Entre em contato pelo WhatsApp (18) 3904-5308."
+    },
+    {
+      "question": "Quais formas de pagamento são aceitas?",
+      "answer": "Aceitamos dinheiro, PIX, cartões de crédito/débito e parcelamento facilitado em até 10x."
+    }
+  ],
+  "contact": {
+    "phone": "+55 18 3904-5308",
+    "whatsapp": "+55 18 3904-5308",
+    "email": "contato@alfaesquadrias.com.br",
+    "address": {
+      "street": "Av. Joaquim Constantino, 1880",
+      "neighborhood": "Vila Nova Prudente",
+      "city": "Presidente Prudente",
+      "state": "SP",
+      "zipCode": "19050-220",
+      "country": "Brasil"
+    },
+    "hours": {
+      "weekdays": "Segunda a Sexta: 08:00 às 18:00",
+      "weekend": "Sábado e Domingo: Fechado"
+    }
+  },
+  "seoContext": {
+    "targetKeywords": [
+      "esquadrias de alumínio presidente prudente",
+      "vidros temperados presidente prudente",
+      "portas pivotantes alumínio",
+      "janelas de alumínio sob medida",
+      "pele de vidro",
+      "box de vidro temperado"
+    ],
+    "localSEO": {
+      "city": "Presidente Prudente",
+      "state": "São Paulo",
+      "region": "Oeste Paulista",
+      "nearCities": [
+        "Álvares Machado",
+        "Regente Feijó",
+        "Pirapozinho",
+        "Martinópolis"
+      ]
+    }
+  }
+}

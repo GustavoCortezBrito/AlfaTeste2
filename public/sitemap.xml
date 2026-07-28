@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.alfaesquadrias.com.br/fachada.png</image:loc>
+      <image:title>Alfa Esquadrias - Fachada</image:title>
+      <image:caption>Esquadrias de alumínio e vidros temperados</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Seção Sobre -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/#sobre</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Seção Produtos -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/#produtos</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Seção Diferenciais -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/#diferenciais</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Seção Portfólio -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/#portfolio</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Seção FAQ -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/#faq</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Seção Contato -->
+  <url>
+    <loc>https://www.alfaesquadrias.com.br/#contato</loc>
+    <lastmod>2026-07-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+</urlset>
