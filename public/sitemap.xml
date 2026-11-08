@@ -1,82 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- Homepage -->
+
+  <!-- Homepage (as seções #ancora não entram no sitemap: o Google ignora fragmentos) -->
   <url>
-    <loc>https://alfaesquadrias.com.br/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://www.alfaesquadrias.com.br/</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://alfaesquadrias.com.br/fachada.png</image:loc>
+      <image:loc>https://www.alfaesquadrias.com.br/fachada.png</image:loc>
       <image:title>Alfa Esquadrias - Fachada</image:title>
       <image:caption>Esquadrias de alumínio e vidros temperados</image:caption>
     </image:image>
   </url>
-  
+
   <!-- Política de Privacidade -->
   <url>
-    <loc>https://alfaesquadrias.com.br/privacidade</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://www.alfaesquadrias.com.br/privacidade/</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
-  
+
   <!-- Termos de Serviço -->
   <url>
-    <loc>https://alfaesquadrias.com.br/termos</loc>
-    <lastmod>2026-07-28</lastmod>
+    <loc>https://www.alfaesquadrias.com.br/termos/</loc>
+    <lastmod>2026-11-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
-  
-  <!-- Seção Sobre -->
-  <url>
-    <loc>https://alfaesquadrias.com.br/#sobre</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Seção Produtos -->
-  <url>
-    <loc>https://alfaesquadrias.com.br/#produtos</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
-  <!-- Seção Diferenciais -->
-  <url>
-    <loc>https://alfaesquadrias.com.br/#diferenciais</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Seção Portfólio -->
-  <url>
-    <loc>https://alfaesquadrias.com.br/#portfolio</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Seção FAQ -->
-  <url>
-    <loc>https://alfaesquadrias.com.br/#faq</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- Seção Contato -->
-  <url>
-    <loc>https://alfaesquadrias.com.br/#contato</loc>
-    <lastmod>2026-07-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  
+
 </urlset>

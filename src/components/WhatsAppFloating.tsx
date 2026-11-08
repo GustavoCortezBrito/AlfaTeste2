@@ -33,7 +33,7 @@ export default function WhatsAppFloating() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed bottom-28 right-6 z-[9998] w-[340px] sm:w-[380px] bg-[#0a0f1e] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+            className="fixed bottom-28 right-6 z-[9998] w-[340px] sm:w-[380px] bg-[#0d1522] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
           >
             {/* Header */}
             <div className="bg-[#25D366] px-5 py-4 flex items-center justify-between">
@@ -60,7 +60,7 @@ export default function WhatsAppFloating() {
             </div>
 
             {/* Body */}
-            <div className="p-5 space-y-4 bg-[#0a0f1e]">
+            <div className="p-5 space-y-4 bg-[#0d1522]">
               {/* Message bubble from company */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -77,7 +77,7 @@ export default function WhatsAppFloating() {
                   <p className="text-slate-300 text-sm leading-relaxed">
                     Olá! 👋 Como podemos ajudar você hoje?
                   </p>
-                  <p className="text-slate-500 text-xs mt-1">
+                  <p className="text-slate-400 text-xs mt-1">
                     Digite sua mensagem abaixo
                   </p>
                 </div>
@@ -90,13 +90,13 @@ export default function WhatsAppFloating() {
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Digite sua mensagem... (ou envie vazia para usar mensagem padrão)"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-steel-300/50 focus:border-steel-300/50 transition"
                   rows={3}
                 />
                 
                 <button
                   onClick={handleSend}
-                  className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40"
+                  className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40"
                 >
                   <Send className="w-4 h-4" />
                   <span>Enviar no WhatsApp</span>
@@ -105,7 +105,7 @@ export default function WhatsAppFloating() {
 
               {/* Quick suggestions */}
               <div className="space-y-2">
-                <p className="text-slate-500 text-xs font-semibold">Sugestões rápidas:</p>
+                <p className="text-slate-400 text-xs font-semibold">Sugestões rápidas:</p>
                 <div className="flex flex-wrap gap-2">
                   {[
                     "Solicitar orçamento",
@@ -133,9 +133,9 @@ export default function WhatsAppFloating() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, duration: 0.5, type: "spring" }}
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg shadow-emerald-500/40 hover:shadow-emerald-500/60 flex items-center justify-center transition-all cursor-pointer group"
+        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg shadow-emerald-500/40 hover:shadow-emerald-500/60 flex items-center justify-center transition cursor-pointer group"
         aria-label={isOpen ? "Fechar chat" : "Abrir chat do WhatsApp"}
       >
         <AnimatePresence mode="wait">

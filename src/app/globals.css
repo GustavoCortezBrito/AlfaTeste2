@@ -1,79 +1,246 @@
 @import "tailwindcss";
 
+/* ──────────────────────────────────────────────────────────────────────────
+   Design system "Atelier" — Alfa Esquadrias
+   Linguagem de site de hypercar (referência: página do Bugatti W16 Mistral):
+   preto de galeria, imagem/vídeo em tela cheia, tipografia condensada em
+   caixa-alta, rótulos em mono, painéis de borda fina e números gigantes.
+   A identidade da marca (azul-marinho + aço da logotipo) vive nas cores.
+   Documentação: docs/DESIGN.md
+   ────────────────────────────────────────────────────────────────────────── */
+
+@theme inline {
+  --font-sans: var(--font-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: var(--font-display), "Arial Narrow", sans-serif;
+  --font-mono: var(--font-label), ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+@theme {
+  /* Tinta: preto de galeria com subtom azul-marinho da logo */
+  --color-ink-950: #05080d; /* fundo da página */
+  --color-ink-900: #0a0f16;
+  --color-ink-850: #0e141d; /* painéis */
+  --color-ink-800: #131b27;
+  --color-ink-700: #1b2636;
+  --color-ink-600: #243247;
+
+  /* Compatibilidade: a escala navy agora aponta para a tinta */
+  --color-navy-950: #05080d;
+  --color-navy-900: #0a0f16;
+  --color-navy-800: #0e141d;
+  --color-navy-700: #131b27;
+  --color-navy-600: #1b2636;
+  --color-navy-500: #243247;
+
+  /* Aço (prata da logo) — rótulos, linhas, ícones */
+  --color-steel-50: #f5f7f9;
+  --color-steel-100: #e8ebef;
+  --color-steel-200: #d3d8df;
+  --color-steel-300: #b8bfca;
+  --color-steel-400: #9399a5;
+  --color-steel-500: #6f7683;
+  --color-steel-600: #565d6a;
+  --color-steel-700: #404651;
+  --color-steel-800: #2c323d;
+  --color-steel-900: #1c212a;
+
+  /* Papel: a pílula de navegação e os botões sólidos */
+  --color-paper: #f3f4f6;
+
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --default-transition-duration: 180ms;
+  --default-transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
 @layer base {
   :root {
-    --background: #090d16;
-    --surface: #0f1623;
-    --surface-raised: #141c2e;
-    --border: rgba(255, 255, 255, 0.06);
-    --foreground: #f1f5f9;
-    --muted: #64748b;
-    --accent: #22d3ee;
+    --background: #05080d;
+    --foreground: #f3f4f6;
+    --muted: #9aa3b2;
+    --line: rgba(255, 255, 255, 0.12);
   }
 
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem; /* a pílula fixa não cobre âncoras nem foco */
     color-scheme: dark;
-    /* Background handled by a fixed z-index:-2 div in page.tsx
-       so particles (z:-1) appear between bg and content */
+    background: var(--background);
   }
 
   body {
+    background: var(--background);
     color: var(--foreground);
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-sans);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    /* no background so particles are visible */
+  }
+
+  /* Títulos: condensada, caixa-alta (como a referência) */
+  h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: #d3d8df;
+    color: #05080d;
+  }
+
+  :focus-visible {
+    outline: 2px solid #d3d8df;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::placeholder {
+    color: rgba(154, 163, 178, 0.75);
   }
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--background); }
-::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; border: 2px solid var(--background); }
-::-webkit-scrollbar-thumb:hover { background: #334155; }
+::-webkit-scrollbar-thumb { background: #2c323d; border-radius: 4px; border: 2px solid var(--background); }
+::-webkit-scrollbar-thumb:hover { background: #565d6a; }
 
-/* Section utilities */
+/* ── Tipografia utilitária ──────────────────────────────────────────────── */
+
+/* Rótulo mono em caixa-alta: menu, abas, legendas de dados */
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b8bfca;
+}
+
+/* Corpo em mono (parágrafos sobre imagem, como na referência) */
+.body-mono {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* ── Superfícies ────────────────────────────────────────────────────────── */
+
 .section-base {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .section-alt {
   background-color: rgba(255, 255, 255, 0.015);
 }
 
-/* Card utilities */
+/* Painel de borda fina (tabela de especificações, formulário) */
+.panel {
+  background: #0c1119;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+}
+
+/* Compatibilidade: .card = painel plano */
 .card {
-  background: rgba(15, 22, 35, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 1.25rem;
-  transition: border-color 0.2s ease;
+  background: #0c1119;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: border-color 0.2s var(--ease-out-strong);
 }
 
 .card:hover {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
-/* Section label (replaces badge pill) */
-.section-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #22d3ee;
+/* Textura de alumínio escovado (linhas finas) */
+.brushed {
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
 }
 
-/* Divider line */
+/* Grão fino (marca gigante do rodapé) */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -0.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ── Botões ─────────────────────────────────────────────────────────────── */
+
+/* Sólido: papel branco, texto tinta (estilo da pílula da referência) */
+.btn-metal {
+  background: #f3f4f6;
+  color: #05080d;
+  transition:
+    background-color 0.18s var(--ease-out-strong),
+    transform 0.16s var(--ease-out-strong);
+}
+.btn-metal:hover {
+  background: #ffffff;
+}
+
+/* Contorno */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #f3f4f6;
+  transition:
+    background-color 0.18s var(--ease-out-strong),
+    border-color 0.18s var(--ease-out-strong),
+    transform 0.16s var(--ease-out-strong);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-metal:active,
+.btn-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ── Divisores ──────────────────────────────────────────────────────────── */
+
 .section-divider {
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Input focus ring */
-input:focus, textarea:focus {
+/* ── Formulários ────────────────────────────────────────────────────────── */
+
+input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: rgba(34, 211, 238, 0.5) !important;
-  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
+  border-color: rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+/* ── Acessibilidade ─────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

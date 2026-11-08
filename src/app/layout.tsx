@@ -1,17 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import { Barlow, Barlow_Condensed, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SeoContent from "@/components/SeoContent";
 
-const inter = Inter({
+// Corpo: Barlow · Títulos: Barlow Condensed (caixa-alta) · Rótulos de dados: JetBrains Mono
+const body = Barlow({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
   display: "swap",
 });
 
-const montserrat = Montserrat({
+const display = Barlow_Condensed({
   subsets: ["latin"],
-  variable: "--font-montserrat",
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const label = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-label",
   display: "swap",
 });
 
@@ -53,7 +63,7 @@ export const metadata: Metadata = {
     "box de banheiro vidro temperado",
   ],
   
-  authors: [{ name: "Alfa Esquadrias de Alumínio", url: "https://alfaesquadrias.com.br/" }],
+  authors: [{ name: "Alfa Esquadrias de Alumínio", url: "https://www.alfaesquadrias.com.br/" }],
   creator: "Alfa Esquadrias de Alumínio",
   publisher: "Alfa Esquadrias de Alumínio",
   
@@ -76,15 +86,15 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/fachada.png",
-        width: 1200,
-        height: 630,
+        width: 1080,
+        height: 830,
         alt: "Alfa Esquadrias - Fachada com Esquadrias de Alumínio",
         type: "image/png",
       },
       {
         url: "/logotipo.png",
-        width: 800,
-        height: 800,
+        width: 510,
+        height: 510,
         alt: "Logo Alfa Esquadrias de Alumínio",
         type: "image/png",
       },
@@ -98,8 +108,6 @@ export const metadata: Metadata = {
     description:
       "Esquadrias de alumínio sob medida, vidros temperados, portas pivotantes e muito mais. Atendimento em Presidente Prudente e região.",
     images: ["/fachada.png"],
-    creator: "@alfaesquadrias",
-    site: "@alfaesquadrias",
   },
   
   // Robots
@@ -149,10 +157,10 @@ export default function RootLayout({
         logo: {
           "@type": "ImageObject",
           url: "https://www.alfaesquadrias.com.br/logotipo.png",
-          width: 800,
-          height: 800,
+          width: 510,
+          height: 510,
         },
-        image: "https://alfaesquadrias.com.br/fachada.png",
+        image: "https://www.alfaesquadrias.com.br/fachada.png",
         description:
           "Especialista em esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente - SP",
         address: {
@@ -176,7 +184,7 @@ export default function RootLayout({
           availableLanguage: "Portuguese",
         },
         sameAs: [
-          "https://www.instagram.com/alfaesquadrias",
+          "https://www.instagram.com/alfaesquadriaspp/",
           "https://wa.me/551839045308",
         ],
         priceRange: "$$",
@@ -192,22 +200,22 @@ export default function RootLayout({
       // Website
       {
         "@type": "WebSite",
-        "@id": "https://alfaesquadrias.com.br/#website",
-        url: "https://alfaesquadrias.com.br/",
+        "@id": "https://www.alfaesquadrias.com.br/#website",
+        url: "https://www.alfaesquadrias.com.br/",
         name: "Alfa Esquadrias de Alumínio",
         description:
           "Esquadrias de alumínio e vidros temperados sob medida em Presidente Prudente - SP",
         publisher: {
-          "@id": "https://alfaesquadrias.com.br/#organization",
+          "@id": "https://www.alfaesquadrias.com.br/#organization",
         },
         inLanguage: "pt-BR",
       },
       // Local Business
       {
         "@type": "LocalBusiness",
-        "@id": "https://alfaesquadrias.com.br/#localbusiness",
+        "@id": "https://www.alfaesquadrias.com.br/#localbusiness",
         name: "Alfa Esquadrias de Alumínio",
-        image: "https://alfaesquadrias.com.br/fachada.png",
+        image: "https://www.alfaesquadrias.com.br/fachada.png",
         telephone: "+55-18-3904-5308",
         email: "contato@alfaesquadrias.com.br",
         address: {
@@ -223,7 +231,7 @@ export default function RootLayout({
           latitude: -22.120583,
           longitude: -51.421629,
         },
-        url: "https://alfaesquadrias.com.br/",
+        url: "https://www.alfaesquadrias.com.br/",
         priceRange: "$$",
         openingHoursSpecification: [
           {
@@ -284,13 +292,13 @@ export default function RootLayout({
       // Breadcrumb
       {
         "@type": "BreadcrumbList",
-        "@id": "https://alfaesquadrias.com.br/#breadcrumb",
+        "@id": "https://www.alfaesquadrias.com.br/#breadcrumb",
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://alfaesquadrias.com.br/",
+            item: "https://www.alfaesquadrias.com.br/",
           },
         ],
       },
@@ -298,16 +306,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${montserrat.variable} scroll-smooth dark`}>
+    <html lang="pt-BR" className={`${body.variable} ${display.variable} ${label.variable} scroll-smooth dark`}>
       <head>
         {/* Favicon */}
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#06b6d4" />
-        <meta name="msapplication-TileColor" content="#06b6d4" />
-        <meta name="theme-color" content="#090d16" />
+        <meta name="msapplication-TileColor" content="#05080d" />
+        <meta name="theme-color" content="#05080d" />
         
         {/* JSON-LD Structured Data */}
         <script
@@ -315,7 +322,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-[#090d16] text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-900 flex flex-col">
+      <body className="min-h-screen bg-[#05080d] text-slate-100 antialiased selection:bg-steel-300 selection:text-slate-900 flex flex-col">
         <SeoContent />
         {children}
       </body>

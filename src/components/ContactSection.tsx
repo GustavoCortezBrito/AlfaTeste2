@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
+import SectionHeader from "./SectionHeader";
 import { MapPin, Phone, Clock, Mail, Send, CheckCircle2, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -14,14 +15,18 @@ export default function ContactSection() {
     city: "",
     productType: "",
     message: "",
+    website: "", // honeypot anti-bot (deve ficar vazio)
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const errorRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setSubmitError("");
+    setSubmitSuccess(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,7 +36,7 @@ export default function ContactSection() {
 
     try {
       // Enviar e-mail via API
-      const response = await fetch('/api/send-email', {
+      const response = await fetch('/api/send-email/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,19 +50,21 @@ export default function ContactSection() {
         throw new Error(result.error || 'Erro ao enviar mensagem');
       }
 
-      // Sucesso - mostrar confetti
+      // Sucesso — mensagem visível (e anunciada) + confetti
+      setSubmitSuccess(true);
       confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
 
       // Montar mensagem para WhatsApp
-      const whatsappText =
-        `*SOLICITAÇÃO VIA SITE - ALFA ESQUADRIAS*%0A%0A` +
-        `*Nome:* ${formData.name}%0A` +
-        `*E-mail:* ${formData.email}%0A` +
-        `*Telefone:* ${formData.phone}%0A` +
-        `*Empresa:* ${formData.company || "Não informado"}%0A` +
-        `*Cidade:* ${formData.city}%0A` +
-        `*Tipo de Produto:* ${formData.productType || "Não especificado"}%0A%0A` +
-        `*Mensagem:* ${formData.message}`;
+      const whatsappText = encodeURIComponent(
+        `*SOLICITAÇÃO VIA SITE - ALFA ESQUADRIAS*\n\n` +
+        `*Nome:* ${formData.name}\n` +
+        `*E-mail:* ${formData.email}\n` +
+        `*Telefone:* ${formData.phone}\n` +
+        `*Empresa:* ${formData.company || "Não informado"}\n` +
+        `*Cidade:* ${formData.city}\n` +
+        `*Tipo de Produto:* ${formData.productType || "Não especificado"}\n\n` +
+        `*Mensagem:* ${formData.message}`
+      );
 
       // Aguardar 1 segundo e redirecionar para WhatsApp
       setTimeout(() => {
@@ -72,6 +79,7 @@ export default function ContactSection() {
           city: "",
           productType: "",
           message: "",
+          website: "",
         });
         
         setIsSubmitting(false);
@@ -81,41 +89,32 @@ export default function ContactSection() {
       console.error('Erro:', error);
       setSubmitError(error instanceof Error ? error.message : 'Erro ao enviar mensagem. Tente novamente.');
       setIsSubmitting(false);
+      // leva o foco ao aviso para teclado e leitor de tela
+      requestAnimationFrame(() => errorRef.current?.focus());
     }
   };
 
   return (
     <section id="contato" className="relative py-24 border-t border-white/5 overflow-hidden">
       {/* Gradient orb */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-steel-300/5 rounded-full blur-3xl" />
       
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
 
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14 px-4 sm:px-6">
-          <p className="section-label mb-3">Fale Conosco</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight">
-            Envie sua{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-500">
-              Mensagem
-            </span>
-          </h2>
-          <p className="text-slate-400 text-sm mt-4">
-            Preencha o formulário ao lado e receba uma proposta personalizada em até 24 horas.
-          </p>
-        </div>
+        <SectionHeader
+          title="Peça seu orçamento"
+          description="Conte o que você precisa. A equipe responde com uma proposta em até 24 horas."
+        />
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
 
           {/* Left Panel - Info */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
             className="lg:col-span-2 space-y-6"
           >
             {/* Dark card with contact info */}
-            <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 rounded-lg p-6 sm:p-8 space-y-6">
               
               <div>
                 <h3 className="text-2xl font-bold text-white mb-2">Fale com a Alfa</h3>
@@ -127,40 +126,40 @@ export default function ContactSection() {
               {/* Contact items */}
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                    <Phone className="w-5 h-5 text-cyan-400" />
+                  <div className="w-10 h-10 rounded-md bg-steel-300/10 border border-steel-300/20 flex items-center justify-center shrink-0">
+                    <Phone className="w-5 h-5 text-steel-300" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Telefone</p>
-                    <a href="tel:+551839045308" className="text-white font-semibold text-sm hover:text-cyan-400 transition">
+                    <p className="text-xs font-semibold text-slate-400 mb-1">Telefone</p>
+                    <a href="tel:+551839045308" className="text-white font-semibold text-sm hover:text-steel-300 transition">
                       (18) 3904-5308
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                    <Mail className="w-5 h-5 text-cyan-400" />
+                  <div className="w-10 h-10 rounded-md bg-steel-300/10 border border-steel-300/20 flex items-center justify-center shrink-0">
+                    <Mail className="w-5 h-5 text-steel-300" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">E-mail</p>
-                    <a href="mailto:contato@alfaesquadrias.com.br" className="text-white font-semibold text-sm hover:text-cyan-400 transition">
+                    <p className="text-xs font-semibold text-slate-400 mb-1">E-mail</p>
+                    <a href="mailto:contato@alfaesquadrias.com.br" className="text-white font-semibold text-sm hover:text-steel-300 transition">
                       contato@alfaesquadrias.com.br
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                    <MapPin className="w-5 h-5 text-cyan-400" />
+                  <div className="w-10 h-10 rounded-md bg-steel-300/10 border border-steel-300/20 flex items-center justify-center shrink-0">
+                    <MapPin className="w-5 h-5 text-steel-300" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Endereço</p>
+                    <p className="text-xs font-semibold text-slate-400 mb-1">Endereço</p>
                     <a 
                       href="https://maps.app.goo.gl/54fdFQqZSHm7UL2r5"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white text-sm hover:text-cyan-400 transition"
+                      className="text-white text-sm hover:text-steel-300 transition"
                     >
                       Av. Joaquim Constantino, 1880<br />
                       Vila Nova Prudente<br />
@@ -170,18 +169,18 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-                    <Clock className="w-5 h-5 text-cyan-400" />
+                  <div className="w-10 h-10 rounded-md bg-steel-300/10 border border-steel-300/20 flex items-center justify-center shrink-0">
+                    <Clock className="w-5 h-5 text-steel-300" />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Horário</p>
+                    <p className="text-xs font-semibold text-slate-400 mb-1">Horário</p>
                     <p className="text-white text-sm">Segunda - Sexta: 08:00 às 18:00</p>
                     <p className="text-slate-400 text-xs">Sábado e Domingo: Fechado</p>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-white/10 flex items-center space-x-2 text-cyan-400">
+              <div className="pt-4 border-t border-white/10 flex items-center space-x-2 text-steel-300">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <p className="text-xs font-semibold">Resposta garantida em até 24h</p>
               </div>
@@ -190,63 +189,76 @@ export default function ContactSection() {
 
           {/* Right Panel - Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
             className="lg:col-span-3"
           >
             <div className="card p-6 sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-5">
+
+                {/* Honeypot anti-bot: invisível para humanos */}
+                <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                  <label htmlFor="website">Não preencha este campo</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={handleChange}
+                  />
+                </div>
                 
                 {/* Nome Completo */}
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-slate-300 mb-2">
+                  <label htmlFor="name" className="label-mono block mb-2">
                     Nome Completo <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
                     id="name"
                     name="name"
+                    maxLength={100}
                     required
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Digite seu nome completo"
-                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none"
+                    className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none"
                   />
                 </div>
 
                 {/* Email e Telefone */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-slate-300 mb-2">
+                    <label htmlFor="email" className="label-mono block mb-2">
                       E-mail <span className="text-red-400">*</span>
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
+                      maxLength={254}
                       required
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="seu@email.com"
-                      className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none"
+                      className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-slate-300 mb-2">
+                    <label htmlFor="phone" className="label-mono block mb-2">
                       Telefone <span className="text-red-400">*</span>
                     </label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
+                      maxLength={30}
                       required
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="(00) 00000-0000"
-                      className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none"
+                      className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none"
                     />
                   </div>
                 </div>
@@ -254,40 +266,42 @@ export default function ContactSection() {
                 {/* Empresa e Cidade */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="company" className="block text-sm font-semibold text-slate-300 mb-2">
+                    <label htmlFor="company" className="label-mono block mb-2">
                       Empresa
                     </label>
                     <input
                       type="text"
                       id="company"
                       name="company"
+                      maxLength={100}
                       value={formData.company}
                       onChange={handleChange}
                       placeholder="Nome da empresa"
-                      className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none"
+                      className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="city" className="block text-sm font-semibold text-slate-300 mb-2">
+                    <label htmlFor="city" className="label-mono block mb-2">
                       Cidade <span className="text-red-400">*</span>
                     </label>
                     <input
                       type="text"
                       id="city"
                       name="city"
+                      maxLength={100}
                       required
                       value={formData.city}
                       onChange={handleChange}
                       placeholder="Sua cidade"
-                      className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none"
+                      className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none"
                     />
                   </div>
                 </div>
 
                 {/* Tipo de Equipamento */}
                 <div>
-                  <label htmlFor="productType" className="block text-sm font-semibold text-slate-300 mb-2">
+                  <label htmlFor="productType" className="label-mono block mb-2">
                     Tipo de Equipamento
                   </label>
                   <select
@@ -295,7 +309,7 @@ export default function ContactSection() {
                     name="productType"
                     value={formData.productType}
                     onChange={handleChange}
-                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none cursor-pointer"
+                    className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none cursor-pointer"
                   >
                     <option value="">Selecione uma opção</option>
                     <option value="Portas Pivotantes">Portas Pivotantes</option>
@@ -310,18 +324,19 @@ export default function ContactSection() {
 
                 {/* Mensagem */}
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-slate-300 mb-2">
+                  <label htmlFor="message" className="label-mono block mb-2">
                     Mensagem <span className="text-red-400">*</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
+                    maxLength={2000}
                     required
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Descreva suas necessidades e como podemos ajudar..."
-                    className="w-full bg-slate-950/50 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 resize-none focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20 transition outline-none"
+                    className="w-full bg-black border border-white/20 rounded-md px-4 py-3 text-sm text-white resize-none focus:border-steel-300/50 focus:ring-2 focus:ring-steel-300/20 transition outline-none"
                   />
                 </div>
 
@@ -329,7 +344,7 @@ export default function ContactSection() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 disabled:from-slate-600 disabled:to-slate-700 disabled:cursor-not-allowed text-white font-bold text-base py-4 px-6 rounded-xl flex items-center justify-center space-x-2 transition-all shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 disabled:shadow-none cursor-pointer"
+                  className="w-full btn-metal disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-base py-4 px-6 rounded-md flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>
@@ -339,18 +354,33 @@ export default function ContactSection() {
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      <span>Enviar Solicitação</span>
+                      <span>Enviar solicitação</span>
                     </>
                   )}
                 </button>
 
                 {submitError && (
-                  <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl">
-                    <p className="text-red-400 text-sm text-center">{submitError}</p>
+                  <div
+                    ref={errorRef}
+                    role="alert"
+                    tabIndex={-1}
+                    className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg"
+                  >
+                    <p className="text-red-300 text-sm font-semibold">Não foi possível enviar</p>
+                    <p className="text-red-200 text-sm mt-1">{submitError}</p>
                   </div>
                 )}
 
-                <p className="text-center text-slate-500 text-xs">
+                {submitSuccess && (
+                  <div role="status" className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+                    <p className="text-emerald-300 text-sm font-semibold">Mensagem enviada</p>
+                    <p className="text-emerald-200 text-sm mt-1">
+                      Abrindo o WhatsApp para você continuar a conversa com a equipe.
+                    </p>
+                  </div>
+                )}
+
+                <p className="text-center text-slate-400 text-xs">
                   * Campos obrigatórios • Seus dados estão seguros conosco
                 </p>
               </form>
@@ -361,10 +391,6 @@ export default function ContactSection() {
 
         {/* Google Maps */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
           className="mt-12"
         >
           <div className="card overflow-hidden">
@@ -378,7 +404,7 @@ export default function ContactSection() {
                   href="https://maps.app.goo.gl/54fdFQqZSHm7UL2r5"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-cyan-500 hover:bg-cyan-400 text-white font-semibold text-sm py-2.5 px-5 rounded-xl transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
+                  className="bg-steel-300 hover:bg-steel-300 text-white font-semibold text-sm py-2.5 px-5 rounded-md transition shadow-lg shadow-steel-300/20 hover:shadow-steel-300/40"
                 >
                   Ver no Google Maps
                 </a>
@@ -390,7 +416,7 @@ export default function ContactSection() {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3696.356!2d-51.421629!3d-22.120583!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9493f6d18c7fffff%3A0x91ed8c9e60ebdb7!2sAlfa%20Esquadrias%20de%20Alum%C3%ADnio!5e0!3m2!1spt-BR!2sbr!4v1738097123456!5m2!1spt-BR!2sbr"
                 width="100%"
                 height="100%"
-                style={{ border: 0 }}
+                style={{ border: 0, filter: "invert(0.92) hue-rotate(180deg) grayscale(0.35) contrast(0.9) brightness(0.95)" }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

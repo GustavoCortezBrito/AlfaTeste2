@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "./SectionHeader";
 import { ChevronDown } from "lucide-react";
 
 const faqs = [
@@ -34,22 +35,10 @@ export default function FaqSection() {
     <section id="faq" className="py-24 section-alt border-t border-white/5">
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center max-w-2xl mx-auto"
-        >
-          <p className="section-label mb-3">Dúvidas Frequentes</p>
-          <h2 className="text-4xl font-bold text-white tracking-tight leading-tight mb-4">
-            Dúvidas Sobre Esquadrias de Alumínio?
-          </h2>
-          <p className="text-slate-400 text-sm">
-            Encontre respostas para as principais dúvidas sobre nossos produtos e serviços.<br />
-            Não encontrou sua pergunta? Entre em contato conosco!
-          </p>
-        </motion.div>
+        <SectionHeader
+          title="Dúvidas sobre esquadrias de alumínio?"
+          description="Respostas para as perguntas mais comuns sobre prazo, orçamento e pagamento. Se a sua não estiver aqui, chame a gente no WhatsApp."
+        />
 
         <div className="space-y-2">
           {faqs.map((faq, index) => {
@@ -57,10 +46,6 @@ export default function FaqSection() {
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="card overflow-hidden"
               >
                 <button
@@ -71,7 +56,7 @@ export default function FaqSection() {
                     {faq.q}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-cyan-500 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                    className={`w-4 h-4 text-steel-300 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                   />
                 </button>
 

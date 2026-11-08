@@ -1,207 +1,117 @@
-import { Resend } from 'resend';
-import { NextResponse } from 'next/server';
+import { Resend } from "resend";
+import { NextResponse } from "next/server";
+import {
+  buildEmailHtml,
+  buildSubject,
+  validateContact,
+} from "@/lib/contact";
+import { isRateLimited } from "@/lib/rate-limit";
 
-// Use environment variable for API key - provide fallback for build time
-const resend = new Resend(process.env.RESEND_API_KEY || 'dummy_key_for_build');
+const MAX_BODY_BYTES = 20 * 1024;
+
+// Configurável por variáveis de ambiente (ver .env.example)
+const TO_EMAIL = process.env.CONTACT_TO_EMAIL || "gujjgukkgameplays@gmail.com";
+const FROM_EMAIL =
+  process.env.CONTACT_FROM_EMAIL || "Alfa Esquadrias <onboarding@resend.dev>";
+
+function fail(error: string, status: number) {
+  return NextResponse.json({ error }, { status });
+}
+
+/** Aceita apenas requisições vindas do próprio site (mitiga CSRF/abuso externo). */
+function isSameOrigin(request: Request): boolean {
+  const origin = request.headers.get("origin");
+  const host =
+    request.headers.get("x-forwarded-host") ?? request.headers.get("host");
+  if (!origin || !host) return false;
+  try {
+    return new URL(origin).host === host;
+  } catch {
+    return false;
+  }
+}
+
+function clientIp(request: Request): string {
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
 
 export async function POST(request: Request) {
   try {
-    // Check if API key is configured in production
-    if (!process.env.RESEND_API_KEY) {
-      return NextResponse.json(
-        { error: 'API key não configurada. Configure RESEND_API_KEY nas variáveis de ambiente.' },
-        { status: 500 }
-      );
+    if (!isSameOrigin(request)) {
+      return fail("Origem não permitida", 403);
     }
 
-    const body = await request.json();
-    const { name, email, phone, company, city, productType, message } = body;
-
-    // Validação básica
-    if (!name || !email || !phone || !city || !message) {
-      return NextResponse.json(
-        { error: 'Campos obrigatórios faltando' },
-        { status: 400 }
-      );
+    if (!request.headers.get("content-type")?.includes("application/json")) {
+      return fail("Content-Type inválido", 415);
     }
 
-    // Enviar e-mail via Resend
-    const { data, error } = await resend.emails.send({
-      from: 'Alfa Esquadrias <onboarding@resend.dev>',
-      to: 'gujjgukkgameplays@gmail.com',
-      replyTo: email,
-      subject: `🔔 Nova Solicitação - ${name}`,
-      html: `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="utf-8">
-            <style>
-              body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-                line-height: 1.6;
-                color: #1e293b;
-                background-color: #f8fafc;
-                margin: 0;
-                padding: 20px;
-              }
-              .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background: white;
-                border-radius: 12px;
-                overflow: hidden;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-              }
-              .header {
-                background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
-                color: white;
-                padding: 30px;
-                text-align: center;
-              }
-              .header h1 {
-                margin: 0;
-                font-size: 24px;
-                font-weight: 700;
-              }
-              .content {
-                padding: 30px;
-              }
-              .field {
-                margin-bottom: 20px;
-                padding-bottom: 20px;
-                border-bottom: 1px solid #e2e8f0;
-              }
-              .field:last-child {
-                border-bottom: none;
-                margin-bottom: 0;
-              }
-              .label {
-                font-size: 12px;
-                font-weight: 700;
-                text-transform: uppercase;
-                color: #64748b;
-                letter-spacing: 0.5px;
-                margin-bottom: 6px;
-              }
-              .value {
-                font-size: 16px;
-                color: #1e293b;
-                font-weight: 500;
-              }
-              .message-box {
-                background: #f1f5f9;
-                border-left: 4px solid #06b6d4;
-                padding: 16px;
-                border-radius: 6px;
-                margin-top: 8px;
-              }
-              .footer {
-                background: #f8fafc;
-                padding: 20px;
-                text-align: center;
-                font-size: 12px;
-                color: #64748b;
-              }
-              .badge {
-                display: inline-block;
-                background: #dcfce7;
-                color: #166534;
-                padding: 4px 12px;
-                border-radius: 12px;
-                font-size: 11px;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <h1>🔔 Nova Solicitação de Orçamento</h1>
-                <p style="margin: 10px 0 0; opacity: 0.9; font-size: 14px;">Alfa Esquadrias - Site</p>
-              </div>
-              
-              <div class="content">
-                <div class="field">
-                  <div class="label">Nome Completo</div>
-                  <div class="value">${name}</div>
-                </div>
+    const declaredLength = Number(request.headers.get("content-length") ?? 0);
+    if (declaredLength > MAX_BODY_BYTES) {
+      return fail("Requisição muito grande", 413);
+    }
 
-                <div class="field">
-                  <div class="label">E-mail</div>
-                  <div class="value">
-                    <a href="mailto:${email}" style="color: #06b6d4; text-decoration: none;">${email}</a>
-                  </div>
-                </div>
+    if (isRateLimited(clientIp(request))) {
+      return fail("Muitas solicitações. Tente novamente em alguns minutos.", 429);
+    }
 
-                <div class="field">
-                  <div class="label">Telefone</div>
-                  <div class="value">
-                    <a href="tel:${phone.replace(/\D/g, '')}" style="color: #06b6d4; text-decoration: none;">${phone}</a>
-                  </div>
-                </div>
+    const text = await request.text();
+    if (text.length > MAX_BODY_BYTES) {
+      return fail("Requisição muito grande", 413);
+    }
 
-                ${company ? `
-                <div class="field">
-                  <div class="label">Empresa</div>
-                  <div class="value">${company}</div>
-                </div>
-                ` : ''}
+    let raw: unknown;
+    try {
+      raw = JSON.parse(text);
+    } catch {
+      return fail("JSON inválido", 400);
+    }
 
-                <div class="field">
-                  <div class="label">Cidade</div>
-                  <div class="value">${city}</div>
-                </div>
+    // Honeypot: campo invisível que humanos não preenchem. Bots caem aqui
+    // e recebem "sucesso" sem que nenhum e-mail seja enviado.
+    if (
+      typeof raw === "object" &&
+      raw !== null &&
+      typeof (raw as Record<string, unknown>).website === "string" &&
+      (raw as Record<string, unknown>).website !== ""
+    ) {
+      return NextResponse.json({ success: true }, { status: 200 });
+    }
 
-                ${productType ? `
-                <div class="field">
-                  <div class="label">Tipo de Produto</div>
-                  <div class="value">
-                    <span class="badge">${productType}</span>
-                  </div>
-                </div>
-                ` : ''}
+    const result = validateContact(raw);
+    if (!result.ok) {
+      return fail(result.error, 400);
+    }
+    const data = result.data;
 
-                <div class="field">
-                  <div class="label">Mensagem</div>
-                  <div class="message-box">
-                    ${message.replace(/\n/g, '<br>')}
-                  </div>
-                </div>
-              </div>
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error("RESEND_API_KEY não configurada");
+      return fail("Serviço de e-mail indisponível no momento.", 500);
+    }
 
-              <div class="footer">
-                <p style="margin: 0;">
-                  <strong>Alfa Esquadrias de Alumínio</strong><br>
-                  Av. Joaquim Constantino, 1880 - Presidente Prudente, SP<br>
-                  (18) 3904-5308
-                </p>
-              </div>
-            </div>
-          </body>
-        </html>
-      `,
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from: FROM_EMAIL,
+      to: TO_EMAIL,
+      replyTo: data.email,
+      subject: buildSubject(data.name),
+      html: buildEmailHtml(data),
     });
 
     if (error) {
-      console.error('Erro ao enviar e-mail:', error);
-      return NextResponse.json(
-        { error: 'Erro ao enviar e-mail' },
-        { status: 500 }
-      );
+      console.error("Erro ao enviar e-mail:", error);
+      return fail("Erro ao enviar e-mail", 500);
     }
 
-    return NextResponse.json(
-      { success: true, data },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error('Erro no servidor:', error);
-    return NextResponse.json(
-      { error: 'Erro no servidor' },
-      { status: 500 }
-    );
+    console.error("Erro no servidor:", error);
+    return fail("Erro no servidor", 500);
   }
 }
+
+

@@ -31,7 +31,7 @@ export default function FacadeModal({ isOpen, onClose }: FacadeModalProps) {
           {/* Facade Image */}
           <div className="relative h-80 sm:h-[400px] w-full bg-slate-950">
             <Image
-              src="/fachada.png"
+              src="/fachada.webp"
               alt="Alfa Esquadrias Fachada da Loja em Presidente Prudente"
               fill
               className="object-cover"
@@ -41,7 +41,7 @@ export default function FacadeModal({ isOpen, onClose }: FacadeModalProps) {
 
           {/* Details */}
           <div className="p-6 space-y-4">
-            <div className="flex items-center space-x-2 text-cyan-400 font-semibold text-xs uppercase tracking-wider">
+            <div className="flex items-center space-x-2 text-steel-300 font-semibold text-xs">
               <Building className="w-4 h-4" />
               <span>Showroom & Fábrica Própria</span>
             </div>
@@ -55,12 +55,12 @@ export default function FacadeModal({ isOpen, onClose }: FacadeModalProps) {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-slate-300">
-              <div className="flex items-center space-x-2 p-3 rounded-xl bg-slate-950 border border-slate-800">
-                <MapPin className="w-4 h-4 text-cyan-400 shrink-0" />
+              <div className="flex items-center space-x-2 p-3 rounded-md bg-slate-950 border border-slate-800">
+                <MapPin className="w-4 h-4 text-steel-300 shrink-0" />
                 <span>Av. Joaquim Constantino, 1880 - Presidente Prudente</span>
               </div>
 
-              <div className="flex items-center space-x-2 p-3 rounded-xl bg-slate-950 border border-slate-800">
+              <div className="flex items-center space-x-2 p-3 rounded-md bg-slate-950 border border-slate-800">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>Telefone/WhatsApp: (18) 3904-5308</span>
               </div>
@@ -78,7 +78,7 @@ export default function FacadeModal({ isOpen, onClose }: FacadeModalProps) {
                 href="https://wa.me/551839045308?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20visita%20ao%20showroom%20da%20Alfa%20Esquadrias."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 px-5 rounded-xl flex items-center space-x-2 transition shadow-md"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 px-5 rounded-md flex items-center space-x-2 transition shadow-md"
               >
                 <span>Falar no WhatsApp</span>
                 <ExternalLink className="w-3.5 h-3.5" />

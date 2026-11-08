@@ -1,173 +1,93 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle, ChevronDown } from "lucide-react";
+import Backdrop from "./Backdrop";
+import LogoMark from "./LogoMark";
+import { mediaImage, mediaVideo } from "@/lib/media";
+import { WHATSAPP_URL } from "@/lib/site";
 
 interface HeroProps {
   onOpenCalculator: () => void;
   onOpenFacadeModal: () => void;
 }
 
+const FALLBACK_POSTER = "/projetos-reais/residencial.webp";
+const easeOut = [0.23, 1, 0.32, 1] as const;
+
+// A tela de carregamento cobre a página por ~1,2 s: o Hero só entra depois dela.
+const START = 1.0;
+
+/**
+ * Hero em tela cheia (vídeo Higgsfield 1080p quando existir; senão a foto da fachada),
+ * marca ao centro e uma linha mono — a mesma economia da referência.
+ */
 export default function Hero({ onOpenCalculator }: HeroProps) {
+  const poster = mediaImage("hero", FALLBACK_POSTER);
+  const usingFallback = poster === FALLBACK_POSTER;
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* Background — fachada da empresa */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/fachada.png"
-          alt="Fachada Alfa Esquadrias de Alumínio — Presidente Prudente"
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
+    <section id="hero" className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-black">
+      <motion.div
+        className="absolute inset-0"
+        initial={{ scale: 1.05 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 2, delay: START - 0.2, ease: easeOut }}
+      >
+        <Backdrop
+          poster={poster}
+          video={mediaVideo("hero")}
+          alt="Fachada contemporânea com esquadrias de alumínio e vidro"
           priority
+          imageClassName={usingFallback ? "saturate-[.7] brightness-[.7]" : ""}
         />
-        
-        {/* Overlay leve — foto aparente, texto legível */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#090d16]/60 via-[#090d16]/40 to-[#090d16]/80" />
-        <div className="absolute inset-0 bg-[#090d16]/20" />
-      </div>
+      </motion.div>
 
-      {/* Conteúdo centralizado */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-6 lg:px-8 text-center pt-28 pb-20">
-        {/* H1 oculto para SEO */}
-        <h1 className="sr-only">
-          Alfa Esquadrias de Alumínio - Esquadrias Sob Medida e Vidros Temperados em Presidente Prudente SP
-        </h1>
-        
-        <div className="space-y-8">
-          {/* Label — animação de fade in com slide */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      {/* Véus: topo para o cabeçalho, base para a leitura */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/15 to-black/80" />
+      <div className="absolute inset-0 bg-black/25" />
+
+      <h1 className="sr-only">
+        Alfa Esquadrias de Alumínio - Esquadrias sob medida e vidros temperados em Presidente Prudente SP
+      </h1>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: START, ease: easeOut }}
+        className="relative z-10 flex flex-col items-center px-6 pb-16 pt-24 text-center"
+      >
+        <LogoMark className="h-auto w-48 drop-shadow-[0_12px_50px_rgba(0,0,0,0.65)] sm:w-64 lg:w-80" />
+
+        <p className="label-mono mt-9 !text-white/90 sm:text-[0.8rem] sm:tracking-[0.3em]">
+          Esquadrias de alumínio e vidro sob medida
+        </p>
+
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-metal label-mono rounded-md px-7 py-4 !text-ink-950"
           >
-            <p className="section-label tracking-[0.2em]">Presidente Prudente e Região</p>
-          </motion.div>
-
-          {/* Headline — animação palavra por palavra */}
-          <div className="space-y-5">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[5rem] font-bold text-white tracking-tight leading-[1.05]">
-              <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-block"
-              >
-                Esquadrias de
-              </motion.span>
-              <br />
-              <motion.span
-                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-sky-400"
-              >
-                Alumínio
-              </motion.span>
-              {" "}
-              <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-block"
-              >
-                sob medida
-              </motion.span>
-            </h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
-              className="text-sm sm:text-base md:text-lg text-slate-400 leading-relaxed max-w-xl mx-auto px-4 sm:px-0"
-            >
-              Portas, janelas, pele de vidro e vidros temperados com acabamento
-              impecável para residências e comércios em Presidente Prudente.
-            </motion.p>
-          </div>
-
-          {/* CTAs — animação com bounce suave */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
+            Pedir orçamento
+          </a>
+          <button
+            type="button"
+            onClick={onOpenCalculator}
+            className="btn-ghost label-mono cursor-pointer rounded-md px-7 py-4 !text-white"
           >
-            <motion.a
-              href="https://wa.me/551839045308?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento!"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="inline-flex items-center justify-center space-x-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold py-4 px-9 rounded-full transition-all duration-200 shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-400/40 text-sm w-full sm:w-auto"
-            >
-              <MessageCircle className="w-5 h-5" />
-              <span>Peça seu Orçamento</span>
-              <motion.div
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <ArrowRight className="w-4 h-4" />
-              </motion.div>
-            </motion.a>
-
-            <motion.button
-              onClick={onOpenCalculator}
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="inline-flex items-center justify-center space-x-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/25 hover:border-white/50 text-white font-semibold py-4 px-9 rounded-full transition-all duration-200 text-sm cursor-pointer w-full sm:w-auto"
-            >
-              <span>Simular Projeto</span>
-            </motion.button>
-          </motion.div>
-
-          {/* Stats — animação em sequência */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-6 border-t border-white/8"
-          >
-            {[
-              { value: "+15", label: "Anos de experiência" },
-              { value: "100%", label: "Sob medida" },
-              { value: "Garantia", label: "Total na instalação" },
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ 
-                  duration: 0.5, 
-                  delay: 1.6 + (i * 0.1),
-                  ease: [0.22, 1, 0.36, 1]
-                }}
-                className="text-center"
-              >
-                <div className="text-xl sm:text-2xl font-bold text-white">{stat.value}</div>
-                <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 tracking-wider uppercase">{stat.label}</div>
-              </motion.div>
-            ))}
-          </motion.div>
+            Simular projeto
+          </button>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <a
-          href="#sobre"
-          className="flex flex-col items-center space-y-2 text-slate-400 hover:text-white transition group"
-        >
-          <span className="text-[11px] font-semibold tracking-widest uppercase">Explorar</span>
-          <ChevronDown className="w-5 h-5 animate-bounce" />
-        </a>
-      </div>
+      <a
+        href="#visao"
+        className="label-mono absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3 !text-white/70 transition-colors hover:!text-white"
+      >
+        Role
+        <span className="block h-10 w-px bg-white/50" aria-hidden="true" />
+      </a>
     </section>
   );
 }

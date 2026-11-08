@@ -1,8 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
+import { AnimatePresence, MotionConfig } from "framer-motion";
+import SiteHeader from "@/components/SiteHeader";
+import SectionNav from "@/components/SectionNav";
 import Hero from "@/components/Hero";
+import StoryScroll from "@/components/StoryScroll";
+import SpecsTable from "@/components/SpecsTable";
 import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import DifferentialsSection from "@/components/DifferentialsSection";
@@ -14,10 +18,7 @@ import Footer from "@/components/Footer";
 import WhatsAppFloating from "@/components/WhatsAppFloating";
 import CalculatorModal from "@/components/CalculatorModal";
 import FacadeModal from "@/components/FacadeModal";
-import GlobalParticles from "@/components/GlobalParticles";
-import Marquee from "@/components/Marquee";
 import Loading from "@/components/Loading";
-import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
@@ -26,11 +27,9 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simular carregamento
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
-
+    // Tela de marca curta, só por cima da página — o conteúdo já está no HTML
+    // (SEO e carregamento não esperam por ela).
+    const timer = setTimeout(() => setIsLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
@@ -39,86 +38,39 @@ export default function Home() {
     setIsCalculatorOpen(true);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
-    <>
-      {/* Scroll Progress Bar */}
-      <ScrollProgress />
+    // reducedMotion="user": quem pede menos movimento no sistema não recebe transform
+    <MotionConfig reducedMotion="user">
+      <AnimatePresence>{isLoading && <Loading key="loading" />}</AnimatePresence>
 
-      {/*
-        ── 3-layer background system ─────────────────────────────────────────
-        Layer 1 (deepest):  dark bg div           z-index: -2
-        Layer 2 (middle):   particle canvas        z-index: -1
-        Layer 3 (top):      main content (auto)    z-index: auto / 0
-        ─────────────────────────────────────────────────────────────────────
-        Sections WITHOUT backgrounds → transparent → particles + dark bg show
-        Sections WITH backgrounds (Hero, Footer) → cover particles (correct)
-      */}
+      <SiteHeader onOpenCalculator={() => handleOpenCalculator()} />
+      <SectionNav />
 
-      {/* Layer 1 — solid dark background (scrollbar + FOUC fix) */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -2,
-          background: "#090d16",
-        }}
-      />
-
-      {/* Layer 2 — particle canvas */}
-      <GlobalParticles />
-
-      {/* Layer 3 — página content */}
-      <main className="min-h-screen text-slate-100 flex flex-col relative selection:bg-cyan-500 selection:text-slate-950">
-        <Navbar onOpenCalculator={() => handleOpenCalculator()} />
-
+      <main className="relative flex min-h-screen flex-col bg-ink-950 text-slate-100">
         <Hero
           onOpenCalculator={() => handleOpenCalculator()}
           onOpenFacadeModal={() => setIsFacadeOpen(true)}
         />
-
-        <Marquee />
-
+        <StoryScroll />
+        <SpecsTable />
         <AboutSection onOpenFacadeModal={() => setIsFacadeOpen(true)} />
-
-        <ServicesSection
-          onSelectProductForQuote={(p) => handleOpenCalculator(p)}
-        />
-
-        <Marquee reverse />
-
+        <ServicesSection onSelectProductForQuote={(p) => handleOpenCalculator(p)} />
         <DifferentialsSection />
-
-        <PortfolioSection
-          onOpenCalculatorWithProduct={(p) => handleOpenCalculator(p)}
-        />
-
+        <PortfolioSection onOpenCalculatorWithProduct={(p) => handleOpenCalculator(p)} />
         <TestimonialsSection />
-
         <FaqSection />
-
         <ContactSection />
-
         <Footer />
       </main>
 
-      {/* Modals — above main, below WA */}
       <CalculatorModal
         isOpen={isCalculatorOpen}
         onClose={() => setIsCalculatorOpen(false)}
         initialProduct={calculatorProduct}
       />
+      <FacadeModal isOpen={isFacadeOpen} onClose={() => setIsFacadeOpen(false)} />
 
-      <FacadeModal
-        isOpen={isFacadeOpen}
-        onClose={() => setIsFacadeOpen(false)}
-      />
-
-      {/* WhatsApp — highest z-index */}
       <WhatsAppFloating />
-    </>
+    </MotionConfig>
   );
 }

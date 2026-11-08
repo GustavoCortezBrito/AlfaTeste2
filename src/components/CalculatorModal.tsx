@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, Check, ArrowRight, ArrowLeft, Send, Ruler, Layers, Palette, Phone } from "lucide-react";
+import { X, Sparkles, Check, ArrowRight, ArrowLeft, Send, Layers, Palette, Phone } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface CalculatorModalProps {
@@ -47,14 +47,16 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
       origin: { y: 0.6 },
     });
 
-    const message = `*SOLICITAÇÃO DE ORÇAMENTO - ALFA ESQUADRIAS*%0A%0A` +
-      `*Cliente:* ${clientName || "Não informado"}%0A` +
-      `*Cidade/Região:* ${clientCity}%0A` +
-      `*Projeto:* ${projectType}%0A` +
-      `*Acabamento/Cor:* ${finishColor}%0A` +
-      `*Medidas/Quantidades:* ${dimensions || "A combinar na medição"}%0A` +
-      `*Observações:* ${additionalNotes || "Nenhuma"}%0A%0A` +
-      `_Enviado pelo site oficial Alfa Esquadrias_`;
+    const message = encodeURIComponent(
+      `*SOLICITAÇÃO DE ORÇAMENTO - ALFA ESQUADRIAS*\n\n` +
+      `*Cliente:* ${clientName || "Não informado"}\n` +
+      `*Cidade/Região:* ${clientCity}\n` +
+      `*Projeto:* ${projectType}\n` +
+      `*Acabamento/Cor:* ${finishColor}\n` +
+      `*Medidas/Quantidades:* ${dimensions || "A combinar na medição"}\n` +
+      `*Observações:* ${additionalNotes || "Nenhuma"}\n\n` +
+      `_Enviado pelo site oficial Alfa Esquadrias_`
+    );
 
     const whatsappUrl = `https://wa.me/551839045308?text=${message}`;
 
@@ -77,7 +79,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400">
+            <div className="p-2.5 rounded-md bg-steel-300/20 text-steel-300">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -96,7 +98,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
         {/* Progress Bar */}
         <div className="w-full bg-slate-950 h-1.5">
           <div
-            className="bg-gradient-to-r from-cyan-400 to-blue-600 h-full transition-all duration-300"
+            className="bg-gradient-to-r from-steel-300 to-steel-500 h-full transition duration-300"
             style={{ width: `${(step / 3) * 100}%` }}
           />
         </div>
@@ -112,7 +114,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-4"
               >
-                <div className="flex items-center space-x-2 text-sm font-semibold text-cyan-400">
+                <div className="flex items-center space-x-2 text-sm font-semibold text-steel-300">
                   <Layers className="w-4 h-4" />
                   <span>1. Qual tipo de projeto você precisa?</span>
                 </div>
@@ -122,14 +124,14 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                     <button
                       key={opt}
                       onClick={() => setProjectType(opt)}
-                      className={`p-3 rounded-2xl text-xs font-medium text-left transition flex items-center justify-between border cursor-pointer ${
+                      className={`p-3 rounded-lg text-xs font-medium text-left transition flex items-center justify-between border cursor-pointer ${
                         projectType === opt
-                          ? "bg-cyan-500/20 border-cyan-400 text-white font-semibold shadow-md"
+                          ? "bg-steel-300/20 border-steel-300 text-white font-semibold shadow-md"
                           : "bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
                       }`}
                     >
                       <span className="truncate">{opt}</span>
-                      {projectType === opt && <Check className="w-4 h-4 text-cyan-400 shrink-0 ml-2" />}
+                      {projectType === opt && <Check className="w-4 h-4 text-steel-300 shrink-0 ml-2" />}
                     </button>
                   ))}
                 </div>
@@ -137,7 +139,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                 <div className="pt-4 flex justify-end">
                   <button
                     onClick={() => setStep(2)}
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs py-3 px-6 rounded-xl shadow-md flex items-center space-x-2 cursor-pointer"
+                    className="btn-metal font-bold text-xs py-3 px-6 rounded-md shadow-md flex items-center space-x-2 cursor-pointer"
                   >
                     <span>Próximo Passo</span>
                     <ArrowRight className="w-4 h-4" />
@@ -154,7 +156,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-4"
               >
-                <div className="flex items-center space-x-2 text-sm font-semibold text-cyan-400">
+                <div className="flex items-center space-x-2 text-sm font-semibold text-steel-300">
                   <Palette className="w-4 h-4" />
                   <span>2. Escolha o acabamento e informe as medidas (opcional)</span>
                 </div>
@@ -168,14 +170,14 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                       <button
                         key={color}
                         onClick={() => setFinishColor(color)}
-                        className={`p-2.5 rounded-xl text-xs font-medium text-left border transition flex items-center justify-between cursor-pointer ${
+                        className={`p-2.5 rounded-md text-xs font-medium text-left border transition flex items-center justify-between cursor-pointer ${
                           finishColor === color
-                            ? "bg-cyan-500/20 border-cyan-400 text-white"
+                            ? "bg-steel-300/20 border-steel-300 text-white"
                             : "bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700"
                         }`}
                       >
                         <span>{color}</span>
-                        {finishColor === color && <Check className="w-3.5 h-3.5 text-cyan-400" />}
+                        {finishColor === color && <Check className="w-3.5 h-3.5 text-steel-300" />}
                       </button>
                     ))}
                   </div>
@@ -184,14 +186,14 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                 <div>
                   <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
                     <span>Medidas Aproximadas ou Quantidade</span>
-                    <span className="text-[10px] text-slate-500 font-normal">Ex: 2 janelas 1.50x1.20m</span>
+                    <span className="text-[10px] text-slate-400 font-normal">Ex: 2 janelas 1.50x1.20m</span>
                   </label>
                   <input
                     type="text"
                     value={dimensions}
                     onChange={(e) => setDimensions(e.target.value)}
                     placeholder="Ex: Porta 1.20m x 2.40m ou Medição no local"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300"
                   />
                 </div>
 
@@ -206,7 +208,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
 
                   <button
                     onClick={() => setStep(3)}
-                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs py-3 px-6 rounded-xl shadow-md flex items-center space-x-2 cursor-pointer"
+                    className="btn-metal font-bold text-xs py-3 px-6 rounded-md shadow-md flex items-center space-x-2 cursor-pointer"
                   >
                     <span>Próximo Passo</span>
                     <ArrowRight className="w-4 h-4" />
@@ -223,7 +225,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                 exit={{ opacity: 0, x: -20 }}
                 className="space-y-4"
               >
-                <div className="flex items-center space-x-2 text-sm font-semibold text-cyan-400">
+                <div className="flex items-center space-x-2 text-sm font-semibold text-steel-300">
                   <Phone className="w-4 h-4" />
                   <span>3. Dados para envio no WhatsApp</span>
                 </div>
@@ -239,7 +241,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                       value={clientName}
                       onChange={(e) => setClientName(e.target.value)}
                       placeholder="Ex: Roberto Alves"
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300"
                     />
                   </div>
 
@@ -253,7 +255,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                       value={clientCity}
                       onChange={(e) => setClientCity(e.target.value)}
                       placeholder="Ex: Presidente Prudente - Jardim Bongiovani"
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300"
                     />
                   </div>
 
@@ -266,13 +268,13 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
                       value={additionalNotes}
                       onChange={(e) => setAdditionalNotes(e.target.value)}
                       placeholder="Gostaria de agendar uma medição sem compromisso na obra..."
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 resize-none"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300 resize-none"
                     />
                   </div>
 
                   {/* Summary Box */}
-                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-400 space-y-1">
-                    <span className="font-semibold text-cyan-400 block">Resumo da Solicitação:</span>
+                  <div className="p-3 rounded-md bg-slate-950 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                    <span className="font-semibold text-steel-300 block">Resumo da Solicitação:</span>
                     <p className="truncate">• Projeto: <strong className="text-white">{projectType}</strong></p>
                     <p className="truncate">• Cor: <strong className="text-white">{finishColor}</strong></p>
                   </div>
@@ -289,7 +291,7 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
 
                     <button
                       type="submit"
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3.5 px-6 rounded-xl shadow-lg shadow-emerald-900/30 flex items-center justify-center space-x-2 transition cursor-pointer"
+                      className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3.5 px-6 rounded-md shadow-lg shadow-emerald-900/30 flex items-center justify-center space-x-2 transition cursor-pointer"
                     >
                       <Send className="w-4 h-4" />
                       <span>Enviar Orçamento via WhatsApp</span>

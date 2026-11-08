@@ -3,15 +3,16 @@ import Link from "next/link";
 import { ArrowLeft, FileText, AlertCircle, CheckCircle, Scale, Ban, Zap } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Termos de Serviço | Alfa Esquadrias",
+  title: "Termos de Serviço",
   description: "Termos de serviço da Alfa Esquadrias de Alumínio. Conheça as condições de uso de nossos serviços.",
+  alternates: { canonical: "/termos/" },
 };
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-[#090d16]">
+    <div className="min-h-screen bg-[#0b111b]">
       {/* Header */}
-      <header className="border-b border-white/5 bg-[#0a0f1e]/95 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b border-white/5 bg-[#0d1522]/95 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-6 py-4">
           <Link 
             href="/" 
@@ -27,8 +28,8 @@ export default function TermsPage() {
       <main className="max-w-4xl mx-auto px-6 py-16">
         {/* Title */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 mb-6">
-            <Scale className="w-8 h-8 text-cyan-400" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-steel-300/10 to-steel-400/10 border border-steel-300/20 mb-6">
+            <Scale className="w-8 h-8 text-steel-300" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Termos de Serviço
@@ -39,13 +40,13 @@ export default function TermsPage() {
         </div>
 
         {/* Content */}
-        <div className="prose prose-invert prose-cyan max-w-none">
+        <div className="prose prose-invert max-w-none">
           <div className="card p-8 mb-8 space-y-8">
             
             {/* Introdução */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <FileText className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <FileText className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">1. Aceitação dos Termos</h2>
                   <p className="text-slate-300 leading-relaxed">
@@ -61,7 +62,7 @@ export default function TermsPage() {
             {/* Serviços */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <Zap className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <Zap className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">2. Nossos Serviços</h2>
                   <p className="text-slate-300 leading-relaxed mb-3">
@@ -82,7 +83,7 @@ export default function TermsPage() {
             {/* Orçamentos */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <FileText className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <FileText className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">3. Orçamentos e Contratação</h2>
                   
@@ -108,7 +109,7 @@ export default function TermsPage() {
             {/* Prazos */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <AlertCircle className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <AlertCircle className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">4. Prazos e Entrega</h2>
                   <p className="text-slate-300 leading-relaxed mb-3">
@@ -134,7 +135,7 @@ export default function TermsPage() {
             {/* Garantia */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <CheckCircle className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <CheckCircle className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">5. Garantia</h2>
                   
@@ -167,7 +168,7 @@ export default function TermsPage() {
             {/* Pagamento */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <FileText className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <FileText className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">6. Pagamento</h2>
                   
@@ -194,7 +195,7 @@ export default function TermsPage() {
             {/* Cancelamento */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <Ban className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <Ban className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">7. Cancelamento e Devolução</h2>
                   
@@ -225,7 +226,7 @@ export default function TermsPage() {
             {/* Responsabilidades */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <Scale className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <Scale className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">8. Responsabilidades</h2>
                   
@@ -253,7 +254,7 @@ export default function TermsPage() {
             {/* Limitação */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <AlertCircle className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <AlertCircle className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">9. Limitação de Responsabilidade</h2>
                   <p className="text-slate-300 leading-relaxed mb-3">
@@ -275,7 +276,7 @@ export default function TermsPage() {
             {/* Propriedade Intelectual */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <FileText className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <FileText className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">10. Propriedade Intelectual</h2>
                   <p className="text-slate-300 leading-relaxed">
@@ -288,7 +289,7 @@ export default function TermsPage() {
             {/* Lei Aplicável */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <Scale className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <Scale className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">11. Lei Aplicável e Foro</h2>
                   <p className="text-slate-300 leading-relaxed">
@@ -301,7 +302,7 @@ export default function TermsPage() {
             {/* Alterações */}
             <section>
               <div className="flex items-start space-x-3 mb-4">
-                <FileText className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <FileText className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">12. Alterações nos Termos</h2>
                   <p className="text-slate-300 leading-relaxed">
@@ -312,9 +313,9 @@ export default function TermsPage() {
             </section>
 
             {/* Contato */}
-            <section className="bg-gradient-to-br from-cyan-500/5 to-blue-500/5 border border-cyan-500/20 rounded-xl p-6">
+            <section className="bg-gradient-to-br from-steel-300/5 to-steel-400/5 border border-steel-300/20 rounded-xl p-6">
               <div className="flex items-start space-x-3">
-                <FileText className="w-5 h-5 text-cyan-400 mt-1 shrink-0" />
+                <FileText className="w-5 h-5 text-steel-300 mt-1 shrink-0" />
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-3">13. Contato</h2>
                   <p className="text-slate-300 leading-relaxed mb-4">
@@ -322,9 +323,9 @@ export default function TermsPage() {
                   </p>
                   <div className="space-y-2 text-slate-300">
                     <p><strong className="text-white">Empresa:</strong> Alfa Esquadrias de Alumínio</p>
-                    <p><strong className="text-white">Email:</strong> <a href="mailto:contato@alfaesquadrias.com.br" className="text-cyan-400 hover:text-cyan-300">contato@alfaesquadrias.com.br</a></p>
-                    <p><strong className="text-white">Telefone:</strong> <a href="tel:1839045308" className="text-cyan-400 hover:text-cyan-300">(18) 3904-5308</a></p>
-                    <p><strong className="text-white">WhatsApp:</strong> <a href="https://wa.me/551839045308" className="text-cyan-400 hover:text-cyan-300">(18) 3904-5308</a></p>
+                    <p><strong className="text-white">Email:</strong> <a href="mailto:contato@alfaesquadrias.com.br" className="text-steel-300 hover:text-steel-200">contato@alfaesquadrias.com.br</a></p>
+                    <p><strong className="text-white">Telefone:</strong> <a href="tel:1839045308" className="text-steel-300 hover:text-steel-200">(18) 3904-5308</a></p>
+                    <p><strong className="text-white">WhatsApp:</strong> <a href="https://wa.me/551839045308" className="text-steel-300 hover:text-steel-200">(18) 3904-5308</a></p>
                     <p><strong className="text-white">Endereço:</strong> Av. Joaquim Constantino, 1880 - Vila Nova Prudente, Presidente Prudente - SP, 19050-220</p>
                     <p><strong className="text-white">Horário:</strong> Segunda a Sexta, 08:00 às 18:00</p>
                   </div>
@@ -339,7 +340,7 @@ export default function TermsPage() {
         <div className="text-center mt-12">
           <Link 
             href="/"
-            className="inline-flex items-center space-x-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-6 py-3 rounded-xl transition"
+            className="inline-flex items-center space-x-2 btn-metal font-semibold px-6 py-3 rounded-xl transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Voltar ao Site</span>
@@ -349,7 +350,7 @@ export default function TermsPage() {
 
       {/* Footer */}
       <footer className="border-t border-white/5 py-8">
-        <div className="max-w-4xl mx-auto px-6 text-center text-slate-500 text-sm">
+        <div className="max-w-4xl mx-auto px-6 text-center text-slate-400 text-sm">
           <p>© {new Date().getFullYear()} Alfa Esquadrias de Alumínio. Todos os direitos reservados.</p>
         </div>
       </footer>

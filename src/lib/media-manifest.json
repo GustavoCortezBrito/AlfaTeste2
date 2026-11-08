@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "image": "/media/hero.webp",
+    "image1280": "/media/hero-1280.webp",
+    "width": 2560,
+    "height": 1429,
+    "video": "/media/hero.mp4",
+    "videoWidth": 1920,
+    "videoHeight": 1080
+  },
+  "story-1": {
+    "image": "/media/story-1.webp",
+    "image1280": "/media/story-1-1280.webp",
+    "width": 2560,
+    "height": 1429
+  },
+  "story-2": {
+    "image": "/media/story-2.webp",
+    "image1280": "/media/story-2-1280.webp",
+    "width": 2560,
+    "height": 1429
+  },
+  "story-3": {
+    "image": "/media/story-3.webp",
+    "image1280": "/media/story-3-1280.webp",
+    "width": 2560,
+    "height": 1429
+  },
+  "about-wide": {
+    "image": "/media/about-wide.webp",
+    "image1280": "/media/about-wide-1280.webp",
+    "width": 2560,
+    "height": 1429
+  }
+}
