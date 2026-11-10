@@ -14,7 +14,8 @@ interface HeroProps {
 const FALLBACK_POSTER = "/projetos-reais/residencial.webp";
 const easeOut = [0.23, 1, 0.32, 1] as const;
 
-// A tela de carregamento cobre a página por ~1,2 s: o Hero só entra depois dela.
+// A tela de carregamento cobre a página até ~1,2 s e a cortina sobe até ~1,7 s:
+// a entrada do Hero começa enquanto ela sobe.
 const START = 1.0;
 
 /**

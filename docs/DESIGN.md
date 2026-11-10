@@ -84,12 +84,16 @@ Botões: `:active → scale(.97)`; transições 180 ms com `--ease-out-strong`.
 | `AboutSection` | Título grande + imagem larga + 2 colunas. |
 | `ServicesSection` | Abas mono + grade de 3 colunas + modal de detalhes. |
 | `DifferentialsSection` | Título + amostras de acabamento + lista com divisores. |
-| `PortfolioSection` | Abas + grade de 2 colunas (fotos reais) + lightbox; mostra 6 e expande. |
+| `PortfolioSection` | Abas por tipo (Portas e janelas · Portões · Vidros · Comercial) + grade de 2 colunas (22 fotos reais) + lightbox; mostra 6 e expande. |
 | `TestimonialsSection`, `FaqSection`, `ContactSection` | Texto/acordeão/formulário em painéis de borda fina. |
-| `Footer` | 4 colunas, legais, ícones, marca gigante com grão. |
-| `LogoMark` | "A" vetorial da logotipo. |
+| `CalculatorModal`, `FacadeModal` | Modais em `.panel`: rótulo mono, título condensado, campos de borda fina, ação em `btn-metal`. |
+| `Footer` | 4 colunas, legais, ícones oficiais (Instagram/WhatsApp), marca gigante com grão e efeito lanterna (`FooterWordmark`). |
+| `WhatsAppFloating` | Pílula escura fixa (logotipo oficial + "WhatsApp" em mono, ponto verde da marca) que abre um painel com assuntos prontos ou mensagem livre. Sem selo falso nem pulso. |
+| `BrandIcons` | Logotipos de marca (Simple Icons via react-icons), atrás de um `"use client"`. |
+| `LogoMark` | "A" vetorial da logotipo (exporta a geometria para o loading). |
 | `SectionHeader` | Título condensado + frase de apoio. |
-| `Loading` | Sobreposição de marca (~1,2 s) sobre a página já renderizada. |
+| `Loading` | Sobreposição de marca (~1,7 s) sobre a página já renderizada: "A" desenhado em traço → metálico → cortina sobe. CSS puro. |
+| `SmoothScroll` | Lenis (rolagem suave) só na roda do mouse/trackpad. |
 
 ## 6. Movimento (framer-motion)
 
@@ -100,12 +104,16 @@ Botões: `:active → scale(.97)`; transições 180 ms com `--ease-out-strong`.
 | SectionNav | Entra/sai ao passar o Hero | 220 ms, `y: -20` |
 | Menu | Fade + links com atraso de 40 ms | 250 ms / 350 ms |
 | Filtros, modais | Layout/fade responde à ação | 200–250 ms |
+| Loading | **CSS puro** (roda antes da hidratação, fora da thread principal): traço do "A" com `stroke-dashoffset` + preenchimento + cortina `translateY(-100%)` | traço 700 ms `cubic-bezier(.77,0,.175,1)`; cortina 520 ms ease-out a partir de 1,15 s; com "reduzir movimento": marca parada e fade de 200 ms |
+| Rodapé (lanterna) | Máscara radial que segue o cursor sobre a marca gigante (camada metálica sobre a apagada) | spring `stiffness 300 / damping 34`; só com mouse; sem atraso com "reduzir movimento" |
+| WhatsApp | Painel nasce do botão (`transform-origin: bottom right`) | 200 ms, `scale .96 → 1` + fade |
+| Rolagem | Lenis `lerp .1`, só roda do mouse/trackpad (toque nativo); âncoras suaves respeitam `scroll-padding-top`; desligado com "reduzir movimento" | — |
 
 Regras: easing `cubic-bezier(.23,1,.32,1)`; nada de `ease-in`, `scale(0)`, `transition: all`; `MotionConfig reducedMotion="user"`; hovers só em `transform`/`opacity`/cor (≤ 1.03).
 
 ## 7. Mídia
 
-Vídeos e imagens de ambientação vêm do Higgsfield (veja [MEDIA.md](MEDIA.md)). **Portfólio e catálogo usam só fotos reais.** Todas as imagens do site são WebP.
+O vídeo e o pôster do Hero vêm do Higgsfield; StoryScroll, "A Alfa", catálogo e portfólio usam **fotos reais** de obras da Alfa, recortadas e ampliadas (veja [MEDIA.md](MEDIA.md)). Todas as imagens do site são WebP.
 
 ## 8. Regras ao evoluir
 
@@ -120,6 +128,4 @@ Vídeos e imagens de ambientação vêm do Higgsfield (veja [MEDIA.md](MEDIA.md)
 
 ## 9. Pendências
 
-- Gerar a mídia do Higgsfield (`npm run media`) e conferir a resolução real dos vídeos (1080p não está documentado para os modelos públicos).
-- As imagens do catálogo (`porta-pivotante`, `janela-integrada`, `pele-de-vidro`, `box-banheiro`) parecem renders/estoque, não obras da Alfa — substituir por fotos reais.
 - Horário e bairro inconsistentes entre seções (veja `CLAUDE.md`).

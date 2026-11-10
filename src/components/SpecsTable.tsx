@@ -3,7 +3,7 @@
  * (o bloco "Performance" da referência). Valores tirados do catálogo do próprio site.
  */
 const specs = [
-  { label: "Experiência", value: "+15 anos" },
+  { label: "Fundada em", value: "2024" },
   { label: "Vidro temperado", value: "8 e 10 mm" },
   { label: "Altura sob medida", value: "até 6 m" },
   { label: "Acabamentos", value: "5 cores" },

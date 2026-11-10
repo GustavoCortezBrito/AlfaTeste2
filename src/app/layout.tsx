@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     template: "%s | Alfa Esquadrias"
   },
   description:
-    "Esquadrias de alumínio sob medida em Presidente Prudente. Portas pivotantes, janelas, box, pele de vidro. 15 anos. Orçamento grátis!",
+    "Esquadrias de alumínio sob medida em Presidente Prudente. Portas pivotantes, janelas, box, pele de vidro. Orçamento grátis!",
   
   keywords: [
     // Principais
@@ -322,7 +322,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-[#05080d] text-slate-100 antialiased selection:bg-steel-300 selection:text-slate-900 flex flex-col">
+      <body className="min-h-screen bg-ink-950 text-paper antialiased selection:bg-steel-300 selection:text-ink-950 flex flex-col">
         <SeoContent />
         {children}
       </body>

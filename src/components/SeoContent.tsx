@@ -9,7 +9,7 @@ export default function SeoContent() {
         <h2>Especialista em Esquadrias de Alumínio e Vidros Temperados</h2>
         <p>
           A Alfa Esquadrias é especialista em fabricação e instalação de esquadrias de alumínio sob medida e vidros temperados em Presidente Prudente - SP. 
-          Com mais de 15 anos de experiência no mercado, oferecemos soluções completas para projetos residenciais, comerciais e corporativos em toda a região.
+          Fundada em 2024 por Claudemir e Ligia, profissionais com anos de experiência no ramo de esquadrias, oferecemos soluções completas para projetos residenciais, comerciais e corporativos em toda a região.
           Nossa empresa se destaca pela qualidade dos materiais utilizados, mão de obra especializada e compromisso com prazos de entrega.
         </p>
         
@@ -95,7 +95,7 @@ export default function SeoContent() {
         
         <h3>Por Que Escolher a Alfa Esquadrias?</h3>
         <p>
-          Além da experiência de mais de 15 anos no mercado, oferecemos diferenciais importantes: mão de obra própria e qualificada,
+          Além da experiência dos sócios no ramo de esquadrias, oferecemos diferenciais importantes: mão de obra própria e qualificada,
           matéria-prima certificada, showroom físico para visualização dos produtos, projetos personalizados desenvolvidos por
           profissionais experientes, prazo de entrega cumprido rigorosamente e assistência técnica completa durante todo o período
           de garantia. Nossos clientes também valorizam nosso atendimento humanizado e transparente em todas as etapas do projeto.
@@ -132,7 +132,7 @@ export default function SeoContent() {
         
         <p>
           Somos referência em esquadrias de alumínio na região de Presidente Prudente. Atendemos com qualidade e 
-          pontualidade há mais de 15 anos. Nossa vidraçaria oferece vidros temperados com certificação de segurança.
+          pontualidade, com a experiência de quem trabalha com esquadrias há anos. Nossa vidraçaria oferece vidros temperados com certificação de segurança.
           Trabalhamos com mão de obra qualificada e materiais de primeira linha, sempre buscando a excelência em cada projeto
           executado. A satisfação dos nossos clientes é nossa maior conquista e motiva nossa equipe a entregar sempre o melhor.
         </p>

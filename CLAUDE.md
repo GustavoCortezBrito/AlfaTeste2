@@ -3,7 +3,7 @@
 Site institucional (landing page única) da **Alfa Esquadrias de Alumínio**, Presidente Prudente - SP. Conteúdo, UI e comentários em **português (pt-BR)**; mantenha esse idioma em textos visíveis e commits (padrão `feat:` / `fix:`).
 
 ## Stack
-Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · framer-motion · lucide-react · @tsparticles · canvas-confetti · Resend (e-mail). Alias `@/*` → `src/*`.
+Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS 4 · framer-motion · lenis (rolagem suave) · lucide-react · react-icons (só logotipos de marca, via `BrandIcons.tsx`) · @tsparticles · Resend (e-mail). Alias `@/*` → `src/*`.
 
 ## Comandos
 ```bash
@@ -16,13 +16,14 @@ Não há testes automatizados. Verifique mudanças com `tsc` + `lint` + `build`.
 Cuidado: `next build` e `next dev` compartilham `.next/` — não rode o build com o dev server aberto.
 
 ## Arquitetura
-- `src/app/page.tsx` — **client component** único: sobreposição `Loading` (~1,2 s; o conteúdo já está no HTML) sobre `SiteHeader`, `SectionNav` (pílula flutuante) e, no `main`: Hero, StoryScroll, SpecsTable, About, Services, Differentials, Portfolio, Testimonials, FAQ, Contact, Footer. Guarda o estado dos modais (`CalculatorModal`, `FacadeModal`).
+- `src/app/page.tsx` — **client component** único: sobreposição `Loading` (animação em **CSS puro**, classes `.loader-*` em `globals.css`; some em ~1,7 s; o conteúdo já está no HTML) e `SmoothScroll` (Lenis) sobre `SiteHeader`, `SectionNav` (pílula flutuante) e, no `main`: Hero, StoryScroll, SpecsTable, About, Services, Differentials, Portfolio, Testimonials, FAQ, Contact, Footer. Guarda o estado dos modais (`CalculatorModal` remonta a cada abertura via `key`, `FacadeModal`).
+- Rolagem: `src/lib/scroll.ts` guarda a instância do Lenis e expõe `useScrollLock(ativo)` (trava o fundo em modais/menu) e `scrollToId(id)`.
 - Mídia de ambientação (vídeo/WebP do Higgsfield): `src/lib/media.ts` + `media-manifest.json`; gerador em `scripts/higgsfield.mjs` (veja `docs/MEDIA.md`). Sem mídia gerada, cada slot usa uma foto real de fallback.
 - `src/app/layout.tsx` — metadata/SEO, JSON-LD (`@graph`: Organization, WebSite, LocalBusiness, BreadcrumbList), fontes (Inter, Montserrat), `<SeoContent />` (texto oculto fora da tela para crawlers).
 - `src/app/privacidade`, `src/app/termos` — páginas estáticas (cada uma define seu próprio `canonical`).
 - `src/app/api/send-email/route.ts` — recebe o formulário de `ContactSection` e envia via Resend.
 - `src/lib/contact.ts` — validação, sanitização, escape de HTML e template do e-mail. `src/lib/rate-limit.ts` — limitador em memória.
-- Orçamento por WhatsApp: `CalculatorModal`, `WhatsAppFloating` e o pós-envio do `ContactSection` abrem `wa.me/551839045308?text=…`. **Sempre** use `encodeURIComponent` no texto.
+- Orçamento por WhatsApp: `CalculatorModal`, `WhatsAppFloating`, `FacadeModal` e o pós-envio do `ContactSection` abrem `wa.me/551839045308?text=…`. **Sempre** use `encodeURIComponent` no texto — o helper `whatsappLink(texto)` de `src/lib/site.ts` já faz isso.
 
 ## API `/api/send-email/` (POST)
 Camadas de proteção, nesta ordem: mesma origem (`Origin` == `Host`) → `Content-Type: application/json` → tamanho máx. 20 KB → rate limit (5 req/10 min/IP, best-effort em serverless) → JSON válido → honeypot (`website` preenchido = bot, responde 200 sem enviar) → validação de tipos/tamanhos/e-mail/telefone/`productType` (allowlist em `PRODUCT_TYPES`) → envio. Todo valor do usuário passa por `escapeHtml` antes de entrar no HTML do e-mail; assunto/campos de linha única têm caracteres de controle removidos.
@@ -46,6 +47,10 @@ Camadas de proteção, nesta ordem: mesma origem (`Origin` == `Host`) → `Conte
 - Existem 2 `<h1>` na página: um `sr-only` no `Hero` e outro oculto em `SeoContent`. Cuidado ao mexer na hierarquia de headings.
 - `npm run media` **gasta crédito** do Higgsfield: sem `--yes` só mostra o plano. Nunca imprima nem versione `HF_CREDENTIALS`. 1080p de vídeo não está documentado para os modelos públicos — o gerador mede a resolução real do MP4.
 - Imagens em `public/` **não podem começar com ponto** (o servidor responde 400).
+- Lenis: com um modal aberto ele **para** e bloqueia a roda do mouse fora de áreas com `data-lenis-prevent`. Todo overlay novo precisa de `useScrollLock(aberto)` e `data-lenis-prevent` no contêiner que rola. Links de âncora dentro de overlays: role **depois** de fechar (veja o `SiteHeader`).
+- `next/image`: o Next 16 só aceita as qualidades de `images.qualities` (`next.config.ts`: 75, 85, 90). Outro valor é rebaixado em silêncio.
+- Trocar uma imagem mantendo o mesmo nome em `public/` deixa o dev server servindo a versão antiga otimizada (`.next/dev/cache/images`) — apague esse cache.
+- `react-icons` cria um React Context ao carregar: use só pelos wrappers de `src/components/BrandIcons.tsx` (client), nunca direto num Server Component.
 - Dados inconsistentes no site que pedem confirmação do cliente: horário (Footer diz Seg–Sex 07:30–18h e Sáb 08–12h; JSON-LD/SeoContent/ai-context dizem Seg–Sex 08–18h) e bairro (Footer: Vila Formosa; ContactSection/ai-context: Vila Nova Prudente).
 
 ## Design (resumo — detalhes em `docs/DESIGN.md` e no artifact "Alfa Esquadrias — Design System")

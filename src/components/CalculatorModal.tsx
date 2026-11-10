@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Sparkles, Check, ArrowRight, ArrowLeft, Send, Layers, Palette, Phone } from "lucide-react";
-import confetti from "canvas-confetti";
+import { X, Check, ArrowRight, ArrowLeft } from "lucide-react";
+import { WhatsAppIcon } from "./BrandIcons";
+import { whatsappLink } from "@/lib/site";
+import { useScrollLock } from "@/lib/scroll";
 
 interface CalculatorModalProps {
   isOpen: boolean;
@@ -11,43 +13,59 @@ interface CalculatorModalProps {
   initialProduct?: string;
 }
 
+const ease = [0.23, 1, 0.32, 1] as const;
+
+const projectOptions = [
+  "Porta pivotante / painel ripado",
+  "Janelas integradas",
+  "Pele de vidro / fachada",
+  "Box para banheiro",
+  "Fechamento de sacada / varanda",
+  "Guarda-corpo e corrimão",
+  "Cobertura / pergolado em vidro",
+  "Outro projeto sob medida",
+];
+
+const colorOptions = ["Preto fosco", "Amadeirado", "Branco", "Bronze", "Anodizado natural"];
+
+const fieldClass =
+  "w-full rounded-md border border-white/15 bg-transparent px-4 py-3 text-sm text-white transition-colors hover:border-white/30";
+
+const optionClass = (selected: boolean) =>
+  `flex w-full cursor-pointer items-center justify-between gap-3 rounded-md border px-4 py-3 text-left text-sm transition-colors ${
+    selected
+      ? "border-white bg-white/[0.06] text-white"
+      : "border-white/12 text-steel-200 hover:border-white/35 hover:text-white"
+  }`;
+
+/** Simulador em 3 passos que monta a mensagem de orçamento e abre o WhatsApp. */
 export default function CalculatorModal({ isOpen, onClose, initialProduct }: CalculatorModalProps) {
   const [step, setStep] = useState(1);
-  const [projectType, setProjectType] = useState(initialProduct || "Porta Pivotante / Painel Alumínio");
-  const [finishColor, setFinishColor] = useState("Preto Fosco");
+  const [projectType, setProjectType] = useState(initialProduct || projectOptions[0]);
+  const [finishColor, setFinishColor] = useState(colorOptions[0]);
   const [dimensions, setDimensions] = useState("");
   const [clientName, setClientName] = useState("");
   const [clientCity, setClientCity] = useState("Presidente Prudente");
   const [additionalNotes, setAdditionalNotes] = useState("");
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  const projectOptions = [
-    "Porta Pivotante / Painel Alumínio",
-    "Janelas Integradas Automáticas",
-    "Pele de Vidro / Fachada ACM",
-    "Box para Banheiro Elegance/Vidro",
-    "Fechamento de Sacada / Varanda",
-    "Guarda-Corpo & Corrimão",
-    "Cobertura / Pergolado em Vidro",
-    "Outro Projeto Sob Medida",
-  ];
+  useScrollLock(isOpen);
 
-  const colorOptions = [
-    "Preto Fosco (Blackout)",
-    "Amadeirado Nobre",
-    "Branco Neve",
-    "Bronze Industrial",
-    "Anodizado Inox / Prata",
-  ];
+  // Foco no "fechar" só ao abrir (o onClose do pai muda a cada render)
+  useEffect(() => {
+    if (isOpen) closeRef.current?.focus();
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, onClose]);
 
   const handleSendToWhatsApp = (e: React.FormEvent) => {
     e.preventDefault();
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
-
-    const message = encodeURIComponent(
+    const message =
       `*SOLICITAÇÃO DE ORÇAMENTO - ALFA ESQUADRIAS*\n\n` +
       `*Cliente:* ${clientName || "Não informado"}\n` +
       `*Cidade/Região:* ${clientCity}\n` +
@@ -55,254 +73,220 @@ export default function CalculatorModal({ isOpen, onClose, initialProduct }: Cal
       `*Acabamento/Cor:* ${finishColor}\n` +
       `*Medidas/Quantidades:* ${dimensions || "A combinar na medição"}\n` +
       `*Observações:* ${additionalNotes || "Nenhuma"}\n\n` +
-      `_Enviado pelo site oficial Alfa Esquadrias_`
-    );
-
-    const whatsappUrl = `https://wa.me/551839045308?text=${message}`;
-
-    setTimeout(() => {
-      window.open(whatsappUrl, "_blank");
-      onClose();
-    }, 400);
+      `_Enviado pelo site oficial Alfa Esquadrias_`;
+    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
+    onClose();
   };
 
-  if (!isOpen) return null;
+  const stepMotion = {
+    initial: { opacity: 0, x: 12 },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -12 },
+    transition: { duration: 0.2, ease },
+  };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 10 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 10 }}
-        className="bg-slate-900 border border-slate-700/80 rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl relative"
-      >
-        {/* Header */}
-        <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="p-2.5 rounded-md bg-steel-300/20 text-steel-300">
-              <Sparkles className="w-5 h-5" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white">Simulador de Orçamento Interativo</h3>
-              <p className="text-slate-400 text-xs">Passo {step} de 3 • Rápido & Sem Compromisso</p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="calculator"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease }}
+          onClick={onClose}
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
+        >
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="calc-title"
+            initial={{ opacity: 0, scale: 0.97, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 8 }}
+            transition={{ duration: 0.2, ease }}
+            onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent
+            className="panel relative flex max-h-[92vh] w-full max-w-xl flex-col overflow-hidden"
           >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="w-full bg-slate-950 h-1.5">
-          <div
-            className="bg-gradient-to-r from-steel-300 to-steel-500 h-full transition duration-300"
-            style={{ width: `${(step / 3) * 100}%` }}
-          />
-        </div>
-
-        {/* Content Body */}
-        <div className="p-6">
-          <AnimatePresence mode="wait">
-            {step === 1 && (
-              <motion.div
-                key="step1"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="space-y-4"
+            {/* Cabeçalho */}
+            <div className="flex items-start justify-between gap-4 border-b border-white/12 px-6 py-5">
+              <div>
+                <p className="label-mono">Passo {step} de 3</p>
+                <h3 id="calc-title" className="mt-2 text-4xl font-semibold text-white">
+                  Simular projeto
+                </h3>
+              </div>
+              <button
+                ref={closeRef}
+                type="button"
+                onClick={onClose}
+                aria-label="Fechar"
+                className="cursor-pointer rounded p-2 text-steel-300 transition-colors hover:bg-white/10 hover:text-white"
               >
-                <div className="flex items-center space-x-2 text-sm font-semibold text-steel-300">
-                  <Layers className="w-4 h-4" />
-                  <span>1. Qual tipo de projeto você precisa?</span>
-                </div>
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+            </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[300px] overflow-y-auto pr-1">
-                  {projectOptions.map((opt) => (
-                    <button
-                      key={opt}
-                      onClick={() => setProjectType(opt)}
-                      className={`p-3 rounded-lg text-xs font-medium text-left transition flex items-center justify-between border cursor-pointer ${
-                        projectType === opt
-                          ? "bg-steel-300/20 border-steel-300 text-white font-semibold shadow-md"
-                          : "bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white"
-                      }`}
-                    >
-                      <span className="truncate">{opt}</span>
-                      {projectType === opt && <Check className="w-4 h-4 text-steel-300 shrink-0 ml-2" />}
-                    </button>
-                  ))}
-                </div>
+            {/* Progresso */}
+            <div className="h-px w-full bg-white/12" aria-hidden="true">
+              <div
+                className="h-full origin-left bg-white transition-transform duration-300"
+                style={{ transform: `scaleX(${step / 3})` }}
+              />
+            </div>
 
-                <div className="pt-4 flex justify-end">
-                  <button
-                    onClick={() => setStep(2)}
-                    className="btn-metal font-bold text-xs py-3 px-6 rounded-md shadow-md flex items-center space-x-2 cursor-pointer"
-                  >
-                    <span>Próximo Passo</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </motion.div>
-            )}
-
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="space-y-4"
-              >
-                <div className="flex items-center space-x-2 text-sm font-semibold text-steel-300">
-                  <Palette className="w-4 h-4" />
-                  <span>2. Escolha o acabamento e informe as medidas (opcional)</span>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-2">
-                    Acabamento / Cor do Alumínio
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {colorOptions.map((color) => (
+            <div className="overflow-y-auto p-6">
+              <AnimatePresence mode="wait" initial={false}>
+                {step === 1 && (
+                  <motion.div key="step1" {...stepMotion} className="space-y-5">
+                    <p className="text-lg text-steel-100">Qual projeto você precisa?</p>
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                      {projectOptions.map((opt) => (
+                        <button key={opt} type="button" onClick={() => setProjectType(opt)} className={optionClass(projectType === opt)}>
+                          <span>{opt}</span>
+                          {projectType === opt && <Check className="h-4 w-4 shrink-0" aria-hidden="true" />}
+                        </button>
+                      ))}
+                    </div>
+                    {!projectOptions.includes(projectType) && (
+                      <p className="label-mono">Selecionado: {projectType}</p>
+                    )}
+                    <div className="flex justify-end pt-2">
                       <button
-                        key={color}
-                        onClick={() => setFinishColor(color)}
-                        className={`p-2.5 rounded-md text-xs font-medium text-left border transition flex items-center justify-between cursor-pointer ${
-                          finishColor === color
-                            ? "bg-steel-300/20 border-steel-300 text-white"
-                            : "bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700"
-                        }`}
+                        type="button"
+                        onClick={() => setStep(2)}
+                        className="btn-metal label-mono flex cursor-pointer items-center gap-2 rounded-md px-6 py-3.5 !text-ink-950"
                       >
-                        <span>{color}</span>
-                        {finishColor === color && <Check className="w-3.5 h-3.5 text-steel-300" />}
+                        Próximo <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </button>
-                    ))}
-                  </div>
-                </div>
+                    </div>
+                  </motion.div>
+                )}
 
-                <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center justify-between">
-                    <span>Medidas Aproximadas ou Quantidade</span>
-                    <span className="text-[10px] text-slate-400 font-normal">Ex: 2 janelas 1.50x1.20m</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={dimensions}
-                    onChange={(e) => setDimensions(e.target.value)}
-                    placeholder="Ex: Porta 1.20m x 2.40m ou Medição no local"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300"
-                  />
-                </div>
+                {step === 2 && (
+                  <motion.div key="step2" {...stepMotion} className="space-y-5">
+                    <div>
+                      <p className="label-mono mb-3">Acabamento do alumínio</p>
+                      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                        {colorOptions.map((color) => (
+                          <button key={color} type="button" onClick={() => setFinishColor(color)} className={optionClass(finishColor === color)}>
+                            <span>{color}</span>
+                            {finishColor === color && <Check className="h-4 w-4 shrink-0" aria-hidden="true" />}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-                <div className="pt-4 flex items-center justify-between">
-                  <button
-                    onClick={() => setStep(1)}
-                    className="text-slate-400 hover:text-white text-xs font-semibold flex items-center space-x-1 cursor-pointer"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span>Voltar</span>
-                  </button>
+                    <div>
+                      <label htmlFor="calc-dimensions" className="label-mono mb-2 flex items-center justify-between gap-3">
+                        <span>Medidas ou quantidade</span>
+                        <span className="normal-case tracking-normal !text-steel-400">opcional</span>
+                      </label>
+                      <input
+                        id="calc-dimensions"
+                        type="text"
+                        value={dimensions}
+                        onChange={(e) => setDimensions(e.target.value)}
+                        placeholder="Ex.: 2 janelas de 1,50 × 1,20 m"
+                        className={fieldClass}
+                      />
+                    </div>
 
-                  <button
-                    onClick={() => setStep(3)}
-                    className="btn-metal font-bold text-xs py-3 px-6 rounded-md shadow-md flex items-center space-x-2 cursor-pointer"
-                  >
-                    <span>Próximo Passo</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </motion.div>
-            )}
+                    <div className="flex items-center justify-between pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setStep(1)}
+                        className="label-mono flex cursor-pointer items-center gap-2 transition-colors hover:!text-white"
+                      >
+                        <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Voltar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setStep(3)}
+                        className="btn-metal label-mono flex cursor-pointer items-center gap-2 rounded-md px-6 py-3.5 !text-ink-950"
+                      >
+                        Próximo <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
 
-            {step === 3 && (
-              <motion.div
-                key="step3"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                className="space-y-4"
-              >
-                <div className="flex items-center space-x-2 text-sm font-semibold text-steel-300">
-                  <Phone className="w-4 h-4" />
-                  <span>3. Dados para envio no WhatsApp</span>
-                </div>
+                {step === 3 && (
+                  <motion.div key="step3" {...stepMotion}>
+                    <form onSubmit={handleSendToWhatsApp} className="space-y-4">
+                      <div>
+                        <label htmlFor="calc-name" className="label-mono mb-2 block">Seu nome</label>
+                        <input
+                          id="calc-name"
+                          type="text"
+                          required
+                          value={clientName}
+                          onChange={(e) => setClientName(e.target.value)}
+                          autoComplete="name"
+                          className={fieldClass}
+                        />
+                      </div>
 
-                <form onSubmit={handleSendToWhatsApp} className="space-y-3">
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Seu Nome
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={clientName}
-                      onChange={(e) => setClientName(e.target.value)}
-                      placeholder="Ex: Roberto Alves"
-                      className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300"
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="calc-city" className="label-mono mb-2 block">Cidade / bairro</label>
+                        <input
+                          id="calc-city"
+                          type="text"
+                          required
+                          value={clientCity}
+                          onChange={(e) => setClientCity(e.target.value)}
+                          className={fieldClass}
+                        />
+                      </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Sua Cidade / Bairro
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={clientCity}
-                      onChange={(e) => setClientCity(e.target.value)}
-                      placeholder="Ex: Presidente Prudente - Jardim Bongiovani"
-                      className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300"
-                    />
-                  </div>
+                      <div>
+                        <label htmlFor="calc-notes" className="label-mono mb-2 block">Observações (opcional)</label>
+                        <textarea
+                          id="calc-notes"
+                          rows={2}
+                          value={additionalNotes}
+                          onChange={(e) => setAdditionalNotes(e.target.value)}
+                          placeholder="Ex.: quero agendar uma medição na obra"
+                          className={`${fieldClass} resize-none`}
+                        />
+                      </div>
 
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
-                      Observações Adicionais (opcional)
-                    </label>
-                    <textarea
-                      rows={2}
-                      value={additionalNotes}
-                      onChange={(e) => setAdditionalNotes(e.target.value)}
-                      placeholder="Gostaria de agendar uma medição sem compromisso na obra..."
-                      className="w-full bg-slate-950 border border-slate-800 rounded-md px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-steel-300 resize-none"
-                    />
-                  </div>
+                      <dl className="divide-y divide-white/10 border-y border-white/12 text-sm">
+                        <div className="flex justify-between gap-4 py-2.5">
+                          <dt className="label-mono">Projeto</dt>
+                          <dd className="truncate text-right text-white">{projectType}</dd>
+                        </div>
+                        <div className="flex justify-between gap-4 py-2.5">
+                          <dt className="label-mono">Acabamento</dt>
+                          <dd className="text-right text-white">{finishColor}</dd>
+                        </div>
+                      </dl>
 
-                  {/* Summary Box */}
-                  <div className="p-3 rounded-md bg-slate-950 border border-slate-800 text-[11px] text-slate-400 space-y-1">
-                    <span className="font-semibold text-steel-300 block">Resumo da Solicitação:</span>
-                    <p className="truncate">• Projeto: <strong className="text-white">{projectType}</strong></p>
-                    <p className="truncate">• Cor: <strong className="text-white">{finishColor}</strong></p>
-                  </div>
-
-                  <div className="pt-3 flex items-center justify-between gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setStep(2)}
-                      className="text-slate-400 hover:text-white text-xs font-semibold flex items-center space-x-1 cursor-pointer"
-                    >
-                      <ArrowLeft className="w-4 h-4" />
-                      <span>Voltar</span>
-                    </button>
-
-                    <button
-                      type="submit"
-                      className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3.5 px-6 rounded-md shadow-lg shadow-emerald-900/30 flex items-center justify-center space-x-2 transition cursor-pointer"
-                    >
-                      <Send className="w-4 h-4" />
-                      <span>Enviar Orçamento via WhatsApp</span>
-                    </button>
-                  </div>
-                </form>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
-    </div>
+                      <div className="flex items-center justify-between gap-4 pt-2">
+                        <button
+                          type="button"
+                          onClick={() => setStep(2)}
+                          className="label-mono flex cursor-pointer items-center gap-2 transition-colors hover:!text-white"
+                        >
+                          <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Voltar
+                        </button>
+                        <button
+                          type="submit"
+                          className="btn-metal label-mono flex cursor-pointer items-center gap-2.5 rounded-md px-6 py-3.5 !text-ink-950"
+                        >
+                          <WhatsAppIcon className="h-4 w-4" />
+                          Enviar no WhatsApp
+                        </button>
+                      </div>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

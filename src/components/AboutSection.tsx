@@ -22,7 +22,7 @@ export default function AboutSection({ onOpenFacadeModal }: AboutSectionProps) {
     <section id="sobre" className="bg-black py-24 lg:py-32">
       <div className="mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-14">
         <h2 className="mb-10 max-w-4xl text-5xl font-semibold text-white lg:text-7xl">
-          Mais de 15 anos fazendo esquadrias em Presidente Prudente
+          Uma empresa nova, feita por quem vive de esquadrias há anos
         </h2>
 
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg bg-ink-900 lg:aspect-[21/9]">
@@ -47,7 +47,7 @@ export default function AboutSection({ onOpenFacadeModal }: AboutSectionProps) {
         <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="space-y-5">
             <p className="text-xl leading-relaxed text-steel-100">
-              Atendemos casas, comércios e obras corporativas com esquadrias de alumínio e vidros
+              A Alfa nasceu em Presidente Prudente pelas mãos de Claudemir e Ligia, que já trabalhavam há anos com esquadrias antes de abrir a própria empresa. Atendemos casas, comércios e obras corporativas com esquadrias de alumínio e vidros
               temperados e laminados feitos sob medida. Trabalhamos com as linhas de perfil Suprema,
               Gold e Minimalista, em preto fosco, anodizado natural e outras cores.
             </p>

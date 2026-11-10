@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { MessageCircle } from "lucide-react";
 import LogoMark from "./LogoMark";
+import FooterWordmark from "./FooterWordmark";
+import { InstagramIcon, WhatsAppIcon } from "./BrandIcons";
 import { ADDRESS, EMAIL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_HREF, WHATSAPP_URL } from "@/lib/site";
 
 const columns = [
@@ -90,11 +91,7 @@ export default function Footer() {
               aria-label="Instagram da Alfa Esquadrias"
               className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper text-ink-950 transition-colors hover:bg-white"
             >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <rect x="3" y="3" width="18" height="18" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-              </svg>
+              <InstagramIcon className="h-[18px] w-[18px]" />
             </a>
             <a
               href={WHATSAPP_URL}
@@ -103,18 +100,14 @@ export default function Footer() {
               aria-label="WhatsApp da Alfa Esquadrias"
               className="flex h-10 w-10 items-center justify-center rounded-lg bg-paper text-ink-950 transition-colors hover:bg-white"
             >
-              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <WhatsAppIcon className="h-[18px] w-[18px]" />
             </a>
           </div>
         </div>
       </div>
 
-      {/* Marca gigante cortada, com grão */}
-      <div className="grain pointer-events-none mt-6 h-[22vw] select-none overflow-hidden" aria-hidden="true">
-        <p className="-mt-[2vw] text-center font-heading text-[34vw] font-bold uppercase leading-[0.8] tracking-[0.02em] text-white/[0.08]">
-          Alfa
-        </p>
-      </div>
+      {/* Marca gigante cortada, com grão — o cursor funciona como lanterna */}
+      <FooterWordmark />
     </footer>
   );
 }

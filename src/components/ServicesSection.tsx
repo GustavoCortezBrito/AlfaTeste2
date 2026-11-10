@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 import { Check, X } from "lucide-react";
+import { useScrollLock } from "@/lib/scroll";
 
 interface ServiceItem {
   id: string;
@@ -13,7 +14,9 @@ interface ServiceItem {
   title: string;
   description: string;
   features: string[];
+  /** Foto real de obra da Alfa (public/produtos) */
   image: string;
+  imageAlt: string;
 }
 
 interface ServicesSectionProps {
@@ -37,7 +40,8 @@ const products: ServiceItem[] = [
     description:
       "Portas de entrada imponentes em alumínio de alta espessura com pivôs reforçados, fechaduras digitais e puxadores em aço inox. Resistentes ao sol e à chuva.",
     features: ["Linha Suprema, Gold ou Minimalista", "Pintura eletrostática (preto fosco, amadeirado, inox)", "Alturas sob medida até 6 metros", "Fechamento termoacústico vedado"],
-    image: "/porta-pivotante.webp",
+    image: "/produtos/porta-pivotante.webp",
+    imageAlt: "Porta pivotante amadeirada com painel de vidro ao lado, na entrada de uma residência",
   },
   {
     id: "2",
@@ -47,7 +51,8 @@ const products: ServiceItem[] = [
     description:
       "Janelas com persianas integradas de enrolar em alumínio. Isolamento acústico e blackout total para dormitórios, acionadas via controle remoto ou assistente virtual.",
     features: ["Palhetas de alumínio com preenchimento", "Isolamento térmico e acústico superior", "Automação silenciosa bivolt", "Telas mosquiteiras integradas opcionais"],
-    image: "/janela-integrada.webp",
+    image: "/produtos/janela-integrada.webp",
+    imageAlt: "Janela de correr preta com persiana de enrolar integrada, recém-instalada",
   },
   {
     id: "3",
@@ -57,7 +62,8 @@ const products: ServiceItem[] = [
     description:
       "Sistema de fachadas estruturais em vidro espelhado ou laminado com perfis ocultos de alumínio. Valorizam a arquitetura e aproveitam a iluminação natural.",
     features: ["Vidros refletivos de controle solar", "Vedação EPDM com estanqueidade total", "Projeto estrutural e medição de precisão", "Sem manutenção externa recorrente"],
-    image: "/pele-de-vidro.webp",
+    image: "/produtos/pele-de-vidro.webp",
+    imageAlt: "Pano de vidro do piso ao teto com montantes de alumínio preto refletindo o céu",
   },
   {
     id: "4",
@@ -67,7 +73,8 @@ const products: ServiceItem[] = [
     description:
       "Box de banheiro em vidro temperado 8 mm e 10 mm com roldanas de latão ou inox. Divisórias de vidro para escritórios e ambientes gourmet.",
     features: ["Vidro temperado 8 mm e 10 mm certificado", "Kits de roldanas aparente inox, preto ou bronze", "Película de segurança opcional", "Vedação contra vazamentos de água"],
-    image: "/box-banheiro.webp",
+    image: "/produtos/box-banheiro.webp",
+    imageAlt: "Box de banheiro em vidro com perfis pretos, em banheiro de revestimento escuro",
   },
   {
     id: "5",
@@ -77,7 +84,8 @@ const products: ServiceItem[] = [
     description:
       "Painéis de vidro retráteis sem perfis verticais para fechamento de sacadas, varandas e áreas gourmet. Abertura de 100% dos painéis.",
     features: ["Abertura total deslizante e articulada", "Proteção contra chuva, vento e poeira", "Trava de segurança para crianças", "Trilhos em alumínio anodizado de alta resistência"],
-    image: "/janela-integrada.webp",
+    image: "/produtos/fechamento-varanda.webp",
+    imageAlt: "Área da piscina fechada com painéis de vidro deslizantes",
   },
   {
     id: "6",
@@ -87,7 +95,8 @@ const products: ServiceItem[] = [
     description:
       "Guarda-corpos para sacadas, escadas e mezaninos em alumínio anodizado e vidro laminado temperado. Coberturas e pergolados com vidro de controle solar.",
     features: ["Norma ABNT NBR 14718 atendida", "Fixações em inox imunes à corrosão", "Colunas minimalistas ou torre botom inox", "Design elegante sem poluição visual"],
-    image: "/porta-pivotante.webp",
+    image: "/produtos/guarda-corpo.webp",
+    imageAlt: "Escada com guarda-corpo de vidro e colunas de inox, voltada para a piscina",
   },
 ];
 
@@ -96,6 +105,8 @@ const ease = [0.23, 1, 0.32, 1] as const;
 export default function ServicesSection({ onSelectProductForQuote }: ServicesSectionProps) {
   const [activeTab, setActiveTab] = useState<string>("todos");
   const [selectedProduct, setSelectedProduct] = useState<ServiceItem | null>(null);
+
+  useScrollLock(selectedProduct !== null);
 
   const filtered = activeTab === "todos" ? products : products.filter((p) => p.category === activeTab);
 
@@ -144,7 +155,7 @@ export default function ServicesSection({ onSelectProductForQuote }: ServicesSec
               >
                 <Image
                   src={product.image}
-                  alt={product.title}
+                  alt={product.imageAlt}
                   fill
                   quality={85}
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
@@ -200,7 +211,7 @@ export default function ServicesSection({ onSelectProductForQuote }: ServicesSec
               className="panel relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden"
             >
               <div className="relative h-56 w-full shrink-0 bg-ink-900">
-                <Image src={selectedProduct.image} alt={selectedProduct.title} fill quality={85} sizes="672px" className="object-cover" />
+                <Image src={selectedProduct.image} alt={selectedProduct.imageAlt} fill quality={85} sizes="672px" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0c1119] via-transparent to-transparent" />
                 <button
                   type="button"
@@ -212,7 +223,7 @@ export default function ServicesSection({ onSelectProductForQuote }: ServicesSec
                 </button>
               </div>
 
-              <div className="space-y-5 overflow-y-auto p-6">
+              <div data-lenis-prevent className="space-y-5 overflow-y-auto p-6">
                 <div>
                   <p className="label-mono">{selectedProduct.tag}</p>
                   <h3 className="mt-2 text-4xl font-semibold text-white">{selectedProduct.title}</h3>

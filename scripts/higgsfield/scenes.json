@@ -1,5 +1,5 @@
 {
-  "_doc": "Cenas de AMBIENTAÇÃO (IA). Portfólio e catálogo usam só fotos reais. Edite os prompts e rode: npm run media -- plan",
+  "_doc": "Cenas de AMBIENTAÇÃO (IA): hoje só o hero. story-1..3 e about-wide usam fotos reais tratadas (veja docs/MEDIA.md) — não as recoloque aqui, ou o gerador sobrescreve o manifest. Edite os prompts e rode: npm run media -- plan",
   "imageDefaults": { "resolution": "4K", "aspect_ratio": "16:9" },
   "videoModel": "kling-video/v2.5-turbo/pro/image-to-video",
   "negative": "text, letters, logos, watermark, people, faces, cartoon, oversaturated, distorted geometry, warped frames",
@@ -11,26 +11,6 @@
         "prompt": "Very slow cinematic dolly-in toward the glass facade, interior lights flicker softly, a gentle breeze moves the garden foliage, subtle reflections shift on the glass, stable rigid architecture, no distortion",
         "duration": 10
       }
-    },
-    {
-      "id": "story-1",
-      "image": "Modern residence at golden hour seen from the garden, large sliding glass doors with thin black aluminium profiles open to a living room, warm sunset light on concrete and wood, calm and premium, architectural photography, no people, no text",
-      "video": null
-    },
-    {
-      "id": "story-2",
-      "image": "Extreme close-up macro photograph of a brushed aluminium window profile corner meeting the edge of tempered glass, fine horizontal brushed texture, cool steel highlights on deep navy background, shallow depth of field, studio lighting, no text, no logos",
-      "video": null
-    },
-    {
-      "id": "story-3",
-      "image": "Interior view from a dim living room through a wall of sliding glass doors toward a lit garden at dusk, black aluminium frames, calm atmosphere, deep blue tones with warm accents, architectural photography, no people, no text",
-      "video": null
-    },
-    {
-      "id": "about-wide",
-      "image": "Wide dark studio photograph of long brushed aluminium profiles and clean glass panes leaning in an orderly row, dramatic side lighting, steel and navy tones, minimal, premium industrial still life, no people, no text, no logos",
-      "video": null
     }
   ]
 }

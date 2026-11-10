@@ -27,7 +27,7 @@ const chapters = [
     id: "story-3",
     fallback: "/projetos-reais/marquise3.webp",
     title: "Feito para durar",
-    text: "Instaladores próprios, materiais certificados e garantia na instalação. Mais de 15 anos de obras em Presidente Prudente e região.",
+    text: "Instaladores próprios, materiais certificados e garantia na instalação. Feita por Claudemir e Ligia, que trabalham com esquadrias há anos, em Presidente Prudente e região.",
   },
 ];
 

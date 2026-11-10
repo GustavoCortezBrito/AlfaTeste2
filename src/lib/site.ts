@@ -1,7 +1,12 @@
 // Dados e links compartilhados pelo cabeçalho, pela pílula de navegação e pelo rodapé.
 
-export const WHATSAPP_URL =
-  "https://wa.me/551839045308?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20or%C3%A7amento.";
+export const WHATSAPP_NUMBER = "551839045308";
+
+/** Link do WhatsApp com mensagem — o texto SEMPRE passa por encodeURIComponent. */
+export const whatsappLink = (text: string) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+
+export const WHATSAPP_URL = whatsappLink("Olá, gostaria de solicitar um orçamento.");
 export const PHONE_DISPLAY = "(18) 3904-5308";
 export const PHONE_HREF = "tel:+551839045308";
 export const EMAIL = "contato@alfaesquadrias.com.br";

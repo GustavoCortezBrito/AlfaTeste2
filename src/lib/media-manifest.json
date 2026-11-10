@@ -18,7 +18,7 @@
     "image": "/media/story-2.webp",
     "image1280": "/media/story-2-1280.webp",
     "width": 2560,
-    "height": 1429
+    "height": 1440
   },
   "story-3": {
     "image": "/media/story-3.webp",
@@ -30,6 +30,6 @@
     "image": "/media/about-wide.webp",
     "image1280": "/media/about-wide-1280.webp",
     "width": 2560,
-    "height": 1429
+    "height": 1440
   }
 }

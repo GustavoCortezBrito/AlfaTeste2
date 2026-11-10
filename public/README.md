@@ -2,7 +2,7 @@
 
 ## Sobre a Empresa
 
-A **Alfa Esquadrias** é especialista em **esquadrias de alumínio sob medida** e **vidros temperados** em **Presidente Prudente - SP**. Com mais de 10 anos de experiência, oferecemos soluções modernas, seguras e personalizadas para residências e empresas.
+A **Alfa Esquadrias** é especialista em **esquadrias de alumínio sob medida** e **vidros temperados** em **Presidente Prudente - SP**. Fundada por Claudemir e Ligia, profissionais com anos de experiência no ramo, oferecemos soluções modernas, seguras e personalizadas para residências e empresas.
 
 ## Produtos e Serviços
 

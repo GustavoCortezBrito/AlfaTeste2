@@ -1,92 +1,131 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, MapPin, Phone, Building, ExternalLink } from "lucide-react";
+import { X, MapPin, Phone } from "lucide-react";
+import { WhatsAppIcon } from "./BrandIcons";
+import { mediaImage } from "@/lib/media";
+import { ADDRESS, PHONE_DISPLAY, PHONE_HREF, whatsappLink } from "@/lib/site";
+import { useScrollLock } from "@/lib/scroll";
 
 interface FacadeModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const ease = [0.23, 1, 0.32, 1] as const;
+
+/** Fachada da loja (foto real ampliada) + endereço e contato. */
 export default function FacadeModal({ isOpen, onClose }: FacadeModalProps) {
-  if (!isOpen) return null;
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useScrollLock(isOpen);
+
+  useEffect(() => {
+    if (isOpen) closeRef.current?.focus();
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+      {isOpen && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-          className="bg-slate-900 border border-slate-700 rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative"
+          key="facade"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease }}
+          onClick={onClose}
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm"
         >
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 z-10 bg-slate-950/80 border border-slate-700 text-white p-2 rounded-full hover:bg-slate-800 transition cursor-pointer"
+          <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="facade-title"
+            initial={{ opacity: 0, scale: 0.97, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.97, y: 8 }}
+            transition={{ duration: 0.2, ease }}
+            onClick={(e) => e.stopPropagation()}
+            data-lenis-prevent
+            className="panel relative max-h-[92vh] w-full max-w-3xl overflow-y-auto"
           >
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Facade Image */}
-          <div className="relative h-80 sm:h-[400px] w-full bg-slate-950">
-            <Image
-              src="/fachada.webp"
-              alt="Alfa Esquadrias Fachada da Loja em Presidente Prudente"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-          </div>
-
-          {/* Details */}
-          <div className="p-6 space-y-4">
-            <div className="flex items-center space-x-2 text-steel-300 font-semibold text-xs">
-              <Building className="w-4 h-4" />
-              <span>Showroom & Fábrica Própria</span>
-            </div>
-
-            <h3 className="text-2xl font-bold text-white">
-              Alfa Esquadrias de Alumínio - Presidente Prudente
-            </h3>
-
-            <p className="text-slate-300 text-sm leading-relaxed">
-              Venha conhecer nosso espaço em Presidente Prudente! Contamos com catálogo físico de amostras de perfis de alumínio (Suprema, Gold, Minimalista), vidros temperados e consultoria técnica especializada para o seu projeto.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-slate-300">
-              <div className="flex items-center space-x-2 p-3 rounded-md bg-slate-950 border border-slate-800">
-                <MapPin className="w-4 h-4 text-steel-300 shrink-0" />
-                <span>Av. Joaquim Constantino, 1880 - Presidente Prudente</span>
-              </div>
-
-              <div className="flex items-center space-x-2 p-3 rounded-md bg-slate-950 border border-slate-800">
-                <Phone className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>Telefone/WhatsApp: (18) 3904-5308</span>
-              </div>
-            </div>
-
-            <div className="pt-4 flex items-center justify-between border-t border-slate-800">
+            <div className="relative aspect-[16/9] w-full bg-ink-900">
+              <Image
+                src={mediaImage("about-wide", "/fachada.webp")}
+                alt="Fachada da loja da Alfa Esquadrias, na Av. Joaquim Constantino, em Presidente Prudente"
+                fill
+                quality={85}
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0c1119] via-transparent to-transparent" />
               <button
+                ref={closeRef}
+                type="button"
                 onClick={onClose}
-                className="text-slate-400 hover:text-white text-xs font-semibold"
+                aria-label="Fechar"
+                className="absolute right-4 top-4 cursor-pointer rounded bg-black/70 p-2 text-white transition-colors hover:bg-black"
               >
-                Fechar
+                <X className="h-4 w-4" aria-hidden="true" />
               </button>
-
-              <a
-                href="https://wa.me/551839045308?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20visita%20ao%20showroom%20da%20Alfa%20Esquadrias."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-3 px-5 rounded-md flex items-center space-x-2 transition shadow-md"
-              >
-                <span>Falar no WhatsApp</span>
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
             </div>
-          </div>
+
+            <div className="space-y-5 p-6">
+              <div>
+                <p className="label-mono">Showroom e fábrica própria</p>
+                <h3 id="facade-title" className="mt-2 text-4xl font-semibold text-white">
+                  Alfa Esquadrias em Presidente Prudente
+                </h3>
+              </div>
+
+              <p className="leading-relaxed text-steel-100">
+                Venha conhecer nosso espaço: amostras dos perfis de alumínio (linhas Suprema, Gold e
+                Minimalista), vidros temperados e atendimento técnico para o seu projeto.
+              </p>
+
+              <ul className="divide-y divide-white/12 border-y border-white/12">
+                <li className="flex items-center gap-3 py-3 text-steel-100">
+                  <MapPin className="h-4 w-4 shrink-0 text-steel-300" aria-hidden="true" />
+                  {ADDRESS}
+                </li>
+                <li className="flex items-center gap-3 py-3">
+                  <Phone className="h-4 w-4 shrink-0 text-steel-300" aria-hidden="true" />
+                  <a href={PHONE_HREF} className="text-steel-100 transition-colors hover:text-white">
+                    {PHONE_DISPLAY}
+                  </a>
+                </li>
+              </ul>
+
+              <div className="flex items-center justify-between gap-4 pt-1">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="label-mono cursor-pointer !text-steel-300 transition-colors hover:!text-white"
+                >
+                  Fechar
+                </button>
+                <a
+                  href={whatsappLink("Olá, gostaria de agendar uma visita ao showroom da Alfa Esquadrias.")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-metal label-mono flex items-center gap-2.5 rounded-md px-6 py-3.5 !text-ink-950"
+                >
+                  <WhatsAppIcon className="h-4 w-4" />
+                  Agendar visita
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
-      </div>
+      )}
     </AnimatePresence>
   );
 }

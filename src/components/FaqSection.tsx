@@ -52,7 +52,7 @@ export default function FaqSection() {
                   onClick={() => setOpenIdx(isOpen ? null : index)}
                   className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 cursor-pointer group"
                 >
-                  <span className={`text-sm font-semibold transition ${isOpen ? "text-white" : "text-slate-300 group-hover:text-white"}`}>
+                  <span className={`text-sm font-semibold transition ${isOpen ? "text-white" : "text-steel-200 group-hover:text-white"}`}>
                     {faq.q}
                   </span>
                   <ChevronDown
@@ -68,7 +68,7 @@ export default function FaqSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25 }}
                     >
-                      <div className="px-6 pb-5 text-slate-400 text-sm leading-relaxed border-t border-white/5 pt-4">
+                      <div className="px-6 pb-5 text-steel-200 text-sm leading-relaxed border-t border-white/10 pt-4">
                         {faq.a}
                       </div>
                     </motion.div>

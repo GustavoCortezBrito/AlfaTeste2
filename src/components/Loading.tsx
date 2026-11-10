@@ -1,47 +1,51 @@
-"use client";
-
-import { motion } from "framer-motion";
-import LogoMark from "./LogoMark";
+import { LOGO_INNER, LOGO_OUTER, LOGO_VIEWBOX } from "./LogoMark";
 
 /**
- * Sobreposição de marca (~1,2 s) sobre a página já renderizada.
+ * Tela de marca (~1,7 s) sobre a página já renderizada: o "A" é desenhado em traço,
+ * ganha o preenchimento metálico e a cortina sobe revelando o Hero.
+ *
+ * Animação 100% CSS (classes .loader-* em globals.css): começa no primeiro paint, antes
+ * da hidratação, e roda fora da thread principal enquanto o JS ainda carrega.
  * Determinística (sem Math.random / window) — segura para SSR.
  */
 export default function Loading() {
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black"
+    <div
+      className="loader fixed inset-0 z-[9999] flex items-center justify-center bg-black"
       role="status"
       aria-label="Carregando"
     >
       <div className="flex flex-col items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-        >
-          <LogoMark className="h-auto w-36 sm:w-44" />
-        </motion.div>
+        <svg viewBox={LOGO_VIEWBOX} className="h-auto w-32 sm:w-40" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="loader-metal" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#f4f6f8" />
+              <stop offset="35%" stopColor="#a9aeb7" />
+              <stop offset="55%" stopColor="#e3e6ea" />
+              <stop offset="100%" stopColor="#6f7580" />
+            </linearGradient>
+          </defs>
+          {[LOGO_OUTER, LOGO_INNER].map((points, i) => (
+            <g key={points}>
+              <polygon points={points} fill="url(#loader-metal)" className={`loader-fill loader-fill-${i}`} />
+              <polygon
+                points={points}
+                pathLength={1}
+                stroke="#e8ebef"
+                strokeWidth={2}
+                strokeLinejoin="round"
+                className={`loader-stroke loader-stroke-${i}`}
+              />
+            </g>
+          ))}
+        </svg>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.35, duration: 0.5 }}
-          className="label-mono mt-8 !text-white/80 !tracking-[0.32em]"
-        >
-          Alfa Esquadrias
-        </motion.p>
+        <p className="loader-label label-mono mt-8 !text-white/80 !tracking-[0.32em]">Alfa Esquadrias</p>
 
-        <div className="relative mt-8 h-px w-40 overflow-hidden bg-white/15">
-          <motion.div
-            className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white to-transparent"
-            animate={{ x: ["-100%", "200%"] }}
-            transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
-          />
+        <div className="mt-8 h-px w-40 overflow-hidden bg-white/15" aria-hidden="true">
+          <div className="loader-bar h-full w-full bg-white" />
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

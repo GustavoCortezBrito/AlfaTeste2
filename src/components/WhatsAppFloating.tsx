@@ -1,189 +1,176 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Send } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowUpRight, X } from "lucide-react";
+import LogoMark from "./LogoMark";
+import { WhatsAppIcon } from "./BrandIcons";
+import { PHONE_DISPLAY, whatsappLink } from "@/lib/site";
 
+const ease = [0.23, 1, 0.32, 1] as const;
+
+const TOPICS = [
+  { label: "Pedir orçamento", text: "Olá! Vim pelo site e gostaria de um orçamento de esquadrias de alumínio." },
+  { label: "Tirar uma dúvida", text: "Olá! Vim pelo site e tenho uma dúvida sobre esquadrias de alumínio." },
+  { label: "Visitar o showroom", text: "Olá! Gostaria de agendar uma visita ao showroom da Alfa Esquadrias." },
+];
+
+/**
+ * Atalho fixo para o WhatsApp no estilo Atelier: pílula escura com o logotipo oficial
+ * (Simple Icons via react-icons) e um painel com assuntos prontos ou mensagem livre.
+ * Sem selo de notificação falso nem pulso infinito.
+ */
 export default function WhatsAppFloating() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const firstTopicRef = useRef<HTMLButtonElement>(null);
+  const panelId = useId();
 
-  const handleSend = () => {
-    const text = message.trim() || "Olá! 👋 Vim do site e gostaria de solicitar um orçamento para esquadrias de alumínio.";
-    const encodedMessage = encodeURIComponent(text);
-    window.open(`https://wa.me/551839045308?text=${encodedMessage}`, "_blank");
+  useEffect(() => {
+    if (!open) return;
+    firstTopicRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setOpen(false);
+      buttonRef.current?.focus();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const send = (text: string) => {
+    window.open(whatsappLink(text), "_blank", "noopener,noreferrer");
+    setOpen(false);
     setMessage("");
-    setIsOpen(false);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-  };
+  const sendTyped = () => send(message.trim() || TOPICS[0].text);
 
   return (
-    <>
-      {/* Chat Widget */}
+    <div className="fixed bottom-5 right-5 z-[45] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       <AnimatePresence>
-        {isOpen && (
+        {open && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed bottom-28 right-6 z-[9998] w-[340px] sm:w-[380px] bg-[#0d1522] border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+            id={panelId}
+            role="dialog"
+            aria-label="Conversar no WhatsApp"
+            initial={{ opacity: 0, scale: 0.96, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ duration: 0.2, ease }}
+            style={{ transformOrigin: "bottom right" }}
+            data-lenis-prevent
+            className="panel w-[min(340px,calc(100vw-2.5rem))] overflow-hidden shadow-[0_24px_60px_-20px_rgba(0,0,0,0.85)]"
           >
-            {/* Header */}
-            <div className="bg-[#25D366] px-5 py-4 flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="w-6 h-6 fill-[#25D366]"
-                  >
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                </div>
+            <div className="flex items-center justify-between gap-3 border-b border-white/12 px-5 py-4">
+              <div className="flex items-center gap-3">
+                <LogoMark className="h-auto w-8" />
                 <div>
-                  <h3 className="text-white font-bold text-sm">Alfa Esquadrias</h3>
-                  <p className="text-emerald-100 text-xs">Online agora</p>
+                  <p className="font-heading text-xl font-semibold uppercase leading-none text-white">Alfa Esquadrias</p>
+                  <p className="label-mono mt-1.5 !text-[0.66rem]">WhatsApp · {PHONE_DISPLAY}</p>
                 </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:bg-white/10 p-1 rounded-lg transition"
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  buttonRef.current?.focus();
+                }}
+                aria-label="Fechar"
+                className="cursor-pointer rounded p-1.5 text-steel-300 transition-colors hover:bg-white/10 hover:text-white"
               >
-                <X className="w-5 h-5" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
 
-            {/* Body */}
-            <div className="p-5 space-y-4 bg-[#0d1522]">
-              {/* Message bubble from company */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-                className="flex items-start space-x-2"
+            <p className="px-5 pt-4 text-sm leading-relaxed text-steel-200">
+              Escolha um assunto ou escreva sua mensagem. A conversa abre no WhatsApp.
+            </p>
+
+            <ul className="mt-3 divide-y divide-white/10 border-y border-white/10">
+              {TOPICS.map((t, i) => (
+                <li key={t.label}>
+                  <button
+                    ref={i === 0 ? firstTopicRef : undefined}
+                    type="button"
+                    onClick={() => send(t.text)}
+                    className="group flex w-full cursor-pointer items-center justify-between px-5 py-3.5 text-left transition-colors hover:bg-white/[0.05]"
+                  >
+                    <span className="label-mono !text-white">{t.label}</span>
+                    <ArrowUpRight
+                      className="h-4 w-4 text-steel-300 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            <div className="space-y-3 p-5">
+              <label htmlFor={`${panelId}-msg`} className="label-mono block">
+                Ou escreva
+              </label>
+              <textarea
+                id={`${panelId}-msg`}
+                rows={3}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendTyped();
+                  }
+                }}
+                placeholder="Ex.: preciso de uma porta de correr de 2 m"
+                className="w-full resize-none rounded-md border border-white/15 bg-transparent px-3.5 py-3 text-sm text-white"
+              />
+              <button
+                type="button"
+                onClick={sendTyped}
+                className="btn-metal label-mono flex w-full cursor-pointer items-center justify-center gap-2.5 rounded-md px-5 py-3.5 !text-ink-950"
               >
-                <div className="w-8 h-8 bg-[#25D366] rounded-full flex items-center justify-center shrink-0">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                </div>
-                <div className="bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
-                  <p className="text-slate-300 text-sm leading-relaxed">
-                    Olá! 👋 Como podemos ajudar você hoje?
-                  </p>
-                  <p className="text-slate-400 text-xs mt-1">
-                    Digite sua mensagem abaixo
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Input area */}
-              <div className="space-y-3">
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Digite sua mensagem... (ou envie vazia para usar mensagem padrão)"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-slate-500 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-steel-300/50 focus:border-steel-300/50 transition"
-                  rows={3}
-                />
-                
-                <button
-                  onClick={handleSend}
-                  className="w-full bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold py-3 px-4 rounded-xl transition duration-200 flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Enviar no WhatsApp</span>
-                </button>
-              </div>
-
-              {/* Quick suggestions */}
-              <div className="space-y-2">
-                <p className="text-slate-400 text-xs font-semibold">Sugestões rápidas:</p>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    "Solicitar orçamento",
-                    "Ver portfólio",
-                    "Tirar dúvidas",
-                  ].map((suggestion, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setMessage(suggestion)}
-                      className="text-xs bg-white/5 hover:bg-white/10 border border-white/10 text-slate-400 hover:text-white px-3 py-1.5 rounded-lg transition"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
-              </div>
+                <WhatsAppIcon className="h-4 w-4" />
+                Abrir no WhatsApp
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Floating Button */}
       <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5, type: "spring" }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-[9999] w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg shadow-emerald-500/40 hover:shadow-emerald-500/60 flex items-center justify-center transition cursor-pointer group"
-        aria-label={isOpen ? "Fechar chat" : "Abrir chat do WhatsApp"}
+        ref={buttonRef}
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-controls={open ? panelId : undefined}
+        aria-label={open ? "Fechar conversa do WhatsApp" : "Conversar no WhatsApp"}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 1.7, ease }}
+        whileTap={{ scale: 0.97, transition: { duration: 0.12 } }}
+        className="flex h-14 min-w-14 cursor-pointer items-center justify-center gap-3 rounded-full border border-white/15 bg-ink-900/85 px-4 text-white shadow-[0_12px_40px_-12px_rgba(0,0,0,0.85)] backdrop-blur-md transition-colors duration-200 hover:border-white/35 hover:bg-ink-800 sm:px-5"
       >
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.div
-              key="close"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <X className="w-7 h-7 text-white" />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="whatsapp"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                className="w-8 h-8 fill-white"
-              >
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Notification Badge - only show when closed */}
-        {!isOpen && (
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: [0, 1.2, 1] }}
-            transition={{ delay: 2, duration: 0.5 }}
-            className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold text-white shadow-lg"
+        <span className="relative h-6 w-6" aria-hidden="true">
+          <span
+            className={`absolute inset-0 flex items-center justify-center transition-[opacity,transform] duration-200 ${
+              open ? "scale-75 opacity-0" : "scale-100 opacity-100"
+            }`}
           >
-            1
-          </motion.span>
-        )}
-
-        {/* Pulse Effect - only show when closed */}
-        {!isOpen && (
-          <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-40" />
-        )}
+            <WhatsAppIcon className="h-6 w-6" />
+          </span>
+          <span
+            className={`absolute inset-0 flex items-center justify-center transition-[opacity,transform] duration-200 ${
+              open ? "scale-100 opacity-100" : "scale-75 opacity-0"
+            }`}
+          >
+            <X className="h-5 w-5" />
+          </span>
+          {/* toque da cor da marca, sem selo de notificação */}
+          <span className="absolute -right-1 -top-0.5 h-2 w-2 rounded-full bg-[#25D366] ring-2 ring-ink-900" />
+        </span>
+        <span className="label-mono hidden !text-white sm:inline">WhatsApp</span>
       </motion.button>
-    </>
+    </div>
   );
 }

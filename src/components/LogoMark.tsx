@@ -7,6 +7,11 @@ interface LogoMarkProps {
   title?: string;
 }
 
+/** Geometria do "A" (dois chevrons) — compartilhada com a tela de loading. */
+export const LOGO_VIEWBOX = "60 70 400 305";
+export const LOGO_OUTER = "75,365 203,80 320,80 445,365 385,365 262,92 135,365";
+export const LOGO_INNER = "262,190 352,365 300,365 262,285 225,365 172,365";
+
 /**
  * Recriação vetorial do "A" da logotipo (dois chevrons em alumínio escovado).
  * Fundo transparente — pode ser usado sobre qualquer superfície.
@@ -16,14 +21,14 @@ export default function LogoMark({ className, variant = "metal", title }: LogoMa
   const gradId = `lm-grad-${uid}`;
   const shineId = `lm-shine-${uid}`;
 
-  const outer = "75,365 203,80 320,80 445,365 385,365 262,92 135,365";
-  const inner = "262,190 352,365 300,365 262,285 225,365 172,365";
+  const outer = LOGO_OUTER;
+  const inner = LOGO_INNER;
 
   const isOutline = variant === "outline";
 
   return (
     <svg
-      viewBox="60 70 400 305"
+      viewBox={LOGO_VIEWBOX}
       className={className}
       role={title ? "img" : undefined}
       aria-hidden={title ? undefined : true}

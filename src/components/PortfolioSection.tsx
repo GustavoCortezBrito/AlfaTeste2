@@ -5,12 +5,21 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionHeader from "./SectionHeader";
 import { X } from "lucide-react";
+import { useScrollLock } from "@/lib/scroll";
+
+type Category = "portas" | "portoes" | "vidros" | "comercial";
+
+const CATEGORY_LABEL: Record<Category, string> = {
+  portas: "Portas e janelas",
+  portoes: "Portões",
+  vidros: "Vidros",
+  comercial: "Comercial",
+};
 
 interface PortfolioItem {
   id: string;
   title: string;
-  category: "residencial" | "comercial" | "vidros";
-  categoryLabel: string;
+  category: Category;
   location: string;
   image: string;
   description: string;
@@ -20,26 +29,42 @@ interface PortfolioSectionProps {
   onOpenCalculatorWithProduct: (productName: string) => void;
 }
 
-// Fotos reais de projetos da Alfa (a IA do Higgsfield NÃO entra aqui)
+const PP = "Presidente Prudente, SP";
+const REGIAO = "Presidente Prudente e região";
+
+// Fotos reais de obras da Alfa (a IA do Higgsfield NÃO entra aqui). A ordem é a de "Todos":
+// os 6 primeiros (visíveis antes de expandir) cobrem tipos diferentes de obra.
 const projects: PortfolioItem[] = [
-  { id: "1", title: "Esquadrias de alumínio residencial, acabamento premium", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/residencial.webp", description: "Projeto residencial completo com esquadrias de alumínio em acabamento premium, incluindo janelas integradas e portas com design moderno." },
-  { id: "2", title: "Box de banheiro em vidro temperado, suíte master", category: "vidros", categoryLabel: "Vidros e interiores", location: "Presidente Prudente, SP", image: "/projetos-reais/box.webp", description: "Box de banheiro em vidro temperado 8 mm com ferragens de alta qualidade e acabamento impecável." },
-  { id: "3", title: "Box de vidro premium, banheiro moderno", category: "vidros", categoryLabel: "Vidros e interiores", location: "Presidente Prudente, SP", image: "/projetos-reais/box2.webp", description: "Box de vidro temperado incolor com acabamento sofisticado e ferragens cromadas de primeira linha." },
-  { id: "4", title: "Marquise em vidro e alumínio, entrada principal", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/marquise.webp", description: "Marquise moderna em vidro temperado com estrutura de alumínio, proporcionando proteção e elegância na entrada." },
-  { id: "5", title: "Cobertura em vidro, área externa", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/marquise2.webp", description: "Cobertura em vidro temperado com perfis de alumínio, ideal para áreas externas e varandas." },
-  { id: "6", title: "Marquise de vidro, design arquitetônico", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/marquise3.webp", description: "Sistema de cobertura em vidro com estrutura minimalista em alumínio, desenvolvido sob medida." },
-  { id: "7", title: "Porta de alumínio premium, entrada residencial", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/porta.webp", description: "Porta de entrada em alumínio com vidro temperado, design sofisticado e segurança garantida." },
-  { id: "8", title: "Porta de correr em alumínio, área interna", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/portadecorrer.webp", description: "Porta de correr em alumínio de alta performance com excelente vedação e design clean." },
-  { id: "9", title: "Sistema de portas de correr, divisória elegante", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/portadecorrer2.webp", description: "Portas de correr em alumínio com vidro, perfeitas para integração de ambientes com estilo." },
-  { id: "10", title: "Portão de alumínio residencial, entrada principal", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/portao.webp", description: "Portão de alumínio robusto com design moderno, ideal para entradas residenciais de alto padrão." },
-  { id: "11", title: "Portão em alumínio premium, segurança e design", category: "residencial", categoryLabel: "Residencial", location: "Presidente Prudente, SP", image: "/projetos-reais/portao2.webp", description: "Portão de entrada em alumínio de alta resistência com acabamento premium e sistema de segurança integrado." },
+  { id: "piscina", title: "Esquadrias pretas na área da piscina", category: "portas", location: REGIAO, image: "/projetos-reais/piscina-esquadrias-pretas.webp", description: "Janela de correr e porta em alumínio preto voltadas para a área da piscina." },
+  { id: "patio", title: "Panos de vidro em volta do pátio", category: "portas", location: PP, image: "/projetos-reais/residencial.webp", description: "Portas de correr em alumínio preto, do piso ao teto, fechando o pátio interno da casa." },
+  { id: "ripado", title: "Portão ripado amadeirado", category: "portoes", location: REGIAO, image: "/projetos-reais/fachada-ripada.webp", description: "Portão e painel em alumínio ripado com acabamento amadeirado, na fachada de uma residência." },
+  { id: "showroom", title: "Showroom da Alfa", category: "comercial", location: PP, image: "/projetos-reais/showroom-alfa.webp", description: "Janela de perfil preto do piso ao teto e painel ripado no nosso showroom, na Av. Joaquim Constantino." },
+  { id: "portao-social", title: "Portão social em alumínio preto", category: "portoes", location: REGIAO, image: "/projetos-reais/portao-social-preto.webp", description: "Portão de pedestres em alumínio preto com lâminas horizontais." },
+  { id: "box-dourado", title: "Box de vidro com perfis dourados", category: "vidros", location: PP, image: "/projetos-reais/box2.webp", description: "Box de vidro temperado incolor com perfis em acabamento dourado, em banheiro de mármore." },
+  { id: "porta-veneziana-vidro", title: "Porta com vidro jateado e veneziana", category: "portas", location: REGIAO, image: "/projetos-reais/porta-vidro-veneziana.webp", description: "Porta de alumínio preto com vidros jateados e painel de veneziana." },
+  { id: "garagem-preto", title: "Portão de garagem preto", category: "portoes", location: REGIAO, image: "/projetos-reais/portao-garagem-preto.webp", description: "Portão de garagem em alumínio preto com lâminas horizontais e ventilação na base." },
+  { id: "janela-cozinha", title: "Janela de correr na cozinha", category: "portas", location: REGIAO, image: "/projetos-reais/janela-cozinha.webp", description: "Janela de correr de quatro folhas em alumínio preto sobre a bancada da cozinha." },
+  { id: "pergolado", title: "Pergolado com cobertura de vidro", category: "vidros", location: REGIAO, image: "/projetos-reais/pergolado-vidro.webp", description: "Cobertura de vidro sobre estrutura de alumínio preto num corredor externo." },
+  { id: "porta-correr-veneziana", title: "Porta de correr com veneziana", category: "portas", location: REGIAO, image: "/projetos-reais/porta-correr-veneziana.webp", description: "Porta de correr em alumínio preto com folhas de veneziana para ventilar e escurecer o ambiente." },
+  { id: "garagem-branco", title: "Portão de garagem branco", category: "portoes", location: REGIAO, image: "/projetos-reais/portao-garagem-branco.webp", description: "Portão de garagem em alumínio branco com lâminas de ventilação." },
+  { id: "janela-branca", title: "Janela veneziana branca", category: "portas", location: REGIAO, image: "/projetos-reais/janela-veneziana-branca.webp", description: "Janela de correr com folhas de veneziana em alumínio branco." },
+  { id: "porta-enrolar", title: "Porta de enrolar comercial", category: "comercial", location: REGIAO, image: "/projetos-reais/porta-enrolar-comercial.webp", description: "Porta de enrolar em alumínio preto na fachada de um prédio comercial." },
+  { id: "portadecorrer", title: "Porta de correr em alumínio, área interna", category: "comercial", location: PP, image: "/projetos-reais/portadecorrer.webp", description: "Portas de correr em alumínio preto com vidro, separando ambientes de um salão." },
+  { id: "portadecorrer2", title: "Sistema de portas de correr, divisória elegante", category: "comercial", location: PP, image: "/projetos-reais/portadecorrer2.webp", description: "Portas de correr em alumínio com vidro integrando ambientes." },
+  { id: "porta-entrada", title: "Porta de entrada em alumínio preto", category: "portas", location: PP, image: "/projetos-reais/porta.webp", description: "Porta de entrada em alumínio preto com puxador vertical." },
+  { id: "portao-almofadado", title: "Portão de alumínio almofadado", category: "portoes", location: PP, image: "/projetos-reais/portao2.webp", description: "Portão de garagem em alumínio preto com painéis almofadados." },
+  { id: "box-preto", title: "Box de canto com perfis pretos", category: "vidros", location: PP, image: "/projetos-reais/box.webp", description: "Box de canto em vidro temperado com perfis pretos." },
+  { id: "marquise", title: "Marquise em vidro e alumínio, entrada principal", category: "vidros", location: PP, image: "/projetos-reais/marquise.webp", description: "Marquise em vidro temperado com estrutura de alumínio, protegendo a entrada." },
+  { id: "cobertura", title: "Cobertura em vidro, área externa", category: "vidros", location: PP, image: "/projetos-reais/marquise2.webp", description: "Cobertura em vidro temperado com perfis de alumínio sobre área externa." },
+  { id: "marquise-vista-de-cima", title: "Marquise de vidro, design arquitetônico", category: "vidros", location: PP, image: "/projetos-reais/marquise3.webp", description: "Cobertura em vidro com estrutura minimalista em alumínio, feita sob medida." },
 ];
 
-const filters = [
+const filters: { id: "todos" | Category; label: string }[] = [
   { id: "todos", label: "Todos" },
-  { id: "residencial", label: "Residencial" },
-  { id: "comercial", label: "Comercial" },
-  { id: "vidros", label: "Vidros" },
+  { id: "portas", label: CATEGORY_LABEL.portas },
+  { id: "portoes", label: CATEGORY_LABEL.portoes },
+  { id: "vidros", label: CATEGORY_LABEL.vidros },
+  { id: "comercial", label: CATEGORY_LABEL.comercial },
 ];
 
 const ease = [0.23, 1, 0.32, 1] as const;
@@ -49,6 +74,8 @@ export default function PortfolioSection({ onOpenCalculatorWithProduct }: Portfo
   const [filter, setFilter] = useState<string>("todos");
   const [activeImage, setActiveImage] = useState<PortfolioItem | null>(null);
   const [expanded, setExpanded] = useState(false);
+
+  useScrollLock(activeImage !== null);
 
   const filtered = filter === "todos" ? projects : projects.filter((p) => p.category === filter);
   const visible = expanded ? filtered : filtered.slice(0, INITIAL_COUNT);
@@ -107,7 +134,7 @@ export default function PortfolioSection({ onOpenCalculatorWithProduct }: Portfo
                 />
               </button>
               <p className="label-mono mt-6">
-                {project.categoryLabel}, {project.location}
+                {CATEGORY_LABEL[project.category]} · {project.location}
               </p>
               <h3 className="mt-2 text-3xl font-semibold leading-[1.02] text-white">{project.title}</h3>
               <p className="mt-4 max-w-xl leading-relaxed text-steel-200">{project.description}</p>
@@ -164,7 +191,7 @@ export default function PortfolioSection({ onOpenCalculatorWithProduct }: Portfo
 
               <div className="space-y-3 p-6">
                 <p className="label-mono">
-                  {activeImage.categoryLabel}, {activeImage.location}
+                  {CATEGORY_LABEL[activeImage.category]} · {activeImage.location}
                 </p>
                 <h3 className="text-3xl font-semibold text-white">{activeImage.title}</h3>
                 <p className="leading-relaxed text-steel-200">{activeImage.description}</p>

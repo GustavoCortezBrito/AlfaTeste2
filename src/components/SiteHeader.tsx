@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X } from "lucide-react";
 import LogoMark from "./LogoMark";
 import { ADDRESS, EMAIL, MENU_LINKS, PHONE_DISPLAY, PHONE_HREF, WHATSAPP_URL } from "@/lib/site";
+import { scrollToId, useScrollLock } from "@/lib/scroll";
 
 interface SiteHeaderProps {
   onOpenCalculator: () => void;
@@ -20,18 +21,22 @@ const ease = [0.23, 1, 0.32, 1] as const;
 export default function SiteHeader({ onOpenCalculator }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  // Seção escolhida no menu: só rola depois que o menu fecha e a rolagem é destravada
+  const pendingTarget = useRef<string | null>(null);
+
+  useScrollLock(open);
 
   useEffect(() => {
-    if (!open) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (!open) {
+      const target = pendingTarget.current;
+      pendingTarget.current = null;
+      if (target) scrollToId(target);
+      return;
+    }
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     closeRef.current?.focus();
-    return () => {
-      document.body.style.overflow = previous;
-      window.removeEventListener("keydown", onKey);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   return (
@@ -82,6 +87,7 @@ export default function SiteHeader({ onOpenCalculator }: SiteHeaderProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease }}
+            data-lenis-prevent
             className="fixed inset-0 z-[70] overflow-y-auto bg-ink-950"
           >
             <div className="mx-auto flex min-h-full max-w-[1600px] flex-col px-5 py-5 sm:px-8 lg:px-14 lg:py-7">
@@ -101,7 +107,11 @@ export default function SiteHeader({ onOpenCalculator }: SiteHeaderProps) {
                     <motion.a
                       key={link.id}
                       href={`#${link.id}`}
-                      onClick={() => setOpen(false)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        pendingTarget.current = link.id;
+                        setOpen(false);
+                      }}
                       initial={{ opacity: 0, y: 18 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.35, delay: 0.05 + i * 0.04, ease }}
